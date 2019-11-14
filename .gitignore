@@ -23,6 +23,7 @@ mono_crash.*
 [Rr]eleases/
 x64/
 x86/
+!NetTesseract/Tesseract/*
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/

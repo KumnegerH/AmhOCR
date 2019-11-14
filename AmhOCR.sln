@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "NetTesseract", "NetTesseract\NetTesseract.vbproj", "{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AmhOCR", "AmhOCR\AmhOCR.vbproj", "{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		Description = OCR Software
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Debug|x64.Build.0 = Debug|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Debug|x86.Build.0 = Debug|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Release|x64.ActiveCfg = Release|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Release|x64.Build.0 = Release|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Release|x86.ActiveCfg = Release|Any CPU
+		{639F6FEE-FD7A-422D-B1FD-E9F16059CE51}.Release|x86.Build.0 = Release|Any CPU
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Debug|x64.ActiveCfg = Debug|x64
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Debug|x64.Build.0 = Debug|x64
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Debug|x86.ActiveCfg = Debug|x86
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Debug|x86.Build.0 = Debug|x86
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Release|x64.ActiveCfg = Release|x64
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Release|x64.Build.0 = Release|x64
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Release|x86.ActiveCfg = Release|x86
+		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
