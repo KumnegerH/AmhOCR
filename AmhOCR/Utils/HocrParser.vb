@@ -7,6 +7,8 @@ Public Class HocrParser
     'Copyright ©  Kumneger Hussien, kumneger.h@gmail.com, 2019 GPLv3
 
 
+    ' used to send info for lower level parser
+    Private Shared CurrentPageBox As Rectangle
 
     Public Shared Function ParsePage(ByVal Hocrxml As XElement, ByVal imgName As String, ByVal newOCRpage As HocrPage) As HocrPage
 
@@ -20,7 +22,7 @@ Public Class HocrParser
                 box.Width = box.Width - box.X
                 box.Height = box.Height - box.Y
                 newOCRpage.bbox = box
-
+                CurrentPageBox = box
                 For Each tgs In Hocrxml.Elements
 
                     If tgs.Attributes.Any(Function(X) X.Name.LocalName = "class" AndAlso X.Value = "ocr_carea") Then
@@ -29,7 +31,7 @@ Public Class HocrParser
                         newocrCarea.areaNum = newOCRpage.AllocrCarea.Count
                         newocrCarea = ParseArea(tgs, newocrCarea)
 
-                        If newocrCarea.AllocrParas.Count > 0 Then
+                        If newocrCarea IsNot Nothing AndAlso newocrCarea.AllocrParas.Count > 0 Then
                             newOCRpage.AllocrCarea.Add(newocrCarea)
                         End If
 
@@ -81,7 +83,7 @@ Public Class HocrParser
                         newpara.ParaNum = newocrCarea.AllocrParas.Count
                         newpara = ParsePara(tgs, newpara)
 
-                        If newpara.AllocrLines.Count > 0 Then
+                        If newpara IsNot Nothing AndAlso newpara.AllocrLines.Count > 0 Then
                             newocrCarea.AllocrParas.Add(newpara)
                         End If
 
@@ -133,7 +135,7 @@ Public Class HocrParser
                         newLine.LineNum = newocrPar.AllocrLines.Count
                         newLine = ParseLine(tgs, newocrPar.Lang, newLine)
 
-                        If newLine.AllocrWords.Count > 0 Then
+                        If newLine IsNot Nothing AndAlso newLine.AllocrWords.Count > 0 Then
                             newocrPar.AllocrLines.Add(newLine)
                         End If
 
@@ -187,7 +189,7 @@ Public Class HocrParser
 
                     Dim newword = ParseWord(tgs, lng)
 
-                    If newword.Text <> String.Empty Then
+                    If newword IsNot Nothing AndAlso newword.Text <> String.Empty Then
                         newword.areaNum = newocrLine.areaNum
                         newword.ParNum = newocrLine.ParNum
                         newword.lineNum = newocrLine.LineNum
@@ -232,15 +234,23 @@ Public Class HocrParser
                 box.Height = box.Height - box.Y
                 newocrWord.bbox = box
 
-                newocrWord.Text = Hocrxml.Value
-                newocrWord.orignalText = newocrWord.Text
-                newocrWord.XmlElement = Hocrxml
-                newocrWord.x_wconf = ParseParameter("x_wconf", Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "title").First.Value)
-                newocrWord.x_fsize = ParseParameter("x_fsize", Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "title").First.Value)
-                newocrWord.Lang = lng
+                ' this is to avoid big word text, or long vertical text which is not proportional to page size
+                'it is also an issue,bug of tesseract 4.0
 
-                If Hocrxml.Attributes.Any(Function(X) X.Name.LocalName = "lang" AndAlso String.IsNullOrEmpty(X.Value) = False) Then
-                    newocrWord.Lang = Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "lang").First.Value
+                Dim heightratio = box.Height / CurrentPageBox.Height
+
+                If heightratio <= 0.75 Then
+                    newocrWord.Text = Hocrxml.Value
+                    newocrWord.orignalText = newocrWord.Text
+                    newocrWord.XmlElement = Hocrxml
+                    newocrWord.x_wconf = ParseParameter("x_wconf", Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "title").First.Value)
+                    newocrWord.x_fsize = ParseParameter("x_fsize", Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "title").First.Value)
+                    newocrWord.Lang = lng
+
+                    If Hocrxml.Attributes.Any(Function(X) X.Name.LocalName = "lang" AndAlso String.IsNullOrEmpty(X.Value) = False) Then
+                        newocrWord.Lang = Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "lang").First.Value
+                    End If
+
                 End If
 
 
