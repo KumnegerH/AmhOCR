@@ -298,11 +298,21 @@ Public Class ImageEditControl
                                     Dim hocrword As HocrWord = parag.HocrObject
                                     hocrword.SpellChecked = True
                                     parag.HocrObject = hocrword
+
+
                                 End If
                             Else
                                 parag.Spelled = True
                             End If
 
+                            If SpellCheker.UserWords.Count > 0 AndAlso parag.Spelled = True AndAlso parag.isUserText = False Then
+                                Dim txt = parag.text.Trim(" ")
+
+                                If SpellCheker.UserWords.Contains(txt) Then
+                                    parag.isUserText = True
+                                End If
+
+                            End If
 
                             HotHocrObjects(parcnt) = parag
 
@@ -367,7 +377,7 @@ Public Class ImageEditControl
                                         HocrParEditor.isinEdit = False
 
                                         HocrParEditor.Spelled = True
-
+                                        HocrParEditor.isUserText = False
                                         HocrParEditor.alignment = Pars(pr).Alignment
                                         HocrParEditor.Font = Pars(pr).Font
 
@@ -660,7 +670,7 @@ Public Class ImageEditControl
                     End If
 
                 Else
-                    If HotParagraph.HocrObject.SpellChecked = False Then
+                    If HotParagraph.Spelled = False Then
 
                         Dim txt = HotParagraph.text.Trim(" ".ToArray)
 
@@ -676,13 +686,40 @@ Public Class ImageEditControl
                                 ocrword.SpellChecked = True
                                 HotParagraph.HocrObject = ocrword
                                 HotParagraph.Spelled = True
-
+                                HotParagraph.isUserText = True
                             End If
 
                         End If
 
+                    Else
+                        Dim txt = HotParagraph.text.Trim(" ")
+                        If SpellCheker.UserWords.Contains(txt) AndAlso Not String.IsNullOrEmpty(SpellCheker._UserPath) Then
+
+                            Try
+
+                                Dim Userwrds = SpellCheker.UserWords.ToList
+                                Userwrds.Remove(txt)
+                                SpellCheker.UserWords = Userwrds.ToArray
+                                IO.File.WriteAllLines(SpellCheker._UserPath, SpellCheker.UserWords)
+                                Userwrds = SpellCheker.Words.ToList
+                                Userwrds.Remove(txt)
+                                SpellCheker.Words = Userwrds.ToArray
+                                HotParagraph.isUserText = False
+                                HotParagraph.Spelled = False
+                                Dim ocrword As HocrWord = HotParagraph.HocrObject
+                                ocrword.SpellChecked = False
+                                HotParagraph.HocrObject = ocrword
+
+                            Catch ex As Exception
+
+                            End Try
+
+                        End If
 
                     End If
+
+
+
 
                 End If
 
@@ -703,25 +740,28 @@ Public Class ImageEditControl
             If ContextParaId >= 0 Then
 
                 Dim HotParagraph = HotHocrObjects(ContextParaId)
-                Dim txt = HotParagraph.text.Trim(" ".ToArray)
 
-                If txt.Length > 0 Then
-                    Dim wrds = txt.Split({" "}, StringSplitOptions.RemoveEmptyEntries)
-                    wrds = wrds.Where(Function(X) Not SpellCheker.UserWords.Contains(X)).ToArray
+                If HotParagraph.Spelled = False Then
 
-                    If wrds.Count > 0 Then
-                        SpellCheker.UserWords = SpellCheker.UserWords.Union(wrds).ToArray
-                        SpellCheker.Words = SpellCheker.Words.Union(wrds).ToArray
+                    Dim txt = HotParagraph.text.Trim(" ".ToArray)
 
-                        Dim ocrword As HocrWord = HotParagraph.HocrObject
-                        ocrword.SpellChecked = True
-                        HotParagraph.HocrObject = ocrword
+                    If txt.Length > 0 Then
+                        Dim wrds = txt.Split({" "}, StringSplitOptions.RemoveEmptyEntries)
+                        wrds = wrds.Where(Function(X) Not SpellCheker.Words.Contains(X)).ToArray
 
+                        If wrds.Count > 0 Then
+
+                            SpellCheker.Words = SpellCheker.Words.Union(wrds).ToArray
+
+                        End If
 
                     End If
-
                 End If
 
+
+                Dim ocrword As HocrWord = HotParagraph.HocrObject
+                ocrword.SpellChecked = True
+                HotParagraph.HocrObject = ocrword
                 HotParagraph.Spelled = True
                 HotHocrObjects(ContextParaId) = HotParagraph
                 Invalidate()
@@ -901,7 +941,10 @@ Public Class ImageEditControl
                         State = controlState.None
                     Else
                         GroupSelectionList.Clear()
+                        LockContext.Enabled = True
+
                         If HotHocrObjects(HighlightedHocrID).EditMode = ocrEditMode.PageEdit Then
+
 
                             If HotHocrObjects(HighlightedHocrID).isLocked = False Then
                                 For Each stripi In MenuStripHocrOptions.Items
@@ -929,10 +972,14 @@ Public Class ImageEditControl
 
                             LockContext.Text = "Add to User Dictionary   "
 
-                            If HotHocrObjects(HighlightedHocrID).Spelled = False Then
-                                LockContext.Checked = False
-                            Else
+                            If HotHocrObjects(HighlightedHocrID).Spelled Then
                                 LockContext.Checked = True
+                                If HotHocrObjects(HighlightedHocrID).isUserText = True Then
+                                    LockContext.Text = "Remove From User Dictionary   "
+                                Else
+                                    LockContext.Enabled = False
+                                End If
+
                             End If
 
                         End If
@@ -1197,6 +1244,9 @@ Public Class ImageEditControl
         Dim penselected = New Pen(Color.LimeGreen, 2 / _zoom)
         Dim penHighlit = New Pen(Color.Red, 2 / _zoom)
 
+        Dim userSpellBrush As New Pen(OCRsettings.UserSpelledColor, 1)
+        Dim errorBrush As New Pen(OCRsettings.SpellErrorColor, 1)
+
         For pr As Integer = 0 To OCRblocks.Count - 1 Step 1
             e.Graphics.FillRectangle(Brushes.White, OCRblocks(pr))
         Next
@@ -1211,10 +1261,17 @@ Public Class ImageEditControl
                 Dim parag = HotHocrObjects(pr)
 
                 If HotHocrObjects(pr).Spelled = True Then
-                    e.Graphics.DrawString(parag.text, HotHocrObjects(pr).Font, Brushes.Black, parag.bbox.Location, DifStringFormat)
+                    If HotHocrObjects(pr).isUserText Then
+
+                        e.Graphics.DrawString(parag.text, HotHocrObjects(pr).Font, userSpellBrush.Brush, parag.bbox.Location, DifStringFormat)
+                    Else
+                        e.Graphics.DrawString(parag.text, HotHocrObjects(pr).Font, Brushes.Black, parag.bbox.Location, DifStringFormat)
+                    End If
+
+
                 Else
 
-                    e.Graphics.DrawString(parag.text, HotHocrObjects(pr).Font, Brushes.Red, parag.bbox.Location, DifStringFormat)
+                    e.Graphics.DrawString(parag.text, HotHocrObjects(pr).Font, errorBrush.Brush, parag.bbox.Location, DifStringFormat)
                 End If
 
                 If (pr = HighlightedHocrID) Then
@@ -1583,9 +1640,7 @@ Public Class ImageEditControl
                     HotParagraph.isDirty = True
                 End If
 
-                If OCRsettings.EditMode = ocrEditMode.WordEdit Then
-                    HotParagraph.Spelled = SpellCheker.isValidWord(HotParagraph.text)
-                End If
+
             End If
 
             If HotParagraph.isDirty = True Then
@@ -1611,13 +1666,27 @@ Public Class ImageEditControl
                 End If
             End If
 
+            If OCRsettings.EditMode = ocrEditMode.WordEdit Then
+                HotParagraph.Spelled = SpellCheker.isValidWord(HotParagraph.text)
+                HotParagraph.isUserText = False
 
+                If SpellCheker.UserWords.Count > 0 AndAlso HotParagraph.Spelled = True Then
+                    Dim txt = HotParagraph.text.Trim(" ")
+
+                    If SpellCheker.UserWords.Contains(txt) Then
+                        HotParagraph.isUserText = True
+                    End If
+
+                End If
+
+            End If
 
             HotParagraph.isinEdit = False
             HotHocrObjects(HighlightedHocrID) = HotParagraph
             EditorTextBox.Visible = False
             EditorTextBox = Nothing
             HighlightedHocrID = -1
+            Invalidate()
         End If
 
         Freez = False

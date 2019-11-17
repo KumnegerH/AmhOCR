@@ -77,45 +77,42 @@ Public Class SpellCheker
 
 
         If IO.File.Exists(_DictPath) Then
-
             Dim wordsFile = IO.File.ReadAllText(_DictPath)
             Words = wordsFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+        End If
 
 
-            If IO.File.Exists(_UserPath) Then
 
-                UserWords = IO.File.ReadAllText(_UserPath).Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
-                Words = Words.Union(UserWords).ToArray
-            Else
-                IO.File.Create(_UserPath)
-            End If
+        If IO.File.Exists(_UserPath) Then
+
+            UserWords = IO.File.ReadAllText(_UserPath).Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+            Words = Words.Union(UserWords).ToArray
+        Else
+            IO.File.Create(_UserPath)
+        End If
 
 
-            If IO.File.Exists(_CharPath) Then
+        If IO.File.Exists(_CharPath) Then
 
-                Dim charsFile = IO.File.ReadAllText(_CharPath)
-                chars = charsFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
-
-            End If
-
-            If IO.File.Exists(_puncsPath) Then
-
-                Dim puncsFile = IO.File.ReadAllText(_puncsPath)
-                Dim puncString = puncsFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
-                Words = Words.Concat(puncString.AsEnumerable).ToArray
-                puncs = puncString.Select(Function(X) X.First).ToArray
-
-            End If
-
-            If IO.File.Exists(_numsPath) Then
-
-                Dim numaFile = IO.File.ReadAllText(_numsPath)
-                nums = numaFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
-
-            End If
+            Dim charsFile = IO.File.ReadAllText(_CharPath)
+            chars = charsFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
 
         End If
 
+        If IO.File.Exists(_puncsPath) Then
+
+            Dim puncsFile = IO.File.ReadAllText(_puncsPath)
+            Dim puncString = puncsFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+            puncs = puncString.Select(Function(X) X.First).ToArray
+
+        End If
+
+        If IO.File.Exists(_numsPath) Then
+
+            Dim numaFile = IO.File.ReadAllText(_numsPath)
+            nums = numaFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+
+        End If
 
 
         If Words.Count > 0 Then
@@ -154,7 +151,7 @@ Public Class SpellCheker
             'each sub-word will be checked
             'this function return true, only if all sub-words are valid. 
 
-            Return (subwords.Where(Function(X) (ListedWord(X) OrElse isNumeric(X) OrElse EndsWithPunc(X))).Count = subwords.Count)
+            Return (subwords.Where(Function(X) (ListedWord(X) OrElse isNumeric(X) OrElse EndsWithPunc(X) OrElse puncs.Contains(X))).Count = subwords.Count)
 
         End If
 

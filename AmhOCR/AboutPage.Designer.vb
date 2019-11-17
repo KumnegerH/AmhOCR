@@ -27,12 +27,13 @@ Partial Class AboutPage
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
-        Me.Label1.Location = New System.Drawing.Point(10, 27)
+        Me.Label1.Location = New System.Drawing.Point(8, 39)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(46, 38)
         Me.Label1.TabIndex = 0
@@ -42,18 +43,18 @@ Partial Class AboutPage
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(62, 23)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(186, 13)
+        Me.Label2.Size = New System.Drawing.Size(147, 13)
         Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Amh፠OCR Prerelease V1.0.0 © 2019"
+        Me.Label2.Text = "Amh፠OCR Prerelease V1.0.1"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(63, 61)
+        Me.Label3.Location = New System.Drawing.Point(62, 64)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(121, 13)
+        Me.Label3.Size = New System.Drawing.Size(163, 13)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "kumneger.h@gmail.com"
+        Me.Label3.Text = "© kumneger.h@gmail.com, 2019"
         '
         'Label4
         '
@@ -64,13 +65,23 @@ Partial Class AboutPage
         Me.Label4.TabIndex = 2
         Me.Label4.Text = "Tesseract powered OCR apllication for Windows Desktop"
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(62, 87)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(205, 13)
+        Me.Label5.TabIndex = 2
+        Me.Label5.Text = "https://github.com/KumnegerH/AmhOCR"
+        '
         'AboutPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.ClientSize = New System.Drawing.Size(382, 108)
+        Me.ClientSize = New System.Drawing.Size(382, 131)
         Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -89,4 +100,5 @@ Partial Class AboutPage
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
 End Class

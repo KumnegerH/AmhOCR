@@ -11,7 +11,7 @@ Public Structure HocrObjEditor
     Public isLocked As Boolean
     Public isDirty As Boolean
     Public Spelled As Boolean
-
+    Public isUserText As Boolean
     Public Font As Font
     Public alignment As ParAlignment
     Public bbox As Rectangle

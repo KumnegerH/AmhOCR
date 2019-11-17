@@ -460,7 +460,6 @@ Partial Class MainWindow
         '
         'PreferencesToolStripMenuItem
         '
-        Me.PreferencesToolStripMenuItem.Enabled = False
         Me.PreferencesToolStripMenuItem.Image = CType(resources.GetObject("PreferencesToolStripMenuItem.Image"), System.Drawing.Image)
         Me.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem"
         Me.PreferencesToolStripMenuItem.Size = New System.Drawing.Size(304, 22)

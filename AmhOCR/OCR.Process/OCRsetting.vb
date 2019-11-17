@@ -6,7 +6,11 @@ Public Class OCRsettings
 
     Public Shared Property ResetBackground As Boolean = False
 
-    Public Shared Property MaxBatch As Integer = 10
+    Public Shared Property SpellErrorColor As Color = Color.Red
+
+    Public Shared Property UserSpelledColor As Color = Color.Black
+
+    Public Shared Property MaxBatch As Integer = 5
 
     Public Shared Property Language As String = "amh"
 
@@ -115,5 +119,14 @@ Public Class OCRsettings
 
 
     End Sub
+
+
+    Public Shared Property PrefMaxBatch As Integer = 5
+    Public Shared Property PrefLanguage As String = "amh"
+    Public Shared Property PrefTimeOut As Integer = 120000
+    Public Shared Property PrefSpellErrorColor As Color = Color.Red
+    Public Shared Property PrefUserSpelledColor As Color = Color.Blue
+
+
 
 End Class

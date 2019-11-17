@@ -141,7 +141,10 @@ Public Class MainWindow
         End If
 
         OCRsettings.tesspath = IO.Path.Combine(Environment.CurrentDirectory, "Tesseract\tessdata\")
-        OCRsettings.ocrFont = OCRsettings.AmhocrFont.Clone
+
+
+
+
 
 
 
@@ -180,7 +183,6 @@ Public Class MainWindow
 
         HocrPages = New List(Of HocrPage)
 
-        txtBoxResult.Font = OCRsettings.ocrFont.Clone
 
 
 
@@ -195,8 +197,47 @@ Public Class MainWindow
         cmbEditMode.Items.Add("Paragraph Level Edit")
         cmbEditMode.SelectedIndex = 0
 
-        'Get lnaguages available in tessdata path
+        'Get languages available in tessdata path
         RefreshLanguage()
+
+        'Initilize user perefrences
+        SetUserPreferances()
+
+
+        OCRsettings.Language = OCRsettings.PrefLanguage
+        OCRsettings.TimeOut = OCRsettings.PrefTimeOut
+        OCRsettings.MaxBatch = OCRsettings.PrefMaxBatch
+        OCRsettings.SpellErrorColor = OCRsettings.PrefSpellErrorColor
+        OCRsettings.UserSpelledColor = OCRsettings.PrefUserSpelledColor
+
+
+        If AvailabelLangs.Contains(OCRsettings.Language) Then
+            isBusy = True
+
+            Dim langindx = AvailabelLangs.IndexOf(OCRsettings.Language)
+            AvailabelLangs.RemoveAt(langindx)
+            AvailabelLangs.Insert(0, OCRsettings.Language)
+
+            CmbLang.Items.RemoveAt(langindx)
+            CmbLang.Items.Insert(0, OCRsettings.Language)
+            CmbLang.SelectedIndex = 0
+            isBusy = False
+
+        Else
+
+            OCRsettings.Language = AvailabelLangs(0)
+            OCRsettings.PrefLanguage = OCRsettings.Language
+
+        End If
+
+
+        If OCRsettings.Language = "amh" Then
+            OCRsettings.ocrFont = OCRsettings.AmhocrFont.Clone
+        Else
+            OCRsettings.ocrFont = OCRsettings.DefaultocrFont.Clone
+        End If
+
+
 
 
         AddHandler ContextMenuListView.Items(0).Click, AddressOf OpenImage
@@ -1123,12 +1164,168 @@ Public Class MainWindow
 
 
 
+    Private Sub PreferencesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreferencesToolStripMenuItem.Click
+
+        If isBusy = False AndAlso EditorPicBox.isBusy = False AndAlso AvailabelLangs.Count > 0 Then
+
+
+
+
+            Dim userPref As New UserPreference
+            For Each lng In AvailabelLangs
+                userPref.cmbLang.Items.Add(lng)
+            Next
+
+            userPref.cmbLang.SelectedIndex = AvailabelLangs.IndexOf(OCRsettings.PrefLanguage)
+            userPref.numTimeout.Value = CDec(OCRsettings.PrefTimeOut / (60 * 1000))
+            userPref.numThreadNumber.Value = OCRsettings.PrefMaxBatch
+            userPref.lblSpellColor.BackColor = OCRsettings.PrefSpellErrorColor
+            userPref.lblUserColor.BackColor = OCRsettings.PrefUserSpelledColor
+
+            If userPref.ShowDialog(Me) = DialogResult.OK Then
+
+                OCRsettings.PrefLanguage = userPref.cmbLang.Items(userPref.cmbLang.SelectedIndex)
+                OCRsettings.PrefTimeOut = userPref.numTimeout.Value * 60 * 1000
+                OCRsettings.PrefMaxBatch = CInt(userPref.numThreadNumber.Value)
+                OCRsettings.PrefSpellErrorColor = userPref.lblSpellColor.BackColor
+                OCRsettings.PrefUserSpelledColor = userPref.lblUserColor.BackColor
+
+                InitilizePreference()
+
+                isBusy = True
+                Dim oldLag As String = CmbLang.SelectedItem
+
+                AvailabelLangs.Remove(OCRsettings.PrefLanguage)
+                AvailabelLangs.Insert(0, OCRsettings.PrefLanguage)
+
+
+                CmbLang.Items.Clear()
+                For Each lng In AvailabelLangs
+                    CmbLang.Items.Add(lng)
+                Next
+                CmbLang.SelectedItem = oldLag
+
+                isBusy = False
+                OCRsettings.TimeOut = OCRsettings.PrefTimeOut
+                OCRsettings.MaxBatch = OCRsettings.PrefMaxBatch
+                OCRsettings.SpellErrorColor = OCRsettings.PrefSpellErrorColor
+                OCRsettings.UserSpelledColor = OCRsettings.PrefUserSpelledColor
+
+                If EditorPicBox.HocrPage Is Nothing OrElse EditorPicBox.HocrPage.Recognized = False Then
+
+                    OCRsettings.Language = OCRsettings.PrefLanguage
+                    CmbLang.SelectedIndex = 0
+
+                    If EditorPicBox.HocrPage IsNot Nothing Then
+                        HocrPages(EditorPicBox.HocrPage.PageNum).PageOCRsettings.Language = OCRsettings.PrefLanguage
+                    End If
+
+                End If
+
+                EditorPicBox.Invalidate()
+
+            End If
+
+
+        End If
+
+    End Sub
+
+
+
+
+
+
+
 #End Region
 
 
 
 
 #Region "Main Parts"
+
+
+    Private Sub InitilizePreference()
+
+        Dim PrefFilePath = Path.Combine(OCRsettings.AmhOcrDataFolder, "preference.amhocrsetting")
+
+        Dim txtLines(4) As String
+        txtLines.Initialize()
+        txtLines(0) = OCRsettings.PrefLanguage
+        txtLines(1) = OCRsettings.PrefTimeOut.ToString
+        txtLines(2) = OCRsettings.PrefMaxBatch.ToString
+        txtLines(3) = OCRsettings.PrefSpellErrorColor.ToArgb.ToString
+        txtLines(4) = OCRsettings.PrefUserSpelledColor.ToArgb.ToString
+
+        Try
+
+            File.WriteAllLines(PrefFilePath, txtLines)
+
+        Catch ex As Exception
+
+        End Try
+
+
+    End Sub
+
+    Private Sub SetUserPreferances()
+
+        Dim PrefFilePath = Path.Combine(OCRsettings.AmhOcrDataFolder, "preference.amhocrsetting")
+
+        If File.Exists(PrefFilePath) = True Then
+
+            Try
+
+                Dim txtLines = File.ReadAllLines(PrefFilePath)
+
+                For ln As Integer = 0 To txtLines.Count - 1 Step 1
+
+                    If ln = 0 Then
+
+                        Dim OldPref = OCRsettings.PrefLanguage
+
+                        OCRsettings.PrefLanguage = txtLines(ln)
+
+                        If Not AvailabelLangs.Contains(OCRsettings.PrefLanguage) Then
+                            OCRsettings.PrefLanguage = OldPref
+                        End If
+
+
+                    ElseIf ln = 1 Then
+
+                        OCRsettings.PrefTimeOut = CInt(txtLines(ln))
+
+                    ElseIf ln = 2 Then
+
+                        OCRsettings.PrefMaxBatch = CInt(txtLines(ln))
+
+                    ElseIf ln = 3 Then
+
+                        OCRsettings.PrefSpellErrorColor = Color.FromArgb(CInt(txtLines(ln)))
+
+
+                    ElseIf ln = 4 Then
+
+                        OCRsettings.PrefUserSpelledColor = Color.FromArgb(CInt(txtLines(ln)))
+
+                    End If
+
+                Next
+
+            Catch ex As Exception
+
+            End Try
+
+
+        Else
+
+            InitilizePreference()
+
+        End If
+
+
+    End Sub
+
 
 
     Private Sub ResetMainWindow()
@@ -1184,6 +1381,8 @@ Public Class MainWindow
 
     End Sub
 
+
+
     Public Sub EditModeChanged(ByVal sender As Object, ByVal e As EventArgs)
         If isBusy = False Then
             isBusy = True
@@ -1198,6 +1397,8 @@ Public Class MainWindow
         End If
 
     End Sub
+
+
     Public Async Sub HocrEdited(ByVal sender As Object, ByVal e As EventArgs)
         isBusy = True
         If sender IsNot Nothing Then
@@ -1244,6 +1445,8 @@ Public Class MainWindow
         isBusy = False
     End Sub
 
+
+
     Public Sub RefreshPicViewBox(ByVal sender As Object, ByVal e As BoxHighlightedArg)
 
         If e IsNot Nothing Then
@@ -1262,6 +1465,8 @@ Public Class MainWindow
 
     End Sub
 
+
+
     Private Sub SavepageAsWord(ByVal sender As Object, ByVal e As EventArgs)
 
         If HocrPages IsNot Nothing AndAlso isBusy = False Then
@@ -1278,6 +1483,8 @@ Public Class MainWindow
         End If
 
     End Sub
+
+
 
     Private Sub SaveAsSearchablePDF(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -1296,6 +1503,8 @@ Public Class MainWindow
 
 
     End Sub
+
+
 
     Private Sub hocrToSearchablePDF(Optional ImageName As String = "")
         If HocrPages IsNot Nothing Then
@@ -1334,6 +1543,8 @@ Public Class MainWindow
 
     End Sub
 
+
+
     Private Sub SavepageAsText(ByVal sender As Object, ByVal e As EventArgs)
 
         If HocrPages IsNot Nothing AndAlso isBusy = False Then
@@ -1350,6 +1561,8 @@ Public Class MainWindow
         End If
 
     End Sub
+
+
 
     Private Sub SaveAllasText(Optional ImageName As String = "")
         If HocrPages IsNot Nothing Then
@@ -1387,6 +1600,8 @@ Public Class MainWindow
         isBusy = False
     End Sub
 
+
+
     Private Sub SaveAllasWord(Optional ImageName As String = "")
         If HocrPages IsNot Nothing Then
             If (HocrPages.Count > 0) AndAlso (HocrPages.Where(Function(X) X.Recognized = True).Count > 0) Then
@@ -1421,6 +1636,8 @@ Public Class MainWindow
 
         isBusy = False
     End Sub
+
+
 
     Private Sub SaveProject(Optional close As Boolean = False)
 
@@ -3086,6 +3303,8 @@ Public Class MainWindow
         End If
 
     End Sub
+
+
 
 
 
