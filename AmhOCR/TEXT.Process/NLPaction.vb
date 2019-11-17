@@ -374,4 +374,39 @@ Public Class NLPaction
 
 
     End Function
+
+    Public Overloads Shared Function GetNgramList(ByVal hocrpages As List(Of HocrPage), ByVal N As Integer) As String
+
+        Dim ListOfNgramWord As New List(Of String)
+        For Each page In hocrpages
+            Dim areas = page.AllocrCarea
+            For ar As Integer = 0 To areas.Count - 1
+
+                Dim Pars = areas(ar).AllocrParas
+                For pr As Integer = 0 To Pars.Count - 1
+
+                    Dim lins = Pars(pr).AllocrLines
+                    For ln As Integer = 0 To lins.Count - 1
+
+                        Dim words = lins(ln).AllocrWords
+                        For wd As Integer = 0 To words.Count - 1
+                            ''not yet to implimented
+
+                        Next
+
+                    Next
+
+                Next
+
+            Next
+        Next
+
+
+
+
+        Return String.Join(Environment.NewLine, ListOfNgramWord.AsEnumerable)
+
+    End Function
+
+
 End Class

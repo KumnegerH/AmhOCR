@@ -22,12 +22,15 @@
     Public Property x_wconf As Single
 
     Public Property x_fsize As Single
+
     Public Property txtbox As Rectangle
 
-
+    Public Property SpellChecked As Boolean
 
     Public Property orignalText As String = ""
     Public Sub New()
+
+        SpellChecked = False
         txtbox = New Rectangle
         bbox = New Rectangle
 

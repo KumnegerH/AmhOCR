@@ -70,6 +70,7 @@ Public Class ImageEditControl
     Private UndoType As New List(Of Integer)
     Private RedoType As New List(Of Integer)
 
+    Private IgnoreContext As ToolStripMenuItem
     Private EditContext As ToolStripMenuItem
     Private LockContext As ToolStripMenuItem
     Private ViewsContext As ToolStripMenuItem
@@ -113,17 +114,6 @@ Public Class ImageEditControl
         MenuStripHocrOptions.Items.Add(EditContext)
 
 
-        LockContext = New ToolStripMenuItem
-
-
-        LockContext.Text = "Lock as varified"
-
-        LockContext.Checked = False
-        LockContext.CheckOnClick = False
-
-        MenuStripHocrOptions.Items.Add(LockContext)
-
-
         Dim resetPara As New ToolStripMenuItem
         resetPara.Text = "Reset Text"
         MenuStripHocrOptions.Items.Add(resetPara)
@@ -132,7 +122,22 @@ Public Class ImageEditControl
         Dim SepaContext1 As New ToolStripSeparator
         MenuStripHocrOptions.Items.Add(SepaContext1)
 
+        IgnoreContext = New ToolStripMenuItem
+        IgnoreContext.Text = "Ignore Spell Error"
+        MenuStripHocrOptions.Items.Add(IgnoreContext)
 
+
+        LockContext = New ToolStripMenuItem
+        LockContext.Text = "Lock as varified"
+
+        LockContext.Checked = False
+        LockContext.CheckOnClick = False
+
+        MenuStripHocrOptions.Items.Add(LockContext)
+
+
+        Dim SepaContext2 As New ToolStripSeparator
+        MenuStripHocrOptions.Items.Add(SepaContext2)
 
 
         Dim ParagimgContext = MenuStripHocrOptions.Items.Add("Copy area as image  ")
@@ -224,10 +229,11 @@ Public Class ImageEditControl
         AddHandler EditContext.Click, AddressOf SetEditBox
         AddHandler CopyAreaContext.Click, AddressOf CopyText
         AddHandler CopyAllText.Click, AddressOf AllTextCopy
-        AddHandler LockContext.Click, AddressOf LockParagraph
+        AddHandler LockContext.Click, AddressOf SetAsVarified
         AddHandler resetPara.Click, AddressOf ResetParagraph
         AddHandler ParagimgContext.Click, AddressOf CopyasImage
 
+        AddHandler IgnoreContext.Click, AddressOf ignoreWordSpell
 
 
         AddHandler ViewsContext.DropDownOpening,
@@ -253,13 +259,13 @@ Public Class ImageEditControl
     ''' <summary>
     ''' Initilize SpellCheker dictionary
     ''' </summary>
-    Friend Async Sub InitializSpeller()
+    Friend Async Sub InitializSpeller(ByVal Language As String)
 
         Dim task = TaskEx.Run(
             Sub()
                 SpellCheker = New SpellCheker
                 AddHandler SpellCheker.DicLoaded, AddressOf CheckSpeller
-                SpellCheker.InitializSpellCheck()
+                SpellCheker.InitializSpellCheck(Language)
             End Sub)
 
 
@@ -272,18 +278,31 @@ Public Class ImageEditControl
     Private Sub CheckSpeller()
 
         'Spell Check and flag each hocrword object in hocrpage
-        Try
-            If SpellCheker.Loaded = True Then
+        If HocrPage IsNot Nothing AndAlso HotHocrObjects IsNot Nothing Then
 
-                If HocrPage IsNot Nothing AndAlso HotHocrObjects IsNot Nothing Then
+            Try
+                If SpellCheker.Loaded = True AndAlso HocrPage.PageOCRsettings.Language = SpellCheker.Lang Then
+
                     If OCRsettings.EditMode = ocrEditMode.WordEdit Then
-                        For parcnt As Integer = 0 To HotHocrObjects.Count - 1
-                            Dim parag = HotHocrObjects(parcnt)
-                            parag.Spelled = False
-                            If SpellCheker.isValidWord(parag.text) Then
-                                parag.Spelled = True
 
+                        For parcnt As Integer = 0 To HotHocrObjects.Count - 1 Step 1
+                            Dim parag = HotHocrObjects(parcnt)
+
+
+                            If parag.HocrObject.SpellChecked = False Then
+                                parag.Spelled = False
+
+                                If SpellCheker.isValidWord(parag.text) Then
+
+                                    parag.Spelled = True
+                                    Dim hocrword As HocrWord = parag.HocrObject
+                                    hocrword.SpellChecked = True
+                                    parag.HocrObject = hocrword
+                                End If
+                            Else
+                                parag.Spelled = True
                             End If
+
 
                             HotHocrObjects(parcnt) = parag
 
@@ -292,17 +311,19 @@ Public Class ImageEditControl
                         Invalidate()
                     End If
 
+                Else
+                    If SpellCheker.isloading = False Then
+                        InitializSpeller(HocrPage.PageOCRsettings.Language)
+                    End If
                 End If
 
-            Else
-                If SpellCheker.isloading = False Then
-                    InitializSpeller()
-                End If
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+            End Try
 
-        End Try
+
+        End If
+
 
 
 
@@ -620,25 +641,54 @@ Public Class ImageEditControl
 
     End Sub
 
-    Private Sub LockParagraph()
+    Private Sub SetAsVarified()
 
         Try
             If ContextParaId >= 0 Then
 
                 Dim HotParagraph = HotHocrObjects(ContextParaId)
 
-                If LockContext.Checked = True Then
+                If HotParagraph.EditMode = ocrEditMode.ParagraphEdit Then
+                    If LockContext.Checked = True Then
 
-                    HotParagraph.isLocked = False
+                        HotParagraph.isLocked = False
+
+                    Else
+
+                        HotParagraph.isLocked = True
+
+                    End If
 
                 Else
+                    If HotParagraph.HocrObject.SpellChecked = False Then
 
-                    HotParagraph.isLocked = True
+                        Dim txt = HotParagraph.text.Trim(" ".ToArray)
+
+                        If txt.Length > 0 Then
+                            Dim wrds = txt.Split({" "}, StringSplitOptions.RemoveEmptyEntries)
+                            wrds = wrds.Where(Function(X) Not SpellCheker.UserWords.Contains(X)).ToArray
+
+                            If wrds.Count > 0 Then
+                                SpellCheker.UserWords = SpellCheker.UserWords.Union(wrds).ToArray
+                                SpellCheker.Words = SpellCheker.Words.Union(wrds).ToArray
+                                IO.File.AppendAllLines(SpellCheker._UserPath, wrds)
+                                Dim ocrword As HocrWord = HotParagraph.HocrObject
+                                ocrword.SpellChecked = True
+                                HotParagraph.HocrObject = ocrword
+                                HotParagraph.Spelled = True
+
+                            End If
+
+                        End If
+
+
+                    End If
 
                 End If
 
-                HotHocrObjects(ContextParaId) = HotParagraph
 
+                HotHocrObjects(ContextParaId) = HotParagraph
+                Invalidate()
             End If
         Catch ex As Exception
 
@@ -647,7 +697,41 @@ Public Class ImageEditControl
 
     End Sub
 
+    Private Sub ignoreWordSpell()
 
+        Try
+            If ContextParaId >= 0 Then
+
+                Dim HotParagraph = HotHocrObjects(ContextParaId)
+                Dim txt = HotParagraph.text.Trim(" ".ToArray)
+
+                If txt.Length > 0 Then
+                    Dim wrds = txt.Split({" "}, StringSplitOptions.RemoveEmptyEntries)
+                    wrds = wrds.Where(Function(X) Not SpellCheker.UserWords.Contains(X)).ToArray
+
+                    If wrds.Count > 0 Then
+                        SpellCheker.UserWords = SpellCheker.UserWords.Union(wrds).ToArray
+                        SpellCheker.Words = SpellCheker.Words.Union(wrds).ToArray
+
+                        Dim ocrword As HocrWord = HotParagraph.HocrObject
+                        ocrword.SpellChecked = True
+                        HotParagraph.HocrObject = ocrword
+
+
+                    End If
+
+                End If
+
+                HotParagraph.Spelled = True
+                HotHocrObjects(ContextParaId) = HotParagraph
+                Invalidate()
+            End If
+        Catch ex As Exception
+
+        End Try
+
+
+    End Sub
     ''' <summary>
     ''' Copy Image with the recognized text
     ''' </summary>
@@ -794,7 +878,7 @@ Public Class ImageEditControl
         End If
 
 
-        If Freez = False Then
+        If Freez = False OrElse isBusy = False Then
 
 
 
@@ -817,22 +901,42 @@ Public Class ImageEditControl
                         State = controlState.None
                     Else
                         GroupSelectionList.Clear()
+                        If HotHocrObjects(HighlightedHocrID).EditMode = ocrEditMode.PageEdit Then
 
-                        If HotHocrObjects(HighlightedHocrID).isLocked = False Then
-                            For Each stripi In MenuStripHocrOptions.Items
-                                stripi.Enabled = True
-                            Next
-                            LockContext.Checked = False
-                            LockContext.Text = "Lock as varified   "
+                            If HotHocrObjects(HighlightedHocrID).isLocked = False Then
+                                For Each stripi In MenuStripHocrOptions.Items
+                                    stripi.Enabled = True
+                                Next
+                                LockContext.Checked = False
+                                LockContext.Text = "Lock as varified   "
+                            Else
+                                For Each stripi In MenuStripHocrOptions.Items
+                                    stripi.Enabled = False
+                                Next
+                                LockContext.Enabled = True
+                                LockContext.Checked = True
+                                LockContext.Text = "UnLock Paragraph "
+
+                            End If
+                            IgnoreContext.Enabled = False
                         Else
-                            For Each stripi In MenuStripHocrOptions.Items
-                                stripi.Enabled = False
-                            Next
-                            LockContext.Enabled = True
-                            LockContext.Checked = True
-                            LockContext.Text = "UnLock Paragraph "
+
+                            If Not MenuStripHocrOptions.Items.Item(0).Enabled Then
+                                For Each stripi In MenuStripHocrOptions.Items
+                                    stripi.Enabled = True
+                                Next
+                            End If
+
+                            LockContext.Text = "Add to User Dictionary   "
+
+                            If HotHocrObjects(HighlightedHocrID).Spelled = False Then
+                                LockContext.Checked = False
+                            Else
+                                LockContext.Checked = True
+                            End If
 
                         End If
+
 
                         ContextParaId = HighlightedHocrID
                         MenuStripHocrOptions.Show(Me.PointToScreen(e.Location))

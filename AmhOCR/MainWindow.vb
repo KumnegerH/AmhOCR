@@ -33,9 +33,6 @@ Public Class MainWindow
 
     Private _Language As String = "amh"
 
-    Private Loaded As Boolean = False
-
-
     Private TotalImagesCnt As Integer = -1
 
 
@@ -232,7 +229,7 @@ Public Class MainWindow
 
         AddHandler ContextMenuListView.Opening,
             New CancelEventHandler(Sub(s, e)
-                                       If (Loaded = False) OrElse (isBusy = True) OrElse
+                                       If (FilePaths.Count = 0) OrElse (isBusy = True) OrElse
                                        (SplitListViewImgEdit.Panel1Collapsed = True) Then
 
                                            e.Cancel = True
@@ -259,7 +256,7 @@ Public Class MainWindow
 
 
     Private Sub CmbLang_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles CmbLang.SelectedIndexChanged
-        If (Loaded = True) AndAlso (isBusy = False) Then
+        If (AvailabelLangs.Count > 0) AndAlso (isBusy = False) Then
 
             If AvailabelLangs.Contains(CmbLang.SelectedItem) Then
                 _Language = CmbLang.SelectedItem
@@ -1798,7 +1795,7 @@ Public Class MainWindow
 
     Public Sub RefreshLanguage()
 
-        Loaded = False
+
         CmbLang.Items.Clear()
 
         AvailabelLangs = New List(Of String)
@@ -1815,11 +1812,9 @@ Public Class MainWindow
 
         Next
 
-        If AvailabelLangs.Count > 0 Then
-            CmbLang.SelectedIndex = 0
-        End If
-
-        Loaded = True
+        isBusy = True
+        CmbLang.SelectedIndex = 0
+        isBusy = False
 
     End Sub
 
@@ -1944,9 +1939,11 @@ Public Class MainWindow
 
                     ListOpenedImages.SelectedItems(0).EnsureVisible()
 
-                    Loaded = True
+                    isBusy = True
 
                     CmbLang.SelectedIndex = AvailabelLangs.IndexOf(OCRsettings.Language)
+
+                    isBusy = False
 
                     If thisHocrPage.Recognized Then
                         isRecognizOpen = True
@@ -2140,7 +2137,7 @@ Public Class MainWindow
             End If
 
             NewPages = HocrPages.Where(Function(X) X.ImageName = FileName).Single
-
+            NewPages.PageOCRsettings.Language = OCRsettings.Language
             Dim PageNumber As Integer = HocrPages.IndexOf(NewPages)
 
 
@@ -2285,6 +2282,8 @@ Public Class MainWindow
                 NewPages = HocrPages.Where(Function(X) X.ImageName = FileName).Single
             End If
 
+            NewPages.PageOCRsettings.Language = OCRsettings.Language
+
             Dim tessImagePath As String = NewPages.imgCopyName
             If Not File.Exists(tessImagePath) Then
 
@@ -2397,7 +2396,7 @@ Public Class MainWindow
 
 
                     Dim NewPages = HocrPages.Where(Function(X) X.ImageName = FileName).Single
-
+                    NewPages.PageOCRsettings.Language = OCRsettings.Language
                     Dim tessImagePath As String = NewPages.imgCopyName
                     Dim MainImage As Bitmap
 
@@ -2556,6 +2555,7 @@ Public Class MainWindow
         If isRecognizOpen = False Then
 
             NewPages = HocrPages.Where(Function(X) X.ImageName = FileName).Single
+            NewPages.PageOCRsettings.Language = OCRsettings.Language
 
             Dim PageNumber As Integer = HocrPages.IndexOf(NewPages)
 
@@ -2608,8 +2608,6 @@ Public Class MainWindow
             RecoverImage.Save(tessImagePath)
             RecoverImage.Dispose()
             RecoverImage = Nothing
-
-
 
             HocrPages(NewPages.PageNum) = NewPages
             ListOpenedImages.Items.Item(FilePaths.IndexOf(FileName)).Checked = True
@@ -2799,7 +2797,6 @@ Public Class MainWindow
         End If
 
         isBusy = False
-        Loaded = True
 
         If ListOpenedImages.Items.Count > 0 Then
 

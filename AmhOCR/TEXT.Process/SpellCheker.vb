@@ -4,51 +4,77 @@ Public Class SpellCheker
     Implements IDisposable
 
     Public Loaded As Boolean = False
+    Public UserWords() As String
     Public Words() As String
     Public chars() As String
     Public puncs() As Char
     Public nums() As String
     Public Event DicLoaded As EventHandler
     Public isloading As Boolean = False
+    Public _UserPath As String = ""
 
+    Public Lang As String = True
+
+    Private NoData As Boolean = True
 
     Public Sub New()
 
         isloading = False
         Loaded = False
-
-        Words = {""}
-        chars = {""}
+        NoData = True
+        Words = {}
+        chars = {}
         puncs = {}
-        nums = {""}
-
+        nums = {}
+        UserWords = {}
+        Lang = ""
+        _UserPath = ""
     End Sub
 
 
+    Private Sub ResetSpeller()
+
+        isloading = False
+        Loaded = False
+        NoData = True
+        Words = {}
+        chars = {}
+        puncs = {}
+        nums = {}
+        UserWords = {}
+        Lang = ""
+        _UserPath = ""
+
+    End Sub
     ''' <summary>
     ''' Async Initialize SymSpell cheker class
     ''' </summary>
-    Public Sub InitializSpellCheck()
-
+    Public Sub InitializSpellCheck(ByVal Language As String)
+        ResetSpeller()
         isloading = True
-        Loaded = False
+        Lang = Language
+
 
         Dim _CharPath = Environment.CurrentDirectory
         _CharPath = System.IO.Path.Combine(_CharPath, "Lang.Data")
-        _CharPath = System.IO.Path.Combine(_CharPath, OCRsettings.Language + ".alphabets")
+        _CharPath = System.IO.Path.Combine(_CharPath, Lang + ".alphabets")
 
         Dim _puncsPath = Environment.CurrentDirectory
         _puncsPath = System.IO.Path.Combine(_puncsPath, "Lang.Data")
-        _puncsPath = System.IO.Path.Combine(_puncsPath, OCRsettings.Language + ".punctuations")
+        _puncsPath = System.IO.Path.Combine(_puncsPath, Lang + ".punctuations")
 
         Dim _numsPath = Environment.CurrentDirectory
         _numsPath = System.IO.Path.Combine(_numsPath, "Lang.Data")
-        _numsPath = System.IO.Path.Combine(_numsPath, OCRsettings.Language + ".numerics")
+        _numsPath = System.IO.Path.Combine(_numsPath, Lang + ".numerics")
 
 
         Dim _DictPath = Environment.CurrentDirectory
         _DictPath = System.IO.Path.Combine(_DictPath, "Lang.Data")
-        _DictPath = System.IO.Path.Combine(_DictPath, OCRsettings.Language + ".words")
+        _DictPath = System.IO.Path.Combine(_DictPath, Lang + ".words")
+
+        _UserPath = Environment.CurrentDirectory
+        _UserPath = System.IO.Path.Combine(_UserPath, "Lang.Data")
+        _UserPath = System.IO.Path.Combine(_UserPath, Lang + ".userwords")
 
 
         If IO.File.Exists(_DictPath) Then
@@ -56,6 +82,14 @@ Public Class SpellCheker
             Dim wordsFile = IO.File.ReadAllText(_DictPath)
             Words = wordsFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
 
+
+            If IO.File.Exists(_UserPath) Then
+
+                UserWords = IO.File.ReadAllText(_UserPath).Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+                Words = Words.Union(UserWords).ToArray
+            Else
+                IO.File.Create(_UserPath)
+            End If
 
 
             If IO.File.Exists(_CharPath) Then
@@ -85,18 +119,15 @@ Public Class SpellCheker
 
 
 
-
-
-
         If Words.Count > 0 Then
-            Loaded = True
+            NoData = False
         End If
 
+
+        Loaded = True
         isloading = False
 
-        If Loaded = True Then
-            RaiseEvent DicLoaded(Me, Nothing)
-        End If
+        RaiseEvent DicLoaded(Me, Nothing)
 
 
 
@@ -110,17 +141,28 @@ Public Class SpellCheker
     ''' <returns></returns>
     Public Function isValidWord(ByVal word As String) As Boolean
 
-        'the word will be splited into sub-words based on white space
-        'empty string will be ignored  
-        Dim subwords = word.Split({" "}, StringSplitOptions.RemoveEmptyEntries)
+        If NoData = True Then
+
+            Return True
+
+        Else
+
+            'the word will be splited into sub-words based on white space
+            'empty string will be ignored  
+            Dim subwords = word.Split({" "}, StringSplitOptions.RemoveEmptyEntries)
 
 
-        'each sub-word will be checked
-        'this function return true, only if all sub-words are valid. 
+            'each sub-word will be checked
+            'this function return true, only if all sub-words are valid. 
 
-        Return (subwords.Where(Function(X) (ListedWord(X) OrElse isNumeric(X) OrElse EndsWithPunc(X))).Count = subwords.Count)
+            Return (subwords.Where(Function(X) (ListedWord(X) OrElse isNumeric(X) OrElse EndsWithPunc(X))).Count = subwords.Count)
+
+        End If
+
 
     End Function
+
+
 
     ''' <summary>
     ''' Remove White Space at the begening and end of a word
