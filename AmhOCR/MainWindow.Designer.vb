@@ -176,15 +176,15 @@ Partial Class MainWindow
         Me.cmbEditMode = New System.Windows.Forms.ToolStripComboBox()
         Me.ToolStripSeparator17 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnOpen = New System.Windows.Forms.ToolStripButton()
+        Me.ToolsImageOpen = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator14 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btnAppenedFile = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator18 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripDropDownButton()
         Me.SaveAsAmhOCRProjectToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveAsMSDOCFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveAsSearchablePDFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveAsTextFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator18 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolsImageOpen = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator14 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnAppenedFile = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnRedo = New System.Windows.Forms.ToolStripButton()
         Me.btnUndo = New System.Windows.Forms.ToolStripButton()
@@ -1535,6 +1535,35 @@ Partial Class MainWindow
         Me.btnOpen.Size = New System.Drawing.Size(23, 22)
         Me.btnOpen.Text = "Open Project"
         '
+        'ToolsImageOpen
+        '
+        Me.ToolsImageOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ToolsImageOpen.Image = CType(resources.GetObject("ToolsImageOpen.Image"), System.Drawing.Image)
+        Me.ToolsImageOpen.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolsImageOpen.Name = "ToolsImageOpen"
+        Me.ToolsImageOpen.Size = New System.Drawing.Size(23, 22)
+        Me.ToolsImageOpen.Text = "Open Image"
+        '
+        'ToolStripSeparator14
+        '
+        Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
+        Me.ToolStripSeparator14.Size = New System.Drawing.Size(6, 25)
+        '
+        'btnAppenedFile
+        '
+        Me.btnAppenedFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnAppenedFile.Enabled = False
+        Me.btnAppenedFile.Image = CType(resources.GetObject("btnAppenedFile.Image"), System.Drawing.Image)
+        Me.btnAppenedFile.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnAppenedFile.Name = "btnAppenedFile"
+        Me.btnAppenedFile.Size = New System.Drawing.Size(23, 22)
+        Me.btnAppenedFile.Text = "Appened File"
+        '
+        'ToolStripSeparator18
+        '
+        Me.ToolStripSeparator18.Name = "ToolStripSeparator18"
+        Me.ToolStripSeparator18.Size = New System.Drawing.Size(6, 25)
+        '
         'ToolStripButton1
         '
         Me.ToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -1572,35 +1601,6 @@ Partial Class MainWindow
         Me.SaveAsTextFileToolStripMenuItem.Name = "SaveAsTextFileToolStripMenuItem"
         Me.SaveAsTextFileToolStripMenuItem.Size = New System.Drawing.Size(221, 22)
         Me.SaveAsTextFileToolStripMenuItem.Text = "Save as Text File"
-        '
-        'ToolStripSeparator18
-        '
-        Me.ToolStripSeparator18.Name = "ToolStripSeparator18"
-        Me.ToolStripSeparator18.Size = New System.Drawing.Size(6, 25)
-        '
-        'ToolsImageOpen
-        '
-        Me.ToolsImageOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolsImageOpen.Image = CType(resources.GetObject("ToolsImageOpen.Image"), System.Drawing.Image)
-        Me.ToolsImageOpen.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolsImageOpen.Name = "ToolsImageOpen"
-        Me.ToolsImageOpen.Size = New System.Drawing.Size(23, 22)
-        Me.ToolsImageOpen.Text = "Open Image"
-        '
-        'ToolStripSeparator14
-        '
-        Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
-        Me.ToolStripSeparator14.Size = New System.Drawing.Size(6, 25)
-        '
-        'btnAppenedFile
-        '
-        Me.btnAppenedFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnAppenedFile.Enabled = False
-        Me.btnAppenedFile.Image = CType(resources.GetObject("btnAppenedFile.Image"), System.Drawing.Image)
-        Me.btnAppenedFile.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnAppenedFile.Name = "btnAppenedFile"
-        Me.btnAppenedFile.Size = New System.Drawing.Size(23, 22)
-        Me.btnAppenedFile.Text = "Appened File"
         '
         'ToolStripSeparator19
         '
@@ -1992,7 +1992,7 @@ Partial Class MainWindow
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "MainWindow"
-        Me.Text = "Amh፠OCR        V1.0.0"
+        Me.Text = "Amh፠OCR        V1.0.1"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ContextMenuListView.ResumeLayout(False)
         Me.MenuStrip1.ResumeLayout(False)

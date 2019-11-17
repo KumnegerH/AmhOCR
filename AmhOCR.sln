@@ -7,8 +7,6 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "NetTesseract", "NetTesserac
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AmhOCR", "AmhOCR\AmhOCR.vbproj", "{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AmhOCR Pre-release v1.0.0", "AmhOCR Pre-release v1.0.1\AmhOCR Pre-release v1.0.1.vdproj", "{DA1BD385-183A-4398-8841-327790ED1B75}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,12 +42,6 @@ Global
 		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Release|x64.Build.0 = Release|x64
 		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Release|x86.ActiveCfg = Release|x86
 		{1F4A789B-B2A2-49B0-9672-D73B1BC4AA39}.Release|x86.Build.0 = Release|x86
-		{DA1BD385-183A-4398-8841-327790ED1B75}.Debug|Any CPU.ActiveCfg = Debug
-		{DA1BD385-183A-4398-8841-327790ED1B75}.Debug|x64.ActiveCfg = Debug
-		{DA1BD385-183A-4398-8841-327790ED1B75}.Debug|x86.ActiveCfg = Debug
-		{DA1BD385-183A-4398-8841-327790ED1B75}.Release|Any CPU.ActiveCfg = Release
-		{DA1BD385-183A-4398-8841-327790ED1B75}.Release|x64.ActiveCfg = Release
-		{DA1BD385-183A-4398-8841-327790ED1B75}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
