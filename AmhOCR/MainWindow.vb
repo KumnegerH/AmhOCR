@@ -94,7 +94,9 @@ Public Class MainWindow
             Directory.CreateDirectory(OCRsettings.AmhOcrTempFolder)
         End If
 
-
+        If Directory.Exists(OCRsettings.AmhOcrDataFolder) = False Then
+            Directory.CreateDirectory(OCRsettings.AmhOcrDataFolder)
+        End If
 
 
 
@@ -2759,6 +2761,13 @@ Public Class MainWindow
                                          thisHocrPage.PageNum = HocrPages.Count
                                          thisHocrPage.ImageName = imgname
                                          thisHocrPage.imgCopyName = imgname
+
+                                         If thisHocrPage.AllocrCarea.Count > 0 _
+                                             AndAlso thisHocrPage.AllocrCarea.First.AllocrParas.Count > 0 Then
+                                             Dim Lang = thisHocrPage.AllocrCarea.First.AllocrParas.First.Lang
+                                             thisHocrPage.PageOCRsettings.Language = Lang
+                                         End If
+
                                          itm.Checked = True
                                          HocrPages.Add(thisHocrPage)
 

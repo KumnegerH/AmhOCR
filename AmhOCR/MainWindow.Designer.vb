@@ -1479,7 +1479,7 @@ Partial Class MainWindow
         '
         Me.ToolsMainWindow.BackColor = System.Drawing.SystemColors.Control
         Me.ToolsMainWindow.Dock = System.Windows.Forms.DockStyle.None
-        Me.ToolsMainWindow.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.textSelctedImage, Me.btnOpenPrevious, Me.btnOpenNext, Me.ToolStripSeparator1, Me.cmbEditMode, Me.ToolStripSeparator17, Me.btnOpen, Me.ToolStripButton1, Me.ToolStripSeparator18, Me.ToolsImageOpen, Me.ToolStripSeparator14, Me.btnAppenedFile, Me.ToolStripSeparator19, Me.btnRedo, Me.btnUndo, Me.ToolStripSeparator9, Me.btnHideImpt, Me.btnResetZoom, Me.btnTxtView, Me.btnBackground})
+        Me.ToolsMainWindow.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.textSelctedImage, Me.btnOpenPrevious, Me.btnOpenNext, Me.ToolStripSeparator1, Me.cmbEditMode, Me.ToolStripSeparator17, Me.btnOpen, Me.ToolsImageOpen, Me.ToolStripSeparator14, Me.btnAppenedFile, Me.ToolStripSeparator18, Me.ToolStripButton1, Me.ToolStripSeparator19, Me.btnRedo, Me.btnUndo, Me.ToolStripSeparator9, Me.btnHideImpt, Me.btnResetZoom, Me.btnTxtView, Me.btnBackground})
         Me.ToolsMainWindow.Location = New System.Drawing.Point(16, 25)
         Me.ToolsMainWindow.Name = "ToolsMainWindow"
         Me.ToolsMainWindow.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional

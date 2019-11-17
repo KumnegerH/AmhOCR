@@ -72,8 +72,7 @@ Public Class SpellCheker
         _DictPath = System.IO.Path.Combine(_DictPath, "Lang.Data")
         _DictPath = System.IO.Path.Combine(_DictPath, Lang + ".words")
 
-        _UserPath = Environment.CurrentDirectory
-        _UserPath = System.IO.Path.Combine(_UserPath, "Lang.Data")
+        _UserPath = OCRsettings.AmhOcrDataFolder
         _UserPath = System.IO.Path.Combine(_UserPath, Lang + ".userwords")
 
 

@@ -50,6 +50,8 @@ Public Class OCRsettings
 
     Public Shared Property tesspath As String
 
+    Public Shared Property AmhOcrDataFolder As String = "C:\AmhOCR\Data"
+
     Public Shared Property AmhOcrTempFolder As String = "C:\AmhOCR\temp"
 
     Public Shared Property ProjectMainFolder As String = "C:\AmhOCR\Projects"
