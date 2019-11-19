@@ -25,14 +25,17 @@ Partial Class MainWindow
         Application.EnableVisualStyles()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainWindow))
-        Me.ContextMenuListView = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaveThisPageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImagelistContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.TreeContextOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TreeContextOpenDetect = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator31 = New System.Windows.Forms.ToolStripSeparator()
+        Me.TreeContextSaveAs = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextSaveAsWord = New System.Windows.Forms.ToolStripMenuItem()
         Me.SearchablePDFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextSaveAsText = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripSeparator32 = New System.Windows.Forms.ToolStripSeparator()
+        Me.TreeContextReset = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MainWindowMenuStrip = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenProjectToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveAsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -110,7 +113,7 @@ Partial Class MainWindow
         Me.AboutAmhOCRToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AmhOCRHelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripContainer1 = New System.Windows.Forms.ToolStripContainer()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.MainWindowStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.lblCoordinate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SelectNameLbl = New System.Windows.Forms.ToolStripStatusLabel()
         Me.progRecognize = New System.Windows.Forms.ToolStripProgressBar()
@@ -119,7 +122,7 @@ Partial Class MainWindow
         Me.SplitContainer5 = New System.Windows.Forms.SplitContainer()
         Me.ListOpenedImages = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ToolStrip4 = New System.Windows.Forms.ToolStrip()
+        Me.MainWindowToolStrip = New System.Windows.Forms.ToolStrip()
         Me.btnColapsImg = New System.Windows.Forms.ToolStripButton()
         Me.btnPinimag = New System.Windows.Forms.ToolStripButton()
         Me.panel3 = New System.Windows.Forms.Panel()
@@ -160,6 +163,8 @@ Partial Class MainWindow
         Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.CmbLang = New System.Windows.Forms.ToolStripComboBox()
         Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btnResetRecog = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator33 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnRecognizeCurrent = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnRecognizeAll = New System.Windows.Forms.ToolStripButton()
@@ -226,13 +231,13 @@ Partial Class MainWindow
         Me.ToolStripButton32 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator21 = New System.Windows.Forms.ToolStripSeparator()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.ContextMenuListView.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
+        Me.ImagelistContextMenu.SuspendLayout()
+        Me.MainWindowMenuStrip.SuspendLayout()
         Me.ToolStripContainer1.BottomToolStripPanel.SuspendLayout()
         Me.ToolStripContainer1.ContentPanel.SuspendLayout()
         Me.ToolStripContainer1.TopToolStripPanel.SuspendLayout()
         Me.ToolStripContainer1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
+        Me.MainWindowStatusStrip.SuspendLayout()
         CType(Me.SplitInputResultView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitInputResultView.Panel1.SuspendLayout()
         Me.SplitInputResultView.Panel2.SuspendLayout()
@@ -245,7 +250,7 @@ Partial Class MainWindow
         Me.SplitContainer5.Panel1.SuspendLayout()
         Me.SplitContainer5.Panel2.SuspendLayout()
         Me.SplitContainer5.SuspendLayout()
-        Me.ToolStrip4.SuspendLayout()
+        Me.MainWindowToolStrip.SuspendLayout()
         Me.panel3.SuspendLayout()
         Me.groupBox2.SuspendLayout()
         CType(Me.txtExportSize, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -270,35 +275,40 @@ Partial Class MainWindow
         Me.ToolStrip9.SuspendLayout()
         Me.SuspendLayout()
         '
-        'ContextMenuListView
+        'ImagelistContextMenu
         '
-        Me.ContextMenuListView.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem2, Me.ToolStripMenuItem1, Me.SaveThisPageToolStripMenuItem})
-        Me.ContextMenuListView.Name = "ContextMenuStrip1"
-        Me.ContextMenuListView.Size = New System.Drawing.Size(260, 70)
-        Me.ContextMenuListView.Text = "Open"
+        Me.ImagelistContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TreeContextOpen, Me.TreeContextOpenDetect, Me.ToolStripSeparator31, Me.TreeContextSaveAs, Me.ToolStripSeparator32, Me.TreeContextReset})
+        Me.ImagelistContextMenu.Name = "ContextMenuStrip1"
+        Me.ImagelistContextMenu.Size = New System.Drawing.Size(260, 104)
+        Me.ImagelistContextMenu.Text = "Open"
         '
-        'ToolStripMenuItem2
+        'TreeContextOpen
         '
-        Me.ToolStripMenuItem2.Image = CType(resources.GetObject("ToolStripMenuItem2.Image"), System.Drawing.Image)
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(259, 22)
-        Me.ToolStripMenuItem2.Text = "Open                                                    "
+        Me.TreeContextOpen.Image = CType(resources.GetObject("TreeContextOpen.Image"), System.Drawing.Image)
+        Me.TreeContextOpen.Name = "TreeContextOpen"
+        Me.TreeContextOpen.Size = New System.Drawing.Size(259, 22)
+        Me.TreeContextOpen.Text = "Open                                                    "
         '
-        'ToolStripMenuItem1
+        'TreeContextOpenDetect
         '
-        Me.ToolStripMenuItem1.Image = CType(resources.GetObject("ToolStripMenuItem1.Image"), System.Drawing.Image)
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(259, 22)
-        Me.ToolStripMenuItem1.Text = "Open and Detect"
+        Me.TreeContextOpenDetect.Image = CType(resources.GetObject("TreeContextOpenDetect.Image"), System.Drawing.Image)
+        Me.TreeContextOpenDetect.Name = "TreeContextOpenDetect"
+        Me.TreeContextOpenDetect.Size = New System.Drawing.Size(259, 22)
+        Me.TreeContextOpenDetect.Text = "Open and Detect"
         '
-        'SaveThisPageToolStripMenuItem
+        'ToolStripSeparator31
         '
-        Me.SaveThisPageToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextSaveAsWord, Me.SearchablePDFToolStripMenuItem, Me.ContextSaveAsText})
-        Me.SaveThisPageToolStripMenuItem.Image = CType(resources.GetObject("SaveThisPageToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.SaveThisPageToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.SaveThisPageToolStripMenuItem.Name = "SaveThisPageToolStripMenuItem"
-        Me.SaveThisPageToolStripMenuItem.Size = New System.Drawing.Size(259, 22)
-        Me.SaveThisPageToolStripMenuItem.Text = "Save As"
+        Me.ToolStripSeparator31.Name = "ToolStripSeparator31"
+        Me.ToolStripSeparator31.Size = New System.Drawing.Size(256, 6)
+        '
+        'TreeContextSaveAs
+        '
+        Me.TreeContextSaveAs.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextSaveAsWord, Me.SearchablePDFToolStripMenuItem, Me.ContextSaveAsText})
+        Me.TreeContextSaveAs.Image = CType(resources.GetObject("TreeContextSaveAs.Image"), System.Drawing.Image)
+        Me.TreeContextSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.TreeContextSaveAs.Name = "TreeContextSaveAs"
+        Me.TreeContextSaveAs.Size = New System.Drawing.Size(259, 22)
+        Me.TreeContextSaveAs.Text = "Save As"
         '
         'ContextSaveAsWord
         '
@@ -318,15 +328,27 @@ Partial Class MainWindow
         Me.ContextSaveAsText.Size = New System.Drawing.Size(257, 22)
         Me.ContextSaveAsText.Text = "Simple Text File"
         '
-        'MenuStrip1
+        'ToolStripSeparator32
         '
-        Me.MenuStrip1.BackColor = System.Drawing.SystemColors.Control
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ViewToolStripMenuItem, Me.AnalyzeToolStripMenuItem, Me.ExtendedActionToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1305, 24)
-        Me.MenuStrip1.TabIndex = 1
-        Me.MenuStrip1.Text = "MainWindowMenuStrip "
+        Me.ToolStripSeparator32.Name = "ToolStripSeparator32"
+        Me.ToolStripSeparator32.Size = New System.Drawing.Size(256, 6)
+        '
+        'TreeContextReset
+        '
+        Me.TreeContextReset.Image = CType(resources.GetObject("TreeContextReset.Image"), System.Drawing.Image)
+        Me.TreeContextReset.Name = "TreeContextReset"
+        Me.TreeContextReset.Size = New System.Drawing.Size(259, 22)
+        Me.TreeContextReset.Text = "Reset to Default"
+        '
+        'MainWindowMenuStrip
+        '
+        Me.MainWindowMenuStrip.BackColor = System.Drawing.SystemColors.Control
+        Me.MainWindowMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ViewToolStripMenuItem, Me.AnalyzeToolStripMenuItem, Me.ExtendedActionToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MainWindowMenuStrip.Location = New System.Drawing.Point(0, 0)
+        Me.MainWindowMenuStrip.Name = "MainWindowMenuStrip"
+        Me.MainWindowMenuStrip.Size = New System.Drawing.Size(1305, 24)
+        Me.MainWindowMenuStrip.TabIndex = 1
+        Me.MainWindowMenuStrip.Text = "MainWindowMenuStrip "
         '
         'FileToolStripMenuItem
         '
@@ -836,7 +858,7 @@ Partial Class MainWindow
         '
         'ToolStripContainer1.BottomToolStripPanel
         '
-        Me.ToolStripContainer1.BottomToolStripPanel.Controls.Add(Me.StatusStrip1)
+        Me.ToolStripContainer1.BottomToolStripPanel.Controls.Add(Me.MainWindowStatusStrip)
         '
         'ToolStripContainer1.ContentPanel
         '
@@ -858,15 +880,15 @@ Partial Class MainWindow
         Me.ToolStripContainer1.TopToolStripPanel.BackColor = System.Drawing.SystemColors.Control
         Me.ToolStripContainer1.TopToolStripPanel.Controls.Add(Me.ToolStrip9)
         '
-        'StatusStrip1
+        'MainWindowStatusStrip
         '
-        Me.StatusStrip1.Dock = System.Windows.Forms.DockStyle.None
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblCoordinate, Me.SelectNameLbl, Me.progRecognize})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1305, 22)
-        Me.StatusStrip1.TabIndex = 2
-        Me.StatusStrip1.Text = "StatusStrip1"
+        Me.MainWindowStatusStrip.Dock = System.Windows.Forms.DockStyle.None
+        Me.MainWindowStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblCoordinate, Me.SelectNameLbl, Me.progRecognize})
+        Me.MainWindowStatusStrip.Location = New System.Drawing.Point(0, 0)
+        Me.MainWindowStatusStrip.Name = "MainWindowStatusStrip"
+        Me.MainWindowStatusStrip.Size = New System.Drawing.Size(1305, 22)
+        Me.MainWindowStatusStrip.TabIndex = 2
+        Me.MainWindowStatusStrip.Text = "StatusStrip1"
         '
         'lblCoordinate
         '
@@ -948,7 +970,7 @@ Partial Class MainWindow
         'SplitContainer5.Panel1
         '
         Me.SplitContainer5.Panel1.Controls.Add(Me.ListOpenedImages)
-        Me.SplitContainer5.Panel1.Controls.Add(Me.ToolStrip4)
+        Me.SplitContainer5.Panel1.Controls.Add(Me.MainWindowToolStrip)
         '
         'SplitContainer5.Panel2
         '
@@ -967,7 +989,7 @@ Partial Class MainWindow
         Me.ListOpenedImages.CausesValidation = False
         Me.ListOpenedImages.CheckBoxes = True
         Me.ListOpenedImages.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
-        Me.ListOpenedImages.ContextMenuStrip = Me.ContextMenuListView
+        Me.ListOpenedImages.ContextMenuStrip = Me.ImagelistContextMenu
         Me.ListOpenedImages.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ListOpenedImages.HideSelection = False
         Me.ListOpenedImages.Location = New System.Drawing.Point(0, 25)
@@ -977,16 +999,16 @@ Partial Class MainWindow
         Me.ListOpenedImages.TabIndex = 0
         Me.ListOpenedImages.UseCompatibleStateImageBehavior = False
         '
-        'ToolStrip4
+        'MainWindowToolStrip
         '
-        Me.ToolStrip4.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.ToolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip4.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnColapsImg, Me.btnPinimag})
-        Me.ToolStrip4.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip4.Name = "ToolStrip4"
-        Me.ToolStrip4.Size = New System.Drawing.Size(240, 25)
-        Me.ToolStrip4.TabIndex = 2
-        Me.ToolStrip4.Text = "ToolStrip4"
+        Me.MainWindowToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.MainWindowToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.MainWindowToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnColapsImg, Me.btnPinimag})
+        Me.MainWindowToolStrip.Location = New System.Drawing.Point(0, 0)
+        Me.MainWindowToolStrip.Name = "MainWindowToolStrip"
+        Me.MainWindowToolStrip.Size = New System.Drawing.Size(240, 25)
+        Me.MainWindowToolStrip.TabIndex = 2
+        Me.MainWindowToolStrip.Text = "ToolStrip4"
         '
         'btnColapsImg
         '
@@ -1373,11 +1395,11 @@ Partial Class MainWindow
         '
         Me.ToolsOCRProcess.AllowMerge = False
         Me.ToolsOCRProcess.Dock = System.Windows.Forms.DockStyle.None
-        Me.ToolsOCRProcess.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSetting, Me.ToolStripSeparator13, Me.CmbLang, Me.ToolStripSeparator12, Me.btnRecognizeCurrent, Me.ToolStripSeparator11, Me.btnRecognizeAll})
+        Me.ToolsOCRProcess.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSetting, Me.ToolStripSeparator13, Me.CmbLang, Me.ToolStripSeparator12, Me.btnResetRecog, Me.ToolStripSeparator33, Me.btnRecognizeCurrent, Me.ToolStripSeparator11, Me.btnRecognizeAll})
         Me.ToolsOCRProcess.Location = New System.Drawing.Point(157, 59)
         Me.ToolsOCRProcess.Name = "ToolsOCRProcess"
         Me.ToolsOCRProcess.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.ToolsOCRProcess.Size = New System.Drawing.Size(325, 25)
+        Me.ToolsOCRProcess.Size = New System.Drawing.Size(354, 25)
         Me.ToolsOCRProcess.TabIndex = 13
         Me.ToolsOCRProcess.Text = "OCR Setting"
         '
@@ -1404,6 +1426,21 @@ Partial Class MainWindow
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
         Me.ToolStripSeparator12.Size = New System.Drawing.Size(6, 25)
+        '
+        'btnResetRecog
+        '
+        Me.btnResetRecog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnResetRecog.Enabled = False
+        Me.btnResetRecog.Image = CType(resources.GetObject("btnResetRecog.Image"), System.Drawing.Image)
+        Me.btnResetRecog.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnResetRecog.Name = "btnResetRecog"
+        Me.btnResetRecog.Size = New System.Drawing.Size(23, 22)
+        Me.btnResetRecog.Text = "Reset OCR for this image"
+        '
+        'ToolStripSeparator33
+        '
+        Me.ToolStripSeparator33.Name = "ToolStripSeparator33"
+        Me.ToolStripSeparator33.Size = New System.Drawing.Size(6, 25)
         '
         'btnRecognizeCurrent
         '
@@ -1482,7 +1519,7 @@ Partial Class MainWindow
         Me.ToolsMainWindow.Location = New System.Drawing.Point(16, 25)
         Me.ToolsMainWindow.Name = "ToolsMainWindow"
         Me.ToolsMainWindow.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.ToolsMainWindow.Size = New System.Drawing.Size(605, 25)
+        Me.ToolsMainWindow.Size = New System.Drawing.Size(636, 25)
         Me.ToolsMainWindow.TabIndex = 3
         Me.ToolsMainWindow.Text = "OCR Tools"
         '
@@ -1609,6 +1646,7 @@ Partial Class MainWindow
         'btnRedo
         '
         Me.btnRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnRedo.Enabled = False
         Me.btnRedo.Image = CType(resources.GetObject("btnRedo.Image"), System.Drawing.Image)
         Me.btnRedo.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnRedo.Name = "btnRedo"
@@ -1618,6 +1656,7 @@ Partial Class MainWindow
         'btnUndo
         '
         Me.btnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnUndo.Enabled = False
         Me.btnUndo.Image = CType(resources.GetObject("btnUndo.Image"), System.Drawing.Image)
         Me.btnUndo.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnUndo.Name = "btnUndo"
@@ -1988,14 +2027,14 @@ Partial Class MainWindow
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1305, 589)
         Me.Controls.Add(Me.ToolStripContainer1)
-        Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.MainWindowMenuStrip)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "MainWindow"
         Me.Text = "Amh፠OCR        V1.0.1"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        Me.ContextMenuListView.ResumeLayout(False)
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
+        Me.ImagelistContextMenu.ResumeLayout(False)
+        Me.MainWindowMenuStrip.ResumeLayout(False)
+        Me.MainWindowMenuStrip.PerformLayout()
         Me.ToolStripContainer1.BottomToolStripPanel.ResumeLayout(False)
         Me.ToolStripContainer1.BottomToolStripPanel.PerformLayout()
         Me.ToolStripContainer1.ContentPanel.ResumeLayout(False)
@@ -2003,8 +2042,8 @@ Partial Class MainWindow
         Me.ToolStripContainer1.TopToolStripPanel.PerformLayout()
         Me.ToolStripContainer1.ResumeLayout(False)
         Me.ToolStripContainer1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
+        Me.MainWindowStatusStrip.ResumeLayout(False)
+        Me.MainWindowStatusStrip.PerformLayout()
         Me.SplitInputResultView.Panel1.ResumeLayout(False)
         Me.SplitInputResultView.Panel1.PerformLayout()
         Me.SplitInputResultView.Panel2.ResumeLayout(False)
@@ -2021,8 +2060,8 @@ Partial Class MainWindow
         Me.SplitContainer5.Panel2.PerformLayout()
         CType(Me.SplitContainer5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer5.ResumeLayout(False)
-        Me.ToolStrip4.ResumeLayout(False)
-        Me.ToolStrip4.PerformLayout()
+        Me.MainWindowToolStrip.ResumeLayout(False)
+        Me.MainWindowToolStrip.PerformLayout()
         Me.panel3.ResumeLayout(False)
         Me.groupBox2.ResumeLayout(False)
         Me.groupBox2.PerformLayout()
@@ -2060,10 +2099,10 @@ Partial Class MainWindow
 
     End Sub
 
-    Friend WithEvents ContextMenuListView As ContextMenuStrip
-    Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents ImagelistContextMenu As ContextMenuStrip
+    Friend WithEvents TreeContextOpen As ToolStripMenuItem
+    Friend WithEvents TreeContextOpenDetect As ToolStripMenuItem
+    Friend WithEvents MainWindowMenuStrip As MenuStrip
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents NewToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OpenProjectToolStripMenuItem As ToolStripMenuItem
@@ -2098,7 +2137,7 @@ Partial Class MainWindow
     Friend WithEvents OptionsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripContainer1 As ToolStripContainer
-    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents MainWindowStatusStrip As StatusStrip
     Friend WithEvents lblCoordinate As ToolStripStatusLabel
     Friend WithEvents SelectNameLbl As ToolStripStatusLabel
     Friend WithEvents SplitInputResultView As SplitContainer
@@ -2106,7 +2145,7 @@ Partial Class MainWindow
     Friend WithEvents SplitContainer5 As SplitContainer
     Friend WithEvents ListOpenedImages As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
-    Friend WithEvents ToolStrip4 As ToolStrip
+    Friend WithEvents MainWindowToolStrip As ToolStrip
     Friend WithEvents btnColapsImg As ToolStripButton
     Friend WithEvents btnPinimag As ToolStripButton
     Private WithEvents panel3 As Panel
@@ -2193,7 +2232,7 @@ Partial Class MainWindow
     Friend WithEvents AboutAmhOCRToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents btnOpenPrevious As ToolStripButton
     Friend WithEvents btnOpenNext As ToolStripButton
-    Friend WithEvents SaveThisPageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TreeContextSaveAs As ToolStripMenuItem
     Friend WithEvents OpenPDFToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator20 As ToolStripSeparator
     Friend WithEvents DeskewToolStripMenuItem As ToolStripMenuItem
@@ -2261,4 +2300,9 @@ Partial Class MainWindow
     Friend WithEvents SaveAsTextFileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents btnBackground As ToolStripButton
     Friend WithEvents ResetImageBackgroundToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator31 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator32 As ToolStripSeparator
+    Friend WithEvents TreeContextReset As ToolStripMenuItem
+    Friend WithEvents btnResetRecog As ToolStripButton
+    Friend WithEvents ToolStripSeparator33 As ToolStripSeparator
 End Class

@@ -368,6 +368,7 @@
     <Content Include="Icons\ImageCrop_16x.png" />
     <Content Include="Icons\ImageStack_16x.png" />
     <Content Include="Icons\ImageTest_16x_32.bmp" />
+    <Content Include="Icons\i_resetallGrey_F12.png" />
     <Content Include="Icons\OpenFolder_16x.png" />
     <Content Include="Icons\Pause_22x.png" />
     <Content Include="Icons\PinnedItem_16x.png" />

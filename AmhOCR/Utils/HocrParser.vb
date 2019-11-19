@@ -237,23 +237,22 @@ Public Class HocrParser
                 ' this is to avoid big word text, or long vertical text which is not proportional to page size
                 'it is also an issue,bug of tesseract 4.0
 
-                Dim heightratio = box.Height / CurrentPageBox.Height
+                ' Dim heightratio = box.Height / CurrentPageBox.Height
 
-                If heightratio <= 0.75 Then
-                    newocrWord.Text = Hocrxml.Value
-                    newocrWord.orignalText = newocrWord.Text
-                    newocrWord.XmlElement = Hocrxml
-                    newocrWord.x_wconf = ParseParameter("x_wconf", Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "title").First.Value)
-                    newocrWord.x_fsize = ParseParameter("x_fsize", Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "title").First.Value)
-                    newocrWord.Lang = lng
+                'If heightratio <= 0.75 Then
 
-                    If Hocrxml.Attributes.Any(Function(X) X.Name.LocalName = "lang" AndAlso String.IsNullOrEmpty(X.Value) = False) Then
-                        newocrWord.Lang = Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "lang").First.Value
-                    End If
+                'End If
 
+                newocrWord.Text = Hocrxml.Value
+                newocrWord.orignalText = newocrWord.Text
+                newocrWord.XmlElement = Hocrxml
+                newocrWord.x_wconf = ParseParameter("x_wconf", Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "title").First.Value)
+                newocrWord.x_fsize = ParseParameter("x_fsize", Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "title").First.Value)
+                newocrWord.Lang = lng
+
+                If Hocrxml.Attributes.Any(Function(X) X.Name.LocalName = "lang" AndAlso String.IsNullOrEmpty(X.Value) = False) Then
+                    newocrWord.Lang = Hocrxml.Attributes.Where(Function(X) X.Name.LocalName = "lang").First.Value
                 End If
-
-
 
             Else
 

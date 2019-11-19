@@ -115,7 +115,7 @@ Public Class ReadImage
 
     End Function
 
-    Public Overloads Async Function GetHocr(ByVal imagesFile As String, ByVal timeout As Integer) As Task(Of String)
+    Public Overloads Async Function GetHocrAsync(ByVal imagesFile As String, ByVal timeout As Integer) As Task(Of String)
 
 
         Dim output As String = String.Empty
@@ -182,9 +182,66 @@ Public Class ReadImage
     End Function
 
 
+    Public Overloads Function GetHocr(ByVal imagesFile As String, ByVal timeout As Integer) As String
 
 
-    Public Overloads Async Function GetHocr(ByVal imagesFiles As List(Of String)) As Task(Of String)
+        Dim output As String = String.Empty
+        If String.IsNullOrEmpty(imagesFile) = False Then
+
+            Dim trashpath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString)
+            Directory.CreateDirectory(trashpath)
+            Dim trashinput = Path.Combine(trashpath, Guid.NewGuid.ToString)
+            Dim trashOutput = Path.Combine(trashpath, Guid.NewGuid.ToString)
+            Dim trashdebugfile = Path.Combine(trashpath, Guid.NewGuid.ToString) + ".log"
+
+            Try
+
+                Dim filed = File.CreateText(trashinput)
+                filed.WriteLine(imagesFile)
+                filed.Close()
+                Dim info = New ProcessStartInfo
+
+                With info
+                    .FileName = _tessPath
+                    '.Arguments = $"{tempInputfile} {tempOutputfile} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"paragraph_debug_level=1"} -c debug_file={trashdebugfile} -c {"tessedit_parallelize=1"}"
+                    .Arguments = $" {trashinput} {trashOutput} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"tessedit_page_number=0"} -c {"hocr_font_info=1"}"
+                    .RedirectStandardError = True
+                    .RedirectStandardOutput = True
+                    .CreateNoWindow = True
+                    .UseShellExecute = False
+                    .ErrorDialog = False
+                End With
+
+                Using ps = Process.Start(info)
+
+                    ps.EnableRaisingEvents = True
+                    ps.WaitForExit(timeout)
+
+                    If File.Exists(trashOutput + ".hocr") Then
+
+                        output = File.ReadAllText(trashOutput + ".hocr")
+
+                    End If
+
+                End Using
+
+
+            Finally
+
+                Directory.Delete(trashpath, True)
+
+            End Try
+
+
+
+        End If
+
+        GC.Collect()
+        Return output
+
+    End Function
+
+    Public Overloads Async Function GetHocrAsync(ByVal imagesFiles As List(Of String)) As Task(Of String)
 
 
         Dim output As String = String.Empty

@@ -452,7 +452,7 @@ Public Class ImageOCRsetting
 
 
                                Dim Newimg As Image = _MainImage.Clone
-                               PreProcessor.ApplayCorrections(Newimg)
+                               Newimg = PreProcessor.ApplyCorrections(Newimg)
 
                                Return Newimg
 

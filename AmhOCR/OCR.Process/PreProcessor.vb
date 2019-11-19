@@ -172,7 +172,10 @@ Public Class PreProcessor
         imgProc = Nothing
     End Sub
 
-    Public Overloads Shared Sub ApplayCorrections(ByRef imgProc As Bitmap)
+    Public Overloads Shared Function ApplyCorrections(ByVal imgProc As Bitmap) As Bitmap
+
+
+
 
         Try
             If OCRsettings.Gray = True Then
@@ -247,92 +250,93 @@ Public Class PreProcessor
 
         End Try
 
+        Return imgProc
+    End Function
 
-    End Sub
-
-
-    Public Overloads Shared Async Function AsyncApplayCorrections(ByVal imgProc As Bitmap) As Task(Of Bitmap)
-
+    Public Overloads Shared Async Function AsyncApplyCorrections(ByVal imgProc As Bitmap) As Task(Of Bitmap)
 
 
 
-        Dim tsk = TaskEx.Run(Sub()
 
-                                 Try
-                                     If OCRsettings.Gray = True Then
+        Dim tsk =
+            TaskEx.Run(
+            Sub()
 
-                                         If Not imgProc.PixelFormat.ToString.Equals("Format8bppIndexed") Then
+                Try
+                    If OCRsettings.Gray = True Then
 
-                                             imgProc = Ag.Filters.Grayscale.CommonAlgorithms.Y.Apply(imgProc)
+                        If Not imgProc.PixelFormat.ToString.Equals("Format8bppIndexed") Then
 
-                                         End If
+                            imgProc = Ag.Filters.Grayscale.CommonAlgorithms.Y.Apply(imgProc)
 
-                                     End If
-                                 Catch ex As Exception
+                        End If
 
-                                 End Try
+                    End If
+                Catch ex As Exception
 
-                                 Try
-                                     If (OCRsettings.Threshold = True) Then
+                End Try
 
-                                         Dim Threshold As New Ag.Filters.Threshold
-                                         Threshold.ThresholdValue = OCRsettings.ThresholdValue
-                                         Threshold.ApplyInPlace(imgProc)
-                                     End If
+                Try
+                    If (OCRsettings.Threshold = True) Then
 
-
-                                 Catch ex As Exception
-
-                                 End Try
+                        Dim Threshold As New Ag.Filters.Threshold
+                        Threshold.ThresholdValue = OCRsettings.ThresholdValue
+                        Threshold.ApplyInPlace(imgProc)
+                    End If
 
 
+                Catch ex As Exception
 
-                                 Try
-                                     If OCRsettings.Bright = True Then
-
-                                         Dim filtr As New Ag.Filters.BrightnessCorrection
-                                         filtr.AdjustValue = OCRsettings.BrightValue
-                                         filtr.ApplyInPlace(imgProc)
+                End Try
 
 
-                                     End If
-                                 Catch ex As Exception
 
-                                 End Try
+                Try
+                    If OCRsettings.Bright = True Then
 
-
-                                 Try
-
-                                     If OCRsettings.Contrast = True Then
-
-                                         Dim filtr As New Ag.Filters.ContrastCorrection
-                                         filtr.Factor = OCRsettings.ContrastValue
-                                         filtr.ApplyInPlace(imgProc)
-
-                                     End If
+                        Dim filtr As New Ag.Filters.BrightnessCorrection
+                        filtr.AdjustValue = OCRsettings.BrightValue
+                        filtr.ApplyInPlace(imgProc)
 
 
-                                 Catch ex As Exception
+                    End If
+                Catch ex As Exception
 
-                                 End Try
-
-
-                                 Try
-
-                                     If OCRsettings.Gamma = True Then
-
-                                         Dim filtr As New Ag.Filters.GammaCorrection
-                                         filtr.Gamma = OCRsettings.GammaValue
-                                         filtr.ApplyInPlace(imgProc)
-
-                                     End If
-
-                                 Catch ex As Exception
-
-                                 End Try
+                End Try
 
 
-                             End Sub)
+                Try
+
+                    If OCRsettings.Contrast = True Then
+
+                        Dim filtr As New Ag.Filters.ContrastCorrection
+                        filtr.Factor = OCRsettings.ContrastValue
+                        filtr.ApplyInPlace(imgProc)
+
+                    End If
+
+
+                Catch ex As Exception
+
+                End Try
+
+
+                Try
+
+                    If OCRsettings.Gamma = True Then
+
+                        Dim filtr As New Ag.Filters.GammaCorrection
+                        filtr.Gamma = OCRsettings.GammaValue
+                        filtr.ApplyInPlace(imgProc)
+
+                    End If
+
+                Catch ex As Exception
+
+                End Try
+
+
+            End Sub)
 
 
 

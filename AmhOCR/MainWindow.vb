@@ -209,7 +209,7 @@ Public Class MainWindow
         OCRsettings.MaxBatch = OCRsettings.PrefMaxBatch
         OCRsettings.SpellErrorColor = OCRsettings.PrefSpellErrorColor
         OCRsettings.UserSpelledColor = OCRsettings.PrefUserSpelledColor
-
+        OCRsettings.Gray = OCRsettings.PrefGray
 
         If AvailabelLangs.Contains(OCRsettings.Language) Then
             isBusy = True
@@ -240,53 +240,70 @@ Public Class MainWindow
 
 
 
-        AddHandler ContextMenuListView.Items(0).Click, AddressOf OpenImage
-        AddHandler ContextMenuListView.Items(1).Click, AddressOf OpenImageWithHocr
+        AddHandler TreeContextOpen.Click, AddressOf OpenImage
+        AddHandler TreeContextOpenDetect.Click, AddressOf OpenImageWithHocr
+        AddHandler TreeContextReset.Click, AddressOf ResetImageRecognition
 
-        Dim SaveAsContext As ToolStripMenuItem = ContextMenuListView.Items(2)
 
-        AddHandler SaveAsContext.DropDownOpening,
+        AddHandler TreeContextSaveAs.DropDownOpening,
             New EventHandler(
             Sub(s, e)
                 If ListOpenedImages.SelectedIndices.Count > 0 Then
 
                     If ListOpenedImages.Items.Item(ListOpenedImages.SelectedIndices(0)).Checked Then
-                        SaveAsContext.DropDownItems(0).Enabled = True
-                        SaveAsContext.DropDownItems(1).Enabled = True
-                        SaveAsContext.DropDownItems(2).Enabled = True
+                        TreeContextSaveAs.DropDownItems(0).Enabled = True
+                        TreeContextSaveAs.DropDownItems(1).Enabled = True
+                        TreeContextSaveAs.DropDownItems(2).Enabled = True
+
                     Else
-                        SaveAsContext.DropDownItems(0).Enabled = False
-                        SaveAsContext.DropDownItems(1).Enabled = False
-                        SaveAsContext.DropDownItems(2).Enabled = False
+                        TreeContextSaveAs.DropDownItems(0).Enabled = False
+                        TreeContextSaveAs.DropDownItems(1).Enabled = False
+                        TreeContextSaveAs.DropDownItems(2).Enabled = False
+
+
+
                     End If
 
                 End If
-
             End Sub)
 
-        AddHandler SaveAsContext.DropDownItems(0).Click, AddressOf SavepageAsWord
-        AddHandler SaveAsContext.DropDownItems(1).Click, AddressOf SaveAsSearchablePDF
-        AddHandler SaveAsContext.DropDownItems(2).Click, AddressOf SavepageAsText
+        AddHandler TreeContextSaveAs.DropDownItems(0).Click, AddressOf SavepageAsWord
+        AddHandler TreeContextSaveAs.DropDownItems(1).Click, AddressOf SaveAsSearchablePDF
+        AddHandler TreeContextSaveAs.DropDownItems(2).Click, AddressOf SavepageAsText
 
         ' lambda procedure, ContextMenuListView Can only be shown during recognition and processing state
 
-        AddHandler ContextMenuListView.Opening,
-            New CancelEventHandler(Sub(s, e)
-                                       If (FilePaths.Count = 0) OrElse (isBusy = True) OrElse
-                                       (SplitListViewImgEdit.Panel1Collapsed = True) Then
+        AddHandler ImagelistContextMenu.Opening,
+            New CancelEventHandler(
+            Sub(s, e)
 
-                                           e.Cancel = True
+                If (FilePaths.Count = 0) OrElse
+                   (isBusy = True) OrElse
+                   (EditorPicBox.isBusy = True) OrElse
+                   (SplitListViewImgEdit.Panel1Collapsed = True) OrElse
+                    ListOpenedImages.SelectedIndices.Count = 0 Then
 
-                                       End If
+                    e.Cancel = True
+                Else
+
+                    If HocrPages.Any(Function(X) X.ImageName = FilePaths(ListOpenedImages.SelectedIndices(0))) Then
+                        TreeContextReset.Enabled = True
+                    Else
+                        TreeContextReset.Enabled = False
+
+                    End If
+                End If
 
 
-                                   End Sub)
+            End Sub)
 
 
 
         AddHandler EditorPicBox.BoxHighlightedEvent, AddressOf RefreshPicViewBox
         AddHandler EditorPicBox.HocrEdited, AddressOf HocrEdited
         AddHandler EditorPicBox.EditModeChanged, AddressOf EditModeChanged
+
+
 
         Me.Cursor = Cursors.Arrow
 
@@ -336,7 +353,46 @@ Public Class MainWindow
         End If
     End Sub
 
+
+    Private Sub btnResetRecog_Click(sender As Object, e As EventArgs) Handles btnResetRecog.Click
+
+        If isBusy = False AndAlso EditorPicBox.isBusy = False AndAlso EditorPicBox.Image IsNot Nothing Then
+
+            If HocrPages.Any(Function(X) X.ImageName = EditorPicBox.FileName) Then
+                Dim msgShow As String = "This Image is already recognized. Do you want to Reset it? "
+                Dim FileNmae = EditorPicBox.FileName
+                If isRecognizOpen = True Then
+                    Dim dlgResult = MessageBox.Show(Me,
+                               "This Image is already recognized. Do you want to Reset it? ",
+                               "Reset image",
+                               MessageBoxButtons.YesNo)
+
+
+                    If dlgResult = DialogResult.Yes Then
+                        HocrReset(FileNmae)
+                    End If
+
+                    Exit Sub
+
+                Else
+
+                    HocrReset(FileNmae)
+
+                End If
+
+
+
+
+
+            End If
+
+        End If
+
+    End Sub
+
+
     Private Sub btnRecogCurrent_Click(sender As Object, e As EventArgs) Handles btnRecognizeCurrent.Click
+
         If isBusy = False Then
             RecognizeApage()
         End If
@@ -858,7 +914,18 @@ Public Class MainWindow
     End Sub
 
 
+    Private Sub btnAppenedFile_Click(sender As Object, e As EventArgs) Handles btnAppenedFile.Click
+        If isBusy = False Then
 
+            If AbortAction() = True Then
+                Exit Sub
+            End If
+
+            Dim filter = "Image Files (*.tif;*.tiff;*.png;*.bmp;*.jpg;*.jpeg)|*.tiff;*.tif;*.png;*.bmp;*.jpg;*.jpeg"
+            AppendImageFiles(filter)
+
+        End If
+    End Sub
 
 
     Private Sub OpenProjectToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenProjectToolStripMenuItem.Click
@@ -1181,7 +1248,7 @@ Public Class MainWindow
             userPref.numThreadNumber.Value = OCRsettings.PrefMaxBatch
             userPref.lblSpellColor.BackColor = OCRsettings.PrefSpellErrorColor
             userPref.lblUserColor.BackColor = OCRsettings.PrefUserSpelledColor
-
+            userPref.chkUserSet.Checked = OCRsettings.PrefGray
             If userPref.ShowDialog(Me) = DialogResult.OK Then
 
                 OCRsettings.PrefLanguage = userPref.cmbLang.Items(userPref.cmbLang.SelectedIndex)
@@ -1189,7 +1256,7 @@ Public Class MainWindow
                 OCRsettings.PrefMaxBatch = CInt(userPref.numThreadNumber.Value)
                 OCRsettings.PrefSpellErrorColor = userPref.lblSpellColor.BackColor
                 OCRsettings.PrefUserSpelledColor = userPref.lblUserColor.BackColor
-
+                OCRsettings.PrefGray = userPref.chkUserSet.Checked
                 InitilizePreference()
 
                 isBusy = True
@@ -1210,7 +1277,7 @@ Public Class MainWindow
                 OCRsettings.MaxBatch = OCRsettings.PrefMaxBatch
                 OCRsettings.SpellErrorColor = OCRsettings.PrefSpellErrorColor
                 OCRsettings.UserSpelledColor = OCRsettings.PrefUserSpelledColor
-
+                OCRsettings.Gray = OCRsettings.PrefGray
                 If EditorPicBox.HocrPage Is Nothing OrElse EditorPicBox.HocrPage.Recognized = False Then
 
                     OCRsettings.Language = OCRsettings.PrefLanguage
@@ -1249,14 +1316,14 @@ Public Class MainWindow
 
         Dim PrefFilePath = Path.Combine(OCRsettings.AmhOcrDataFolder, "preference.amhocrsetting")
 
-        Dim txtLines(4) As String
+        Dim txtLines(5) As String
         txtLines.Initialize()
         txtLines(0) = OCRsettings.PrefLanguage
         txtLines(1) = OCRsettings.PrefTimeOut.ToString
         txtLines(2) = OCRsettings.PrefMaxBatch.ToString
         txtLines(3) = OCRsettings.PrefSpellErrorColor.ToArgb.ToString
         txtLines(4) = OCRsettings.PrefUserSpelledColor.ToArgb.ToString
-
+        txtLines(5) = CInt(OCRsettings.PrefGray).ToString
         Try
 
             File.WriteAllLines(PrefFilePath, txtLines)
@@ -1308,6 +1375,10 @@ Public Class MainWindow
 
                         OCRsettings.PrefUserSpelledColor = Color.FromArgb(CInt(txtLines(ln)))
 
+                    ElseIf ln = 5 Then
+
+                        OCRsettings.PrefGray = CInt(txtLines(ln))
+
                     End If
 
                 Next
@@ -1326,7 +1397,61 @@ Public Class MainWindow
 
     End Sub
 
+    Private Sub ResetImageRecognition()
 
+        If ListOpenedImages.SelectedIndices.Count > 0 Then
+            Dim imgMame = FilePaths(ListOpenedImages.SelectedIndices(0))
+            HocrReset(imgMame)
+        End If
+
+
+    End Sub
+
+    Private Sub HocrReset(ByVal imgMame As String)
+
+        Dim imgIndex = FilePaths.IndexOf(imgMame)
+
+        If imgIndex >= 0 Then
+            If HocrPages.Any(Function(X) X.ImageName = imgMame) Then
+                isRecognizOpen = False
+                Dim HocrIdex = HocrPages.IndexOf(HocrPages.Single(Function(X) X.ImageName = imgMame))
+
+                If EditorPicBox.Image IsNot Nothing Then
+                    EditorPicBox.DisposeImage()
+                    EditorPicBox.ResetAllState()
+                End If
+
+                Dim thisHocrPage = New HocrPage
+                thisHocrPage.Recognized = False
+                thisHocrPage.ImageName = imgMame
+                thisHocrPage.imgCopyName = Path.Combine(OCRsettings.ProjectTempFolder, Path.GetFileName(imgMame))
+                thisHocrPage.PageNum = HocrIdex
+
+                If File.Exists(thisHocrPage.imgCopyName) Then
+                    Try
+                        File.Delete(thisHocrPage.imgCopyName)
+                    Catch ex As Exception
+
+                    End Try
+
+                End If
+
+
+                isBusy = True
+                ListOpenedImages.Items(imgIndex).Selected = True
+                ListOpenedImages.Items(imgIndex).Checked = False
+
+                isBusy = False
+
+                HocrPages(HocrIdex) = thisHocrPage
+                OpenImage()
+
+            End If
+
+
+        End If
+
+    End Sub
 
     Private Sub ResetMainWindow()
 
@@ -1367,6 +1492,9 @@ Public Class MainWindow
             ImageList = Nothing
         End If
 
+
+        btnAppenedFile.Enabled = False
+        btnResetRecog.Enabled = False
 
         EditorPicBox.Invalidate()
         ViewPicBox.Invalidate()
@@ -2038,6 +2166,66 @@ Public Class MainWindow
     End Sub
 
 
+    Private Sub AppendImageFiles(ByVal filter As String)
+
+
+
+        Using ofd As New OpenFileDialog
+
+            ofd.Filter = filter
+            ofd.Title = "Open File"
+            ofd.Multiselect = True
+            ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            ofd.CheckFileExists = True
+            ofd.CheckPathExists = True
+
+            If ofd.ShowDialog = DialogResult.OK Then
+
+
+
+                Dim ApprovedFiles As New List(Of String)
+                For Each file In ofd.FileNames
+
+                    If Not FilePaths.Contains(file) AndAlso Not file.Contains(OCRsettings.AmhOcrTempFolder) Then
+
+                        Dim cleanfileName = Path.GetFileName(file)
+
+                        If Not FilePaths.Any(Function(n) Path.GetFileName(n) = cleanfileName) Then
+
+                            ApprovedFiles.Add(file)
+
+                        End If
+
+                    End If
+                Next
+
+
+                If ApprovedFiles.Count > 0 Then
+                    isBusy = True
+
+                    If ApprovedFiles.First.EndsWith(".pdf") Then
+
+                        OpenMultiplePdfs(ApprovedFiles.ToArray)
+
+                    Else
+
+                        AppendMultipleImages(ApprovedFiles.ToArray)
+
+                    End If
+
+                End If
+
+
+            End If
+
+        End Using
+
+
+
+
+
+    End Sub
+
     Private Sub OpenAllFiles(ByVal filter As String)
 
 
@@ -2059,17 +2247,30 @@ Public Class MainWindow
 
                 OCRsettings.ProjectFile = ""
 
-                isBusy = True
+
+                Dim ApprovedFiles As New List(Of String)
+
+                For Each File In ofd.FileNames
+                    If Not File.Contains(OCRsettings.AmhOcrTempFolder) Then
+
+                        ApprovedFiles.Add(File)
+                    End If
+
+                Next
 
 
+                If ApprovedFiles.Count > 0 Then
+                    isBusy = True
 
-                If ofd.FileNames.First.EndsWith(".pdf") Then
+                    If ApprovedFiles.First.EndsWith(".pdf") Then
 
-                    OpenMultiplePdfs(ofd.FileNames)
+                        OpenMultiplePdfs(ApprovedFiles.ToArray)
 
-                Else
+                    Else
 
-                    OpenMultipleImages(ofd.FileNames, False)
+                        OpenMultipleImages(ApprovedFiles.ToArray, False)
+
+                    End If
 
                 End If
 
@@ -2141,9 +2342,8 @@ Public Class MainWindow
                 End If
 
                 isRecognizOpen = False
-
+                btnResetRecog.Enabled = False
                 Using imgOp = Ag.Image.FromFile(openImageName)
-                    imgOp.SetResolution(300, 300)
 
                     OCRsettings.Resolution = New Size(imgOp.HorizontalResolution, imgOp.VerticalResolution)
                     OCRsettings.PageSize = New Size(imgOp.Width, imgOp.Height)
@@ -2165,6 +2365,7 @@ Public Class MainWindow
                     isBusy = False
 
                     If thisHocrPage.Recognized Then
+                        btnResetRecog.Enabled = True
                         isRecognizOpen = True
                         RecognizeApage()
                     Else
@@ -2178,6 +2379,8 @@ Public Class MainWindow
                 EditorPicBox.Invalidate()
 
             End If
+        Else
+            Beep()
         End If
 
 
@@ -2197,6 +2400,7 @@ Public Class MainWindow
     End Sub
 
     Private BatchOCRprog As BatchProgressControl
+
     Private Sub RecognizeBatch()
 
         Dim Unrecognized = ListOpenedImages.Items.OfType(Of ListViewItem).Where(Function(X) X.Checked = False)
@@ -2374,7 +2578,7 @@ Public Class MainWindow
 
             Dim RecoverImage As Bitmap = Ag.Image.Clone(MainImage)
 
-            MainImage = Await PreProcessor.AsyncApplayCorrections(MainImage)
+            MainImage = Await PreProcessor.AsyncApplyCorrections(MainImage)
             MainImage.Save(tessImagePath)
             MainImage.Dispose()
             MainImage = Nothing
@@ -2386,14 +2590,14 @@ Public Class MainWindow
 
             Await TaskEx.Delay(10)
 
-            NewPages = Await TessRecognize.Recognize(tessImagePath, NewPages)
+            NewPages = Await TessRecognize.AsyncRecognize(tessImagePath, NewPages)
             NewPages.ImageName = FileName
             NewPages.PageNum = PageNumber
 
             prgCnt += 1
             prog.UpdateSubProgress("Post-Processing")
             prog.UpdateProgressBar(prgCnt)
-            NewPages = Await PostProcessor.Analyzepage(NewPages)
+            NewPages = Await PostProcessor.AsyncAnalyzepage(NewPages)
 
 
             RecoverImage.Save(tessImagePath)
@@ -2537,7 +2741,7 @@ Public Class MainWindow
 
         Await TaskEx.Delay(10)
         prog.ProgressBar1.Style = ProgressBarStyle.Marquee
-        ProcessHocrsPages = Await TessRecognize.Recognize(ProcessImageList, ProcessHocrsPages)
+        ProcessHocrsPages = Await TessRecognize.AsyncRecognize(ProcessImageList, ProcessHocrsPages)
 
 
         prog.ProgressBar1.Style = ProgressBarStyle.Blocks
@@ -2551,7 +2755,7 @@ Public Class MainWindow
         For page As Integer = 0 To ProcessHocrsPages.Count - 1
             Dim processPage = ProcessHocrsPages(page)
             Dim NewPages = HocrPages(pageNembers(page))
-            NewPages = Await PostProcessor.Analyzepage(processPage)
+            NewPages = Await PostProcessor.AsyncAnalyzepage(processPage)
             NewPages.PageNum = pageNembers(page)
             HocrPages(NewPages.PageNum) = NewPages
             If NewPages.Recognized = True Then
@@ -2583,79 +2787,82 @@ Public Class MainWindow
     Private Async Sub RecognizeStepGroups(ByVal FileNames() As String, ByVal batch As Integer)
 
         Dim tsk = TaskEx.Run(
-            Async Function() As Task(Of Boolean)
+              Sub()
 
-                For Each FileName In FileNames
+                  For Each FileName In FileNames
 
-                    If BatchOCRprog.IsPause = True Then
+                      If BatchOCRprog.IsPause = True Then
+                          BatchOCRprog.PausedProcess += 1
+                          If (BatchOCRprog.PausedProcess) >= BatchOCRprog.NumberOfProcess Then
+                              BatchOCRprog.UpdateMainStatus(True)
+                          End If
 
-                        If (BatchOCRprog.CompletedProcess + 1) = BatchOCRprog.NumberOfProcess Then
-                            BatchOCRprog.UpdateMainStatus(True)
-                        End If
-
-                        Do While BatchOCRprog.IsPause = True
-
-                            Await TaskEx.Delay(5)
-
-                            If (BatchOCRprog.CancelRequested = True) OrElse (CancelRequested = True) Then
-                                Exit Do
-                            End If
-
-                        Loop
-
-                        BatchOCRprog.UpdateMainStatus(False)
-
-                    End If
+                          Do While BatchOCRprog.IsPause = True
 
 
 
-                    If (BatchOCRprog.CancelRequested = True) OrElse (CancelRequested = True) Then
-                        Exit For
-                    End If
+                              If (BatchOCRprog.CancelRequested = True) OrElse (CancelRequested = True) Then
+                                  Exit Do
+                              End If
+
+                          Loop
+
+                          If BatchOCRprog.PausedProcess <> 0 Then
+                              BatchOCRprog.PausedProcess = 0
+                              BatchOCRprog.UpdateMainStatus(False)
+
+                          End If
 
 
-                    Dim NewPages = HocrPages.Where(Function(X) X.ImageName = FileName).Single
-                    NewPages.PageOCRsettings.Language = OCRsettings.Language
-                    Dim tessImagePath As String = NewPages.imgCopyName
-                    Dim MainImage As Bitmap
-
-                    If File.Exists(tessImagePath) Then
-                        MainImage = Ag.Image.FromFile(tessImagePath)
-                    Else
-                        MainImage = Ag.Image.FromFile(FileName)
-                    End If
-
-                    Dim RecoverImage As Bitmap = Ag.Image.Clone(MainImage)
+                      End If
 
 
 
-                    MainImage = Await PreProcessor.AsyncApplayCorrections(MainImage)
-                    MainImage.Save(tessImagePath)
-                    MainImage.Dispose()
-                    MainImage = Nothing
-
-                    NewPages = Await TessRecognize.Recognize(tessImagePath, NewPages)
-                    NewPages.ImageName = FileName
-
-                    NewPages = Await PostProcessor.Analyzepage(NewPages)
-                    RecoverImage.Save(tessImagePath)
-                    RecoverImage.Dispose()
-                    RecoverImage = Nothing
+                      If (BatchOCRprog.CancelRequested = True) OrElse (CancelRequested = True) Then
+                          Exit For
+                      End If
 
 
-                    BatchOCRprog.CompetedTasks += 1
-                    BatchOCRprog.UpdateProgressBar(BatchOCRprog.CompetedTasks)
-                    BatchOCRprog.UpdateProgressText(BatchOCRprog.CompetedTasks)
+                      Dim NewPages = HocrPages.Where(Function(X) X.ImageName = FileName).Single
+                      NewPages.PageOCRsettings.Language = OCRsettings.Language
+                      Dim tessImagePath As String = NewPages.imgCopyName
+                      Dim MainImage As Bitmap
 
-                    HocrPages(NewPages.PageNum) = NewPages
+                      If File.Exists(tessImagePath) Then
+                          MainImage = Ag.Image.FromFile(tessImagePath)
+                      Else
+                          MainImage = Ag.Image.FromFile(FileName)
+                      End If
 
-                    isProjectDirty = True
-
-                Next
+                      Dim RecoverImage As Bitmap = Ag.Image.Clone(MainImage)
 
 
-                Return True
-            End Function)
+
+                      MainImage = PreProcessor.ApplyCorrections(MainImage)
+                      MainImage.Save(tessImagePath)
+                      MainImage.Dispose()
+                      MainImage = Nothing
+
+                      NewPages = TessRecognize.Recognize(tessImagePath, NewPages)
+                      NewPages.ImageName = FileName
+
+                      NewPages = PostProcessor.Analyzepage(NewPages)
+                      RecoverImage.Save(tessImagePath)
+                      RecoverImage.Dispose()
+                      RecoverImage = Nothing
+
+
+                      BatchOCRprog.CompetedTasks += 1
+                      BatchOCRprog.UpdateProgressBar(BatchOCRprog.CompetedTasks)
+                      BatchOCRprog.UpdateProgressText(BatchOCRprog.CompetedTasks)
+
+                      HocrPages(NewPages.PageNum) = NewPages
+
+                      isProjectDirty = True
+
+                  Next
+
+              End Sub)
 
 
 
@@ -2666,9 +2873,9 @@ Public Class MainWindow
         BatchOCRprog.CompletedProcess += 1
 
         If BatchOCRprog.CompletedProcess = BatchOCRprog.NumberOfProcess Then
-
+            BatchOCRprog.IsPause = False
+            BatchOCRprog.CancelRequested = False
             BatchOCRprog.Close()
-
 
             For Each apage In HocrPages
                 If apage.Recognized = True Then
@@ -2809,20 +3016,20 @@ Public Class MainWindow
             Dim RecoverImage As Bitmap = Ag.Image.Clone(MainImage)
             RecoverImage.SetResolution(NewPages.PageOCRsettings.Resolution.Width, NewPages.PageOCRsettings.Resolution.Height)
             prog.UpdateProgress("Pre-Processing")
-            MainImage = Await PreProcessor.AsyncApplayCorrections(MainImage)
+            MainImage = Await PreProcessor.AsyncApplyCorrections(MainImage)
             MainImage.Save(tessImagePath)
             MainImage.Dispose()
             MainImage = Nothing
 
 
             prog.UpdateProgress("Processing")
-            NewPages = Await TessRecognize.Recognize(tessImagePath, NewPages)
+            NewPages = Await TessRecognize.AsyncRecognize(tessImagePath, NewPages)
             NewPages.ImageName = FileName
             NewPages.PageNum = PageNumber
 
 
             prog.UpdateProgress("Post-Processing")
-            NewPages = Await PostProcessor.Analyzepage(NewPages)
+            NewPages = Await PostProcessor.AsyncAnalyzepage(NewPages)
 
             RecoverImage.Save(tessImagePath)
             RecoverImage.Dispose()
@@ -2973,8 +3180,8 @@ Public Class MainWindow
 
                                          thisHocrPage.PageOCRsettings.PageSize = New Size(imgOp.Width, imgOp.Height)
                                          thisHocrPage.HocrXML = XElement.Parse(File.ReadAllText(hocrfile))
-                                         thisHocrPage = Await TessRecognize.ParseHocr(thisHocrPage)
-                                         thisHocrPage = Await PostProcessor.Analyzepage(thisHocrPage)
+                                         thisHocrPage = Await TessRecognize.AsyncParseHocr(thisHocrPage)
+                                         thisHocrPage = Await PostProcessor.AsyncAnalyzepage(thisHocrPage)
                                          thisHocrPage.PageNum = HocrPages.Count
                                          thisHocrPage.ImageName = imgname
                                          thisHocrPage.imgCopyName = imgname
@@ -3045,6 +3252,100 @@ Public Class MainWindow
 
         End If
     End Sub
+
+    Private Sub AppendMultipleImages(ByVal FileNames() As String)
+
+        ImageList = ListOpenedImages.LargeImageList
+        If btnImgTab.Visible = True Then
+            btnImgTab.PerformClick()
+            Me.Invalidate()
+        End If
+
+        Dim prog As New ProgressReport
+        prog.Size = New Size(364, 100)
+
+        prog.StartPosition = FormStartPosition.Manual
+
+        prog.SetProgres(FileNames.Count)
+
+        ' Depending on the size of label string, this window will be resized
+
+        Try
+            Dim sizerr = prog.Label1.CreateGraphics.MeasureString("Appending " + Path.GetFileName(FileNames.First), prog.Label1.Font)
+
+            If sizerr.Width + 20 > prog.Width Then
+
+                prog.Width = sizerr.Width + 30
+                prog.ProgressBar1.Width = sizerr.Width - 10
+
+            End If
+
+            prog.Location = Me.PointToScreen(New Point((Me.Width - prog.Width) / 2, Me.Height / 5))
+
+        Catch ex As Exception
+            prog.StartPosition = FormStartPosition.CenterParent
+        End Try
+
+        Dim appendCnt As Integer = 0
+        AddHandler prog.Shown,
+                New EventHandler(
+                 Async Sub(s, arg)
+
+                     TotalImagesCnt = ListOpenedImages.Items.Count
+
+                     For Each imgname In FileNames
+
+                         Using imgOp As Bitmap = New Bitmap(imgname)
+
+                             imgOp.SetResolution(300, 300)
+
+                             FilePaths.Add(imgname)
+
+                             ImageList.Images.Add(imgOp.Clone)
+
+                             Dim itm = ListOpenedImages.Items.Add(Path.GetFileName(imgname), ImageList.Images.Count - 1)
+                             itm.EnsureVisible()
+                             itm.ForeColor = Color.White
+                             prog.Text = "Appending image " + appendCnt.ToString + " out of " + FileNames.Count.ToString
+                             prog.UpdateProgress(Path.GetFileName(imgname), appendCnt)
+
+                             TotalImagesCnt += 1
+                             appendCnt += 1
+                         End Using
+
+
+                         Await TaskEx.Delay(5)
+
+                     Next
+
+                     prog.Close()
+
+                 End Sub)
+
+
+        prog.ShowDialog(Me)
+
+        prog.Dispose()
+        prog = Nothing
+
+
+        If appendCnt > 0 Then
+            btnAppenedFile.Enabled = True
+            btnResetRecog.Enabled = False
+            ListOpenedImages.Items.Item(TotalImagesCnt - appendCnt).Selected = True
+            ListOpenedImages.Items.Item(TotalImagesCnt - appendCnt).Focused = True
+            ListOpenedImages.Items.Item(TotalImagesCnt - appendCnt).EnsureVisible()
+
+            isProjectDirty = True
+            isBusy = False
+            OpenImage()
+
+        End If
+
+        isBusy = False
+
+    End Sub
+
 
     Private Async Sub OpenMultiplePdfs(ByVal FileNames() As String)
 
@@ -3279,7 +3580,6 @@ Public Class MainWindow
             isBusy = True
             Dim Prpro As New ImageOCRsetting
             Prpro.Text += Path.GetFileName(EditorPicBox.FileName)
-            Prpro.txtLang.Text = CmbLang.Text
             Prpro.MyViewer = EditorPicBox
             Prpro.InitializeImage(EditorPicBox.Image.Clone, HocrPages.Single(Function(X) X.ImageName = EditorPicBox.FileName))
 
@@ -3303,6 +3603,10 @@ Public Class MainWindow
         End If
 
     End Sub
+
+
+
+
 
 
 

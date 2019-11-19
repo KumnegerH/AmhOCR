@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ImageOCRsetting
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class ImageOCRsetting
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.chkGray = New System.Windows.Forms.CheckBox()
@@ -45,13 +45,6 @@ Partial Class ImageOCRsetting
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.btnApply = New System.Windows.Forms.Button()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.txtLang = New System.Windows.Forms.TextBox()
-        Me.txtEngine = New System.Windows.Forms.TextBox()
-        Me.txtPageSeg = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.TrackThresh, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpBoxThreshold.SuspendLayout()
@@ -63,7 +56,6 @@ Partial Class ImageOCRsetting
         CType(Me.TrackContrast, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -82,14 +74,14 @@ Partial Class ImageOCRsetting
         Me.chkGray.AutoSize = True
         Me.chkGray.Location = New System.Drawing.Point(6, 19)
         Me.chkGray.Name = "chkGray"
-        Me.chkGray.Size = New System.Drawing.Size(75, 17)
+        Me.chkGray.Size = New System.Drawing.Size(78, 17)
         Me.chkGray.TabIndex = 0
-        Me.chkGray.Text = "GrayScale"
+        Me.chkGray.Text = "Gray Scale"
         Me.chkGray.UseVisualStyleBackColor = True
         '
         'btnReset
         '
-        Me.btnReset.Location = New System.Drawing.Point(353, 363)
+        Me.btnReset.Location = New System.Drawing.Point(349, 276)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(75, 23)
         Me.btnReset.TabIndex = 1
@@ -98,11 +90,11 @@ Partial Class ImageOCRsetting
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(180, 363)
+        Me.btnOK.Location = New System.Drawing.Point(176, 276)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 1
-        Me.btnOK.Text = "Save"
+        Me.btnOK.Text = "Save and Apply"
         Me.btnOK.UseVisualStyleBackColor = True
         '
         'TrackThresh
@@ -289,7 +281,7 @@ Partial Class ImageOCRsetting
         '
         Me.GroupBox2.Controls.Add(Me.GroupBox7)
         Me.GroupBox2.Controls.Add(Me.GroupBox1)
-        Me.GroupBox2.Location = New System.Drawing.Point(4, 99)
+        Me.GroupBox2.Location = New System.Drawing.Point(4, 12)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(431, 251)
         Me.GroupBox2.TabIndex = 4
@@ -311,88 +303,19 @@ Partial Class ImageOCRsetting
         '
         'btnApply
         '
-        Me.btnApply.Location = New System.Drawing.Point(11, 363)
+        Me.btnApply.Location = New System.Drawing.Point(10, 276)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(75, 23)
         Me.btnApply.TabIndex = 1
         Me.btnApply.Text = "Cancel"
         Me.btnApply.UseVisualStyleBackColor = True
         '
-        'GroupBox6
-        '
-        Me.GroupBox6.Controls.Add(Me.txtLang)
-        Me.GroupBox6.Controls.Add(Me.txtEngine)
-        Me.GroupBox6.Controls.Add(Me.txtPageSeg)
-        Me.GroupBox6.Controls.Add(Me.Label2)
-        Me.GroupBox6.Controls.Add(Me.Label3)
-        Me.GroupBox6.Controls.Add(Me.Label1)
-        Me.GroupBox6.Location = New System.Drawing.Point(4, 12)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(431, 81)
-        Me.GroupBox6.TabIndex = 5
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Tesseract Setting"
-        '
-        'txtLang
-        '
-        Me.txtLang.Enabled = False
-        Me.txtLang.Location = New System.Drawing.Point(291, 17)
-        Me.txtLang.Name = "txtLang"
-        Me.txtLang.Size = New System.Drawing.Size(131, 20)
-        Me.txtLang.TabIndex = 1
-        '
-        'txtEngine
-        '
-        Me.txtEngine.Enabled = False
-        Me.txtEngine.Location = New System.Drawing.Point(118, 19)
-        Me.txtEngine.Name = "txtEngine"
-        Me.txtEngine.Size = New System.Drawing.Size(87, 20)
-        Me.txtEngine.TabIndex = 1
-        Me.txtEngine.Text = "LSTM"
-        '
-        'txtPageSeg
-        '
-        Me.txtPageSeg.Enabled = False
-        Me.txtPageSeg.Location = New System.Drawing.Point(118, 55)
-        Me.txtPageSeg.Name = "txtPageSeg"
-        Me.txtPageSeg.Size = New System.Drawing.Size(304, 20)
-        Me.txtPageSeg.TabIndex = 1
-        Me.txtPageSeg.Text = "Auto"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(230, 19)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(55, 13)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Language"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(4, 58)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(100, 13)
-        Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Page Segmentation"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(4, 20)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(70, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Engine Mode"
-        '
         'ImageOCRsetting
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.ClientSize = New System.Drawing.Size(438, 396)
-        Me.Controls.Add(Me.GroupBox6)
+        Me.ClientSize = New System.Drawing.Size(438, 323)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.btnApply)
@@ -419,8 +342,6 @@ Partial Class ImageOCRsetting
         CType(Me.TrackContrast, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox7.ResumeLayout(False)
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -447,12 +368,5 @@ Partial Class ImageOCRsetting
     Friend WithEvents lblContrast As Label
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents btnApply As Button
-    Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents txtLang As TextBox
-    Friend WithEvents txtEngine As TextBox
-    Friend WithEvents txtPageSeg As TextBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label1 As Label
     Friend WithEvents GroupBox7 As GroupBox
 End Class

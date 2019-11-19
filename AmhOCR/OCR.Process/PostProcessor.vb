@@ -12,13 +12,13 @@ Public Class PostProcessor
     ''' Set text properties for paragraph 
     ''' </summary>
     ''' <param name="HocrPages">Pages to process</param>
-    Public Shared Async Function DefineAllFormats(ByVal HocrPages As List(Of HocrPage)) As Task(Of List(Of HocrPage))
+    Public Shared Async Function AsyncDefineAllFormats(ByVal HocrPages As List(Of HocrPage)) As Task(Of List(Of HocrPage))
 
         For pgs As Integer = 0 To HocrPages.Count - 1
 
             Dim NewPages = HocrPages(pgs)
 
-            Await Analyzepage(NewPages)
+            Await AsyncAnalyzepage(NewPages)
 
 
             HocrPages(pgs) = NewPages
@@ -29,7 +29,25 @@ Public Class PostProcessor
 
     End Function
 
-    Public Shared Async Function Analyzepage(ByVal NewPages As HocrPage) As Task(Of HocrPage)
+    Public Shared Function DefineAllFormats(ByVal HocrPages As List(Of HocrPage)) As List(Of HocrPage)
+
+        For pgs As Integer = 0 To HocrPages.Count - 1
+
+            Dim NewPages = HocrPages(pgs)
+
+            Analyzepage(NewPages)
+
+
+            HocrPages(pgs) = NewPages
+        Next
+
+
+        Return HocrPages
+
+    End Function
+
+
+    Public Shared Async Function AsyncAnalyzepage(ByVal NewPages As HocrPage) As Task(Of HocrPage)
 
         Dim Tsk = TaskEx.Run(
             Sub()
@@ -95,7 +113,62 @@ Public Class PostProcessor
 
     End Function
 
+    Public Shared Function Analyzepage(ByVal NewPages As HocrPage) As HocrPage
 
+        NewPages.ocrpagemargin.Top = NewPages.bbox.Height
+        NewPages.ocrpagemargin.Bottom = 0
+
+        NewPages.ocrpagemargin.Left = NewPages.bbox.Right
+        NewPages.ocrpagemargin.Right = 0
+
+
+
+        For cra As Integer = 0 To NewPages.AllocrCarea.Count - 1
+
+            Dim areabx = NewPages.AllocrCarea(cra)
+            If NewPages.ocrpagemargin.Top > areabx.bbox.Top Then
+                NewPages.ocrpagemargin.Top = areabx.bbox.Top
+            End If
+
+            If NewPages.ocrpagemargin.Bottom < areabx.bbox.Bottom Then
+                NewPages.ocrpagemargin.Bottom = areabx.bbox.Bottom
+            End If
+
+            If NewPages.ocrpagemargin.Left > areabx.bbox.Left Then
+                NewPages.ocrpagemargin.Left = areabx.bbox.Left
+            End If
+
+            If NewPages.ocrpagemargin.Right < areabx.bbox.Right Then
+                NewPages.ocrpagemargin.Right = areabx.bbox.Right
+            End If
+
+
+
+            For para As Integer = 0 To areabx.AllocrParas.Count - 1
+
+                Dim Parabx = areabx.AllocrParas(para)
+
+                Parabx.AreaNum = cra
+                Parabx.Font = CheckForFont(Parabx)
+                Parabx.FontSize = Parabx.Font.Size
+
+                Parabx = Setalignment(Parabx)
+                NewPages.AllocrCarea(cra) = areabx
+
+            Next
+
+
+
+        Next
+
+
+        NewPages.ocrpagemargin.Right = NewPages.bbox.Right - NewPages.ocrpagemargin.Right
+        NewPages.ocrpagemargin.Bottom = NewPages.bbox.Height - NewPages.ocrpagemargin.Bottom
+
+        Return NewPages
+
+
+    End Function
     ''' <summary>
     ''' Re-estimate font size  
     ''' </summary>

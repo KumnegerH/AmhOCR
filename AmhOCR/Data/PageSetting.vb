@@ -56,7 +56,7 @@ Public Class PageSetting
         OcrMode = OCRsettings.OcrMode
         Language = OCRsettings.Language
         Resolution = OCRsettings.Resolution
-
+        Gray = OCRsettings.PrefGray
 
 
     End Sub

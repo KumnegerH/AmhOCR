@@ -95,7 +95,7 @@ Public Class OCRsettings
     Public Shared Sub SetDefault()
 
         SourceImagaChenged = False
-        Gray = False
+        Gray = PrefGray
         Threshold = False
         Bright = False
         Contrast = False
@@ -126,7 +126,7 @@ Public Class OCRsettings
     Public Shared Property PrefTimeOut As Integer = 120000
     Public Shared Property PrefSpellErrorColor As Color = Color.Red
     Public Shared Property PrefUserSpelledColor As Color = Color.Blue
-
+    Public Shared Property PrefGray As Boolean = False
 
 
 End Class

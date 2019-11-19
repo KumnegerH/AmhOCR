@@ -4,15 +4,14 @@ Public Class BatchProgressControl
 
     Public IsPause As Boolean = False
     Public CancelRequested As Boolean = False
+    Public CompetedTasks As Integer = 0
+    Public TotalTasks As Integer = 0
+    Public CompletedProcess As Integer = 0
+    Public PausedProcess As Integer = 0
 
-    Friend CompetedTasks As Integer = 0
-    Friend TotalTasks As Integer = 0
-    Friend CompletedProcess As Integer = 0
+    Public NumberOfProcess As Integer = 1
 
     Private lblImageInprocess As String = ""
-
-    Friend NumberOfProcess As Integer = 1
-
     Private LapTime As Date
 
     Private TotalRunTime As TimeSpan
@@ -110,8 +109,8 @@ Public Class BatchProgressControl
         End If
     End Sub
 
-    Private Delegate Sub DelegateUpdateProgressText(ByVal prg As Integer)
-    Public Overloads Sub UpdateProgressText(ByVal prg As Integer)
+    Private Delegate Sub DelegateUpdateProgressText(ByVal prg As String)
+    Public Overloads Sub UpdateProgressText(ByVal prg As String)
         If lblStage.InvokeRequired Then
             Dim delg As New DelegateUpdateProgressText(AddressOf UpdateProgressText)
             lblStage.Invoke(delg, prg)
@@ -144,6 +143,7 @@ Public Class BatchProgressControl
 
     Private Sub btnPause_Click(sender As Object, e As EventArgs) Handles btnPause.Click
         If CancelRequested = False Then
+            PausedProcess = CompletedProcess
             IsPause = True
 
             lblProg.ForeColor = Color.Red
