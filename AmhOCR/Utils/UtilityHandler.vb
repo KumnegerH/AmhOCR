@@ -525,8 +525,10 @@ Public Class UtilityHandler
             ' ProgrImpor.Size = New Size(364, 100)
             ProgrImpor.StartPosition = FormStartPosition.CenterParent
 
-            ProgrImpor.UseUserFolder = True
-            ProgrImpor.temppath = ouputDirTxt.Text
+            ProgrImpor.btnImport.Enabled = False
+            ProgrImpor.btnImport.Visible = False
+            ProgrImpor.ProgressBar1.Visible = True
+            ProgrImpor.ouputDirTxt.Text = ouputDirTxt.Text
             ProgrImpor.ProgressBar1.Value = 0
             ProgrImpor.ProgressBar1.Maximum = FileNames.Count
             '  ProgrImpor.TopMost = True

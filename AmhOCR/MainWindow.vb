@@ -3347,7 +3347,7 @@ Public Class MainWindow
     End Sub
 
 
-    Private Async Sub OpenMultiplePdfs(ByVal FileNames() As String)
+    Private Sub OpenMultiplePdfs(ByVal FileNames() As String)
 
 
 
@@ -3357,7 +3357,7 @@ Public Class MainWindow
 
 
 
-            Pdf2imgFiles = Await readGhost(FileNames)
+            Pdf2imgFiles = readGhost(FileNames)
 
 
         Catch ex As Exception
@@ -3368,14 +3368,17 @@ Public Class MainWindow
         If Pdf2imgFiles.Count > 0 Then
 
             OCRsettings.ProjectTempFolder = Path.GetDirectoryName(Pdf2imgFiles.First)
-            OpenMultipleImages(Pdf2imgFiles.ToArray, True)
+            OpenMultipleImages(Pdf2imgFiles.ToArray, False)
 
+        Else
+
+            isBusy = False
 
         End If
 
     End Sub
 
-    Private Async Function readGhost(ByVal fileNames As String()) As Task(Of List(Of String))
+    Private Function readGhost(ByVal fileNames As String()) As List(Of String)
         Dim AllFileCopy As New List(Of String)
 
         Try
@@ -3392,19 +3395,53 @@ Public Class MainWindow
 
                 ProgrImpor.ProgressBar1.Value = 0
                 ProgrImpor.ProgressBar1.Maximum = fileNames.Count
-                ProgrImpor.TopMost = True
+                ProgrImpor.dirbtm.Enabled = True
+                For Each file In fileNames
+                    ProgrImpor.checkedItem.Items.Add(file, True)
+                Next
+                ProgrImpor.justWait = False
+                ProgrImpor.lblprogIndicator.Text = "Number of PDF File to Import: " + fileNames.Count.ToString
+                ProgrImpor.ouputDirTxt.Text = Path.Combine(OCRsettings.AmhOcrConvFolder, Guid.NewGuid.ToString)
 
-                ProgrImpor.Show(Me)
+                AddHandler ProgrImpor.btnImport.Click,
+                    New EventHandler(
+                   Async Sub(s, e)
+
+                       If ProgrImpor.checkedItem.CheckedIndices.Count > 0 Then
+                           ProgrImpor.justWait = True
+                           ProgrImpor.lblprogIndicator.Text = "Progress: "
+
+                           Dim checkedFiles As New List(Of String)
+
+                           For Each idx As Integer In ProgrImpor.checkedItem.CheckedIndices
+                               checkedFiles.Add(fileNames(idx))
+                           Next
+
+                           ProgrImpor.checkedItem.Items.Clear()
+
+                           ProgrImpor.btnImport.Enabled = False
+                           ProgrImpor.btnImport.Visible = False
+                           ProgrImpor.ProgressBar1.Visible = True
+                           ProgrImpor.Invalidate()
+                           If (Await ProgrImpor.readGhost(checkedFiles.ToArray)) = True Then
+
+                               ProgrImpor.ProgressBar1.Visible = False
+
+                               ProgrImpor.progLabl.Text = "Completed"
+                               AllFileCopy = ProgrImpor.GetFiles()
+                               ProgrImpor.Close()
+                           End If
+
+                       End If
+
+                   End Sub)
 
 
-                If (Await ProgrImpor.readGhost(fileNames)) = True Then
+                ProgrImpor.ShowDialog(Me)
 
-                    ProgrImpor.ProgressBar1.Visible = False
 
-                    ProgrImpor.progLabl.Text = "Completed"
-                    AllFileCopy = ProgrImpor.GetFiles()
-                    ProgrImpor.Close()
-                End If
+
+
 
 
             End Using

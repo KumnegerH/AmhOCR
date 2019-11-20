@@ -25,7 +25,7 @@ Partial Class PdfToImages
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ouputDirTxt = New System.Windows.Forms.TextBox()
         Me.dirbtm = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblprogIndicator = New System.Windows.Forms.Label()
         Me.progLabl = New System.Windows.Forms.Label()
         Me.btnImport = New System.Windows.Forms.Button()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
@@ -63,14 +63,14 @@ Partial Class PdfToImages
         Me.dirbtm.Text = "Browse"
         Me.dirbtm.UseVisualStyleBackColor = True
         '
-        'Label2
+        'lblprogIndicator
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 68)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 13)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Progress:"
+        Me.lblprogIndicator.AutoSize = True
+        Me.lblprogIndicator.Location = New System.Drawing.Point(12, 68)
+        Me.lblprogIndicator.Name = "lblprogIndicator"
+        Me.lblprogIndicator.Size = New System.Drawing.Size(51, 13)
+        Me.lblprogIndicator.TabIndex = 0
+        Me.lblprogIndicator.Text = "Progress:"
         '
         'progLabl
         '
@@ -82,22 +82,21 @@ Partial Class PdfToImages
         '
         'btnImport
         '
-        Me.btnImport.Enabled = False
         Me.btnImport.Location = New System.Drawing.Point(191, 311)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(75, 23)
         Me.btnImport.TabIndex = 4
         Me.btnImport.Text = "Import"
         Me.btnImport.UseVisualStyleBackColor = True
-        Me.btnImport.Visible = False
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(15, 311)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 311)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(451, 23)
         Me.ProgressBar1.Step = 1
         Me.ProgressBar1.TabIndex = 5
+        Me.ProgressBar1.Visible = False
         '
         'DataGridView1
         '
@@ -140,7 +139,7 @@ Partial Class PdfToImages
         Me.Controls.Add(Me.dirbtm)
         Me.Controls.Add(Me.ouputDirTxt)
         Me.Controls.Add(Me.progLabl)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.lblprogIndicator)
         Me.Controls.Add(Me.Label1)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -157,7 +156,7 @@ Partial Class PdfToImages
     Friend WithEvents Label1 As Label
     Friend WithEvents ouputDirTxt As TextBox
     Friend WithEvents dirbtm As Button
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblprogIndicator As Label
     Friend WithEvents progLabl As Label
     Friend WithEvents btnImport As Button
     Friend WithEvents ProgressBar1 As ProgressBar

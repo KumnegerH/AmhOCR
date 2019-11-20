@@ -12,15 +12,20 @@ Imports System.ComponentModel
 
 Public Class PdfToImages
 
-    Private justWait As Boolean = True
+    Public AllFileCopy As List(Of String)
+    Public convertPath As String = ""
+    Public justWait As Boolean = True
+
+
     Private NumberOfPage = 1
     Private AllFiles As List(Of String)
     Private lbltext = "Total Number of Pages Converted: "
 
-    Private Sub PdfToImages_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ouputDirTxt.Text = OCRsettings.AmhOcrTempFolder
 
-        checkedItem.Items.Clear()
+    Private Sub PdfToImages_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'ouputDirTxt.Text = OCRsettings.AmhOcrTempFolder
+
+        ' checkedItem.Items.Clear()
 
     End Sub
 
@@ -30,9 +35,8 @@ Public Class PdfToImages
         ProgressBar1.Value = Prog
     End Sub
 
-    Public AllFileCopy As List(Of String)
-    Friend temppath As String = ""
-    Friend UseUserFolder As Boolean = False
+
+
     Public Async Function readGhost(ByVal fileNames As String()) As Task(Of Boolean)
 
         Dim cnt As Integer = 1
@@ -50,18 +54,15 @@ Public Class PdfToImages
 
         Try
 
-            If UseUserFolder = False Then
-                temppath = OCRsettings.AmhOcrTempFolder
-                temppath = Path.Combine(temppath, Guid.NewGuid().ToString)
-                Directory.CreateDirectory(temppath)
-            End If
-
-
 
             AllFiles = New List(Of String)
             AllFileCopy = New List(Of String)
 
-            ouputDirTxt.Text = temppath
+            convertPath = ouputDirTxt.Text
+
+            If Not Directory.Exists(convertPath) Then
+                Directory.CreateDirectory(convertPath)
+            End If
 
 
             ProgressBar1.Style = ProgressBarStyle.Blocks
@@ -91,7 +92,7 @@ Public Class PdfToImages
                         stei.Resolution = OCRsettings.Resolution
 
                         Dim cleanName = Path.GetFileNameWithoutExtension(fileName)
-                        cleanName = temppath + "\" + cleanName + "_page_%d.jpeg"
+                        cleanName = convertPath + "\" + cleanName + "_page_%d.jpeg"
 
                         GhostscriptWrapper.GenerateOutput(fileName, cleanName, stei)
 
@@ -117,14 +118,14 @@ Public Class PdfToImages
 
                     For pg As Integer = 1 To NumberOfPage
 
-                        AllFiles.Add(temppath + "\" + cleanName + "_page_" + pg.ToString + ".jpeg")
+                        AllFiles.Add(convertPath + "\" + cleanName + "_page_" + pg.ToString + ".jpeg")
                     Next
 
                     BackgroundWorker1.RunWorkerAsync(fileName)
 
                     Do While BackgroundWorker1.IsBusy
 
-                        Dim files = Directory.GetFiles(temppath).OrderBy(Function(X) X)
+                        Dim files = Directory.GetFiles(convertPath).OrderBy(Function(X) X)
 
                         For Each file In files
                             If AllFiles.Contains(file) Then
@@ -184,13 +185,6 @@ Public Class PdfToImages
 
 
 
-    Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
-
-
-        justWait = False
-        Me.Close()
-
-    End Sub
 
     Private Sub PdfToImages_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
 
