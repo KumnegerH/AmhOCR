@@ -42,14 +42,15 @@ Public Class ReadImage
 
         Environment.SetEnvironmentVariable("TESSDATA_PREFIX", _dataPath)
 
-        If Environment.Is64BitOperatingSystem Then
-            _tessPath = Path.Combine(_tessPath, "x64")
-        Else
-            _tessPath = Path.Combine(_tessPath, "x86")
-        End If
+        'If Environment.Is64BitOperatingSystem Then
+        '      _tessPath = Path.Combine(_tessPath, "x64")
+        ' Else
+        '      _tessPath = Path.Combine(_tessPath, "x86")
+        'End If
 
-
+        _tessPath = Path.Combine(_tessPath, "x86")
         _tessPath = Path.Combine(_tessPath, "tesseract.exe")
+
     End Sub
 
 
