@@ -1,5 +1,5 @@
 # AmhOCR
-Tesseract Powered Windows Desktop OCR Apllication With Multiple Pre/Post Processing GUI
+Tesseract Powered Windows Desktop OCR Application With Multiple Pre/Post Processing GUI
 
 AmhOCR is an Optical Character Recognition (OCR) application for Windows Desktop. It is based on the latest Tesseract's v4.0/LSTM OCR engine which supports over 100 languages. However some post-processing tools, in AmhOCR, are applicable only for Amharic language.
 
