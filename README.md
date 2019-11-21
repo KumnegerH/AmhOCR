@@ -5,7 +5,7 @@ AmhOCR is an Optical Character Recognition (OCR) application for Windows Desktop
 
 #### Test Screenshot: Multi column newspaper image recognition, with image area embedding, spell checking(highlighted in red) and word level text editing.
 
-![Test Result](../master/AmhOCR/Test.File/Test_Result_news_t1.png)
+![Test_Result_news_t1](https://user-images.githubusercontent.com/57003323/69315187-ff60cf00-0c46-11ea-84f4-6267a8bcbe1b.png)
 
 ## Features:
 - Support OCRing multiple image format: TIFF, JPEG, PNG, BMP and other image formats
