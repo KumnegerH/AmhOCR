@@ -20,7 +20,7 @@ Public Class ReadImage
 
     Private _lang As String
     Private _tessPath As String
-    Private _OcrModel As String
+    Private _pageModel As String
     Private _dataPath As String
 
     Public Event WriteOutput(ByVal arg As ProcessFlowArg)
@@ -30,12 +30,12 @@ Public Class ReadImage
     ''' Start Service for tesseract Operation
     ''' </summary>
     ''' <param name="lang">language to extract</param>
-    ''' <param name="OcrModel">Tesseract Model to use, LSTM or Legacy</param>
-    Public Sub New(ByVal lang As String, OcrModel As String)
+    ''' <param name="pageModel">Tesseract Model to use, LSTM or Legacy</param>
+    Public Sub New(ByVal lang As String, pageModel As String)
 
         _tessPath = Environment.CurrentDirectory
         _lang = lang
-        _OcrModel = OcrModel
+        _pageModel = pageModel
 
         _tessPath = Path.Combine(_tessPath, "Tesseract")
         _dataPath = Path.Combine(_tessPath, "tessdata")
@@ -79,7 +79,7 @@ Public Class ReadImage
                 With info
                     .FileName = _tessPath
                     '.Arguments = $"{tempInputfile} {tempOutputfile} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"paragraph_debug_level=1"} -c debug_file={trashdebugfile} "
-                    .Arguments = $" {trashimp} {trashOutputfile} -l {_lang}"
+                    .Arguments = $" {trashimp} {trashOutputfile} -l {_lang} -c tessedit_pageseg_mode={_pageModel}"
                     .RedirectStandardError = True
                     .RedirectStandardOutput = True
                     .CreateNoWindow = True
@@ -138,7 +138,7 @@ Public Class ReadImage
                 With info
                     .FileName = _tessPath
                     '.Arguments = $"{tempInputfile} {tempOutputfile} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"paragraph_debug_level=1"} -c debug_file={trashdebugfile} -c {"tessedit_parallelize=1"}"
-                    .Arguments = $" {trashinput} {trashOutput} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"tessedit_page_number=0"} -c {"hocr_font_info=1"}"
+                    .Arguments = $" {trashinput} {trashOutput} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"tessedit_page_number=0"} -c {"hocr_font_info=1"} -c tessedit_pageseg_mode={_pageModel}"
                     .RedirectStandardError = True
                     .RedirectStandardOutput = True
                     .CreateNoWindow = True
@@ -205,7 +205,7 @@ Public Class ReadImage
                 With info
                     .FileName = _tessPath
                     '.Arguments = $"{tempInputfile} {tempOutputfile} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"paragraph_debug_level=1"} -c debug_file={trashdebugfile} -c {"tessedit_parallelize=1"}"
-                    .Arguments = $" {trashinput} {trashOutput} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"tessedit_page_number=0"} -c {"hocr_font_info=1"}"
+                    .Arguments = $" {trashinput} {trashOutput} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"tessedit_page_number=0"} -c {"hocr_font_info=1"} -c tessedit_pageseg_mode={_pageModel}"
                     .RedirectStandardError = True
                     .RedirectStandardOutput = True
                     .CreateNoWindow = True
@@ -268,7 +268,7 @@ Public Class ReadImage
                 With info
                     .FileName = _tessPath
                     '.Arguments = $"{tempInputfile} {tempOutputfile} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"paragraph_debug_level=1"} -c debug_file={trashdebugfile} -c {"tessedit_parallelize=1"}"
-                    .Arguments = $" {trashinput} {trashOutput} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"hocr_font_info=1"} "
+                    .Arguments = $" {trashinput} {trashOutput} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"hocr_font_info=1"} -c tessedit_pageseg_mode={_pageModel}"
                     .RedirectStandardError = True
                     .RedirectStandardOutput = True
                     .CreateNoWindow = True
@@ -339,7 +339,7 @@ Public Class ReadImage
                 With info
                     .FileName = _tessPath
                     '.Arguments = $"{tempInputfile} {tempOutputfile} -l {_lang} -c {"tessedit_create_hocr=1"} -c {"paragraph_debug_level=1"} -c debug_file={trashdebugfile} -c {"tessedit_parallelize=1"}"
-                    .Arguments = $" {trashinput} {OutputFile} -l {_lang} -c {"tessedit_create_pdf=1"} -c debug_file={debugfile} "
+                    .Arguments = $" {trashinput} {OutputFile} -l {_lang} -c {"tessedit_create_pdf=1"} -c debug_file={debugfile} -c tessedit_pageseg_mode={_pageModel}"
                     .RedirectStandardError = True
                     .RedirectStandardOutput = True
                     .CreateNoWindow = True

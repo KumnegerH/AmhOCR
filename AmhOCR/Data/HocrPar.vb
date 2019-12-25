@@ -8,7 +8,7 @@ Public Class HocrPar
     Public Property bbox As Rectangle
 
 
-    Public Property ParaNum As Integer = 0
+    Public Property ParNum As Integer = 0
 
     Public Property AreaNum As Integer = 0
 

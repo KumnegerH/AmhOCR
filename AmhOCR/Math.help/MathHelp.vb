@@ -661,6 +661,19 @@ Public Class MathHelp
 
     End Function
 
+    Public Overloads Shared Function RectanglesUnion(ByVal recs As List(Of Rectangle)) As Rectangle
+        Dim Rect As New Rectangle
+
+        Rect = recs(0)
+
+        For iu As Integer = 1 To recs.Count - 1
+            Rect = Rectangle.Union(recs(iu), Rect)
+        Next
+
+
+        Return Rect
+    End Function
+
 
     Public Overloads Shared Function DivideTimeSpan(ByVal span As TimeSpan, ByVal devider As Integer) As TimeSpan
         Return TimeSpan.FromTicks(span.Ticks / devider)

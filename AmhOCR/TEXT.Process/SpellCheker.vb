@@ -9,6 +9,10 @@ Public Class SpellCheker
     Public chars() As String
     Public puncs() As Char
     Public nums() As String
+    Public prefix() As String
+    Public suffix() As String
+    Public CharReplace() As String
+    Public Shared WhiteListChars() As String
     Public Event DicLoaded As EventHandler
     Public isloading As Boolean = False
     Public _UserPath As String = ""
@@ -17,16 +21,24 @@ Public Class SpellCheker
 
     Private NoData As Boolean = True
 
+    Private SpecialCharWhiteList() As Char
+
+
     Public Sub New()
 
         isloading = False
         Loaded = False
         NoData = True
+        WhiteListChars = {}
         Words = {}
         chars = {}
         puncs = {}
         nums = {}
+        CharReplace = {}
         UserWords = {}
+        prefix = {}
+        suffix = {}
+        SpecialCharWhiteList = {}
         Lang = ""
         _UserPath = ""
     End Sub
@@ -42,6 +54,11 @@ Public Class SpellCheker
         puncs = {}
         nums = {}
         UserWords = {}
+        CharReplace = {}
+        prefix = {}
+        suffix = {}
+        WhiteListChars = {}
+        SpecialCharWhiteList = {}
         Lang = ""
         _UserPath = ""
 
@@ -54,6 +71,9 @@ Public Class SpellCheker
         isloading = True
         Lang = Language
 
+        If Lang = "amh" Then
+            SpecialCharWhiteList = {"፣".First, "፤".First, "፡".First, ":".First}
+        End If
 
         Dim _CharPath = Environment.CurrentDirectory
         _CharPath = System.IO.Path.Combine(_CharPath, "Lang.Data")
@@ -72,20 +92,57 @@ Public Class SpellCheker
         _DictPath = System.IO.Path.Combine(_DictPath, "Lang.Data")
         _DictPath = System.IO.Path.Combine(_DictPath, Lang + ".words")
 
+        Dim _prefixPath = Environment.CurrentDirectory
+        _prefixPath = System.IO.Path.Combine(_prefixPath, "Lang.Data")
+        _prefixPath = System.IO.Path.Combine(_prefixPath, Lang + ".prefixes")
+
+
+        Dim _ReplacePath = Environment.CurrentDirectory
+        _ReplacePath = System.IO.Path.Combine(_ReplacePath, "Lang.Data")
+        _ReplacePath = System.IO.Path.Combine(_ReplacePath, Lang + ".normalizers")
+
+
+
         _UserPath = OCRsettings.AmhOcrDataFolder
         _UserPath = System.IO.Path.Combine(_UserPath, Lang + ".userwords")
 
 
-        If IO.File.Exists(_DictPath) Then
-            Dim wordsFile = IO.File.ReadAllText(_DictPath)
-            Words = wordsFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+        If IO.File.Exists(_prefixPath) Then
+
+            prefix = IO.File.ReadAllLines(_prefixPath)
+
         End If
 
 
+        If IO.File.Exists(_DictPath) Then
+
+            Words = IO.File.ReadAllLines(_DictPath)
+
+        End If
+
+
+        If IO.File.Exists(_ReplacePath) Then
+            CharReplace = IO.File.ReadAllLines(_ReplacePath)
+            Dim WhiteList = CharReplace.Select(Function(x) x.Split(" ").First)
+
+            Dim ReplaceList As New List(Of String)
+
+            For Charindx As Integer = 0 To WhiteList.Count - 1 Step 1
+
+                For Each WhiteChr In WhiteList(Charindx)
+                    ReplaceList.Add(CharReplace(Charindx).Last)
+                Next
+
+            Next
+
+            WhiteListChars = {String.Join("", WhiteList),
+                              String.Join("", ReplaceList.AsEnumerable)}
+
+        End If
 
         If IO.File.Exists(_UserPath) Then
 
-            UserWords = IO.File.ReadAllText(_UserPath).Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+            UserWords = IO.File.ReadAllLines(_UserPath)
             Words = Words.Union(UserWords).ToArray
         Else
             IO.File.Create(_UserPath)
@@ -94,23 +151,20 @@ Public Class SpellCheker
 
         If IO.File.Exists(_CharPath) Then
 
-            Dim charsFile = IO.File.ReadAllText(_CharPath)
-            chars = charsFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+            chars = IO.File.ReadAllLines(_CharPath)
 
         End If
 
         If IO.File.Exists(_puncsPath) Then
 
-            Dim puncsFile = IO.File.ReadAllText(_puncsPath)
-            Dim puncString = puncsFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+            Dim puncString = IO.File.ReadAllLines(_puncsPath)
             puncs = puncString.Select(Function(X) X.First).ToArray
 
         End If
 
         If IO.File.Exists(_numsPath) Then
 
-            Dim numaFile = IO.File.ReadAllText(_numsPath)
-            nums = numaFile.Split({Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+            nums = IO.File.ReadAllLines(_numsPath)
 
         End If
 
@@ -143,33 +197,24 @@ Public Class SpellCheker
 
         Else
 
+
+            'the original alphabets will be normalized to equivalent form
+            word = NormalizeText(word)
+
             'the word will be splited into sub-words based on white space
             'empty string will be ignored  
             Dim subwords = word.Split({" "}, StringSplitOptions.RemoveEmptyEntries)
 
-
             'each sub-word will be checked
             'this function return true, only if all sub-words are valid. 
 
-            Return (subwords.Where(Function(X) (ListedWord(X) OrElse isNumeric(X) OrElse EndsWithPunc(X) OrElse puncs.Contains(X))).Count = subwords.Count)
+            Return (subwords.Where(Function(X) (puncs.Contains(X) OrElse isNumeric(X) OrElse ListedWord(X)) OrElse wordwithprefix(X) OrElse EndsWithPunc(X)).Count = subwords.Count)
 
         End If
 
 
     End Function
 
-
-
-    ''' <summary>
-    ''' Remove White Space at the begening and end of a word
-    ''' </summary>
-    ''' <param name="word"></param>
-    ''' <returns></returns>
-    Private Function CleanWhiteSpace(ByVal word As String) As String
-
-        Return word.TrimStart({" ".First}).TrimEnd({" ".First})
-
-    End Function
 
     ''' <summary>
     ''' Check if wordlist contrain this word
@@ -202,7 +247,21 @@ Public Class SpellCheker
     Private Function EndsWithPunc(ByVal word As String) As Boolean
 
 
-        Return Words.Contains(word.TrimStart(puncs).TrimEnd(puncs))
+        Return Words.Contains(word.Trim(puncs))
+
+    End Function
+
+    Private Function wordwithprefix(ByVal word As String) As Boolean
+
+
+        If prefix.Contains(word.First) Then
+            word = word.Remove(0, 1)
+            Return Words.Contains(word)
+        Else
+            Return False
+        End If
+
+
 
     End Function
 
@@ -217,6 +276,56 @@ Public Class SpellCheker
         Return word
     End Function
 
+    Public Function RemoveSpecialCharacters(ByVal text As String) As String
+        Dim txt As String = text
+
+        If txt.Length > 0 AndAlso SpecialCharWhiteList.Count > 0 Then
+
+
+            For Each Charc In SpecialCharWhiteList
+                If txt.Contains(Charc) Then
+                    txt = txt.Replace(Charc, "")
+                End If
+            Next
+
+        End If
+
+
+        Return txt
+    End Function
+
+    Public Shared Function NormalizeText(ByVal txt As String) As String
+
+
+        Dim Ntxt As String = txt
+
+        If txt.Length > 0 AndAlso WhiteListChars.Count > 1 Then
+
+            If txt.Any(Function(X) WhiteListChars(0).Contains(X)) Then
+
+                Ntxt = ""
+
+                For Each st In txt
+
+                    Dim idx = WhiteListChars(0).IndexOf(st)
+
+                    If idx >= 0 Then
+                        Ntxt = Ntxt + WhiteListChars(1)(idx).ToString
+                    Else
+                        Ntxt = Ntxt + st.ToString
+                    End If
+
+                Next
+
+            End If
+
+        End If
+
+
+
+
+        Return Ntxt
+    End Function
 
 
 

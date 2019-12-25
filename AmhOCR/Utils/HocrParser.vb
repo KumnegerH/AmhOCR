@@ -13,6 +13,7 @@ Public Class HocrParser
     Public Shared Function ParsePage(ByVal Hocrxml As XElement, ByVal imgName As String, ByVal newOCRpage As HocrPage) As HocrPage
 
 
+
         If Hocrxml.Attributes.Any(Function(X) X.Name.LocalName = "class" AndAlso X.Value = "ocr_page") Then
 
             If Hocrxml.Attributes.Any(Function(X) X.Name.LocalName = "title" AndAlso String.IsNullOrEmpty(X.Value) = False) Then
@@ -23,37 +24,56 @@ Public Class HocrParser
                 box.Height = box.Height - box.Y
                 newOCRpage.bbox = box
                 CurrentPageBox = box
+
+                Dim XPage As New XElement(Hocrxml)
+                XPage.RemoveNodes()
+
                 For Each tgs In Hocrxml.Elements
+
 
                     If tgs.Attributes.Any(Function(X) X.Name.LocalName = "class" AndAlso X.Value = "ocr_carea") Then
 
                         Dim newocrCarea As New HocrCarea
                         newocrCarea.areaNum = newOCRpage.AllocrCarea.Count
-                        newocrCarea = ParseArea(tgs, newocrCarea)
+                        Dim Xnode As New XElement(tgs)
+                        newocrCarea = ParseArea(Xnode, newocrCarea)
 
                         If newocrCarea IsNot Nothing AndAlso newocrCarea.AllocrParas.Count > 0 Then
                             newOCRpage.AllocrCarea.Add(newocrCarea)
-                        End If
 
+                            XPage.Add(Xnode)
+                        End If
 
                     End If
 
-
-
                 Next
+
+                newOCRpage.HocrXML.Elements.
+                                Single(Function(X) X.Name.LocalName = "body").
+                                RemoveNodes()
+
+                newOCRpage.HocrXML.Elements.
+                                 Single(Function(X) X.Name.LocalName = "body").
+                                 Add(XPage)
+
 
                 newOCRpage.UTF8Text = ""
 
                 newOCRpage = UpdateparagraphToPage(newOCRpage)
 
                 newOCRpage.orignalText = newOCRpage.UTF8Text
+
+
             Else
 
                 newOCRpage = Nothing
+
             End If
 
         Else
+
             newOCRpage = Nothing
+
         End If
 
         Return newOCRpage
@@ -62,8 +82,11 @@ Public Class HocrParser
 
 
 
-    Private Shared Function ParseArea(ByVal Hocrxml As XElement, ByRef newocrCarea As HocrCarea) As HocrCarea
+    Private Shared Function ParseArea(ByRef Hocrxml As XElement, ByRef newocrCarea As HocrCarea) As HocrCarea
 
+        Dim Xarea As XElement
+        Xarea = New XElement(Hocrxml)
+        Xarea.RemoveNodes()
 
 
         If Hocrxml.Attributes.Any(Function(X) X.Name.LocalName = "class" AndAlso X.Value = "ocr_carea") Then
@@ -80,11 +103,14 @@ Public Class HocrParser
                     If tgs.Attributes.Any(Function(X) X.Name.LocalName = "class" AndAlso X.Value = "ocr_par") Then
                         Dim newpara As New HocrPar
                         newpara.AreaNum = newocrCarea.areaNum
-                        newpara.ParaNum = newocrCarea.AllocrParas.Count
-                        newpara = ParsePara(tgs, newpara)
+                        newpara.ParNum = newocrCarea.AllocrParas.Count
+                        Dim Xnode As New XElement(tgs)
+                        newpara = ParsePara(Xnode, newpara)
 
                         If newpara IsNot Nothing AndAlso newpara.AllocrLines.Count > 0 Then
                             newocrCarea.AllocrParas.Add(newpara)
+
+                            Xarea.Add(Xnode)
                         End If
 
 
@@ -105,12 +131,16 @@ Public Class HocrParser
             newocrCarea = Nothing
         End If
 
-
+        Hocrxml = New XElement(Xarea)
         Return newocrCarea
     End Function
 
 
-    Private Shared Function ParsePara(ByVal Hocrxml As XElement, ByRef newocrPar As HocrPar) As HocrPar
+    Private Shared Function ParsePara(ByRef Hocrxml As XElement, ByRef newocrPar As HocrPar) As HocrPar
+
+        Dim XPara As XElement
+        XPara = New XElement(Hocrxml)
+        XPara.RemoveNodes()
 
         If Hocrxml.Attributes.Any(Function(X) X.Name.LocalName = "class" AndAlso X.Value = "ocr_par") Then
 
@@ -128,15 +158,18 @@ Public Class HocrParser
 
                 For Each tgs In Hocrxml.Elements
 
-                    If tgs.Attributes.Any(Function(X) X.Name.LocalName = "class" AndAlso (X.Value = "ocr_line" OrElse X.Value = "ocr_header" OrElse X.Value = "ocr_textfloat")) Then
+                    If tgs.Attributes.Any(Function(X) X.Name.LocalName = "class" AndAlso (X.Value = "ocr_line" OrElse X.Value = "ocr_header" OrElse X.Value = "ocr_textfloat" OrElse X.Value = "ocr_caption")) Then
                         Dim newLine As New HocrLine
                         newLine.areaNum = newocrPar.AreaNum
-                        newLine.ParNum = newocrPar.ParaNum
+                        newLine.ParNum = newocrPar.ParNum
                         newLine.LineNum = newocrPar.AllocrLines.Count
-                        newLine = ParseLine(tgs, newocrPar.Lang, newLine)
+
+                        Dim Xnode As New XElement(tgs)
+                        newLine = ParseLine(Xnode, newocrPar.Lang, newLine)
 
                         If newLine IsNot Nothing AndAlso newLine.AllocrWords.Count > 0 Then
                             newocrPar.AllocrLines.Add(newLine)
+                            XPara.Add(Xnode)
                         End If
 
 
@@ -148,26 +181,30 @@ Public Class HocrParser
 
                 newocrPar.Text = String.Join(Environment.NewLine, newocrPar.AllocrLines.Select(Of String)(Function(X) X.Text))
                 newocrPar.orignalText = newocrPar.Text
+
             Else
 
                 newocrPar = Nothing
             End If
 
         Else
+
             newocrPar = Nothing
         End If
 
-
+        Hocrxml = New XElement(XPara)
         Return newocrPar
 
 
     End Function
 
 
-    Private Shared Function ParseLine(ByVal Hocrxml As XElement, ByVal lng As String, ByRef newocrLine As HocrLine) As HocrLine
+    Private Shared Function ParseLine(ByRef Hocrxml As XElement, ByVal lng As String, ByRef newocrLine As HocrLine) As HocrLine
 
 
-
+        Dim Xline As XElement
+        Xline = New XElement(Hocrxml)
+        Xline.RemoveNodes()
 
         If Hocrxml.Attributes.Any(Function(X) X.Name.LocalName = "title" AndAlso String.IsNullOrEmpty(X.Value) = False) Then
 
@@ -187,16 +224,18 @@ Public Class HocrParser
 
                 If tgs.Attributes.Any(Function(X) X.Name.LocalName = "class" AndAlso X.Value = "ocrx_word") Then
 
-                    Dim newword = ParseWord(tgs, lng)
+                    Dim Xnode As New XElement(tgs)
+                    Dim newword = ParseWord(Xnode, lng)
 
-                    If newword IsNot Nothing AndAlso newword.Text <> String.Empty Then
+                    If (newword IsNot Nothing) AndAlso (Not String.IsNullOrEmpty(newword.Text)) Then
                         newword.areaNum = newocrLine.areaNum
                         newword.ParNum = newocrLine.ParNum
                         newword.lineNum = newocrLine.LineNum
                         newword.WordNum = newocrLine.AllocrWords.Count
                         newocrLine.AllocrWords.Add(newword)
-                    End If
 
+                        Xline.Add(Xnode)
+                    End If
 
                 End If
 
@@ -210,6 +249,9 @@ Public Class HocrParser
 
             newocrLine = Nothing
         End If
+
+
+        Hocrxml = New XElement(Xline)
 
         Return newocrLine
 
@@ -232,17 +274,8 @@ Public Class HocrParser
 
                 box.Width = box.Width - box.X
                 box.Height = box.Height - box.Y
+
                 newocrWord.bbox = box
-
-                ' this is to avoid big word text, or long vertical text which is not proportional to page size
-                'it is also an issue,bug of tesseract 4.0
-
-                ' Dim heightratio = box.Height / CurrentPageBox.Height
-
-                'If heightratio <= 0.75 Then
-
-                'End If
-
                 newocrWord.Text = Hocrxml.Value
                 newocrWord.orignalText = newocrWord.Text
                 newocrWord.XmlElement = Hocrxml
@@ -428,6 +461,16 @@ Public Class HocrParser
         Return line
     End Function
 
+    Public Shared Function UpdateLineToParagraph(ByVal Para As HocrPar) As HocrPar
+
+        Dim Lines = Para.AllocrLines.Select(Function(Y) Y.Text)
+
+        Para.Text = String.Join(Environment.NewLine, Lines)
+
+        Return Para
+
+    End Function
+
 
     Public Shared Function UpdateWordToParagraph(ByVal Para As HocrPar) As HocrPar
 
@@ -455,6 +498,7 @@ Public Class HocrParser
                 UTF8Text += Para.Text
 
                 UTF8Text += Environment.NewLine
+
             Next
 
         Next
@@ -466,7 +510,7 @@ Public Class HocrParser
     End Function
 
 
-    Public Shared Function UpdateparagraphToPage(ByVal Page As HocrPage) As HocrPage
+    Public Shared Function UpdateLineToPage(ByVal Page As HocrPage) As HocrPage
 
         Dim UTF8Text As String = ""
 
@@ -475,14 +519,36 @@ Public Class HocrParser
             For Each Para In area.AllocrParas
 
                 UTF8Text += Environment.NewLine
-                UTF8Text += Para.Text
-                UTF8Text += Environment.NewLine
 
+                Para = UpdateLineToParagraph(Para)
+                Para = PostProcessor.Setalignment(Para)
+                UTF8Text += Para.Text
+
+                UTF8Text += Environment.NewLine
             Next
 
         Next
 
         Page.UTF8Text = UTF8Text
+
+        Return Page
+
+    End Function
+
+    Public Shared Function UpdateparagraphToPage(ByVal Page As HocrPage) As HocrPage
+
+
+
+
+        Dim Parags = Page.AllocrCarea.Select(
+            Function(X)
+                Return String.Join(Environment.NewLine, X.AllocrParas.Select(Of String)(Function(Y) Y.Text))
+            End Function)
+
+
+        Page.UTF8Text = String.Join(Environment.NewLine, Parags)
+
+
 
         Return Page
 

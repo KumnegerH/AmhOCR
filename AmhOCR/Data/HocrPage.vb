@@ -30,21 +30,24 @@ Public Class HocrPage
 
         OCRsettings.Gray = _ocrsettings.Gray
 
-        OCRsettings.Threshold = OCRsettings.Threshold
-        OCRsettings.ThresholdValue = OCRsettings.ThresholdValue
+        OCRsettings.Threshold = _ocrsettings.Threshold
+        OCRsettings.ThresholdValue = _ocrsettings.ThresholdValue
 
-        OCRsettings.Bright = OCRsettings.Bright
-        OCRsettings.BrightValue = OCRsettings.BrightValue
+        OCRsettings.Bright = _ocrsettings.Bright
+        OCRsettings.BrightValue = _ocrsettings.BrightValue
 
-        OCRsettings.Contrast = OCRsettings.Contrast
-        OCRsettings.ContrastValue = OCRsettings.ContrastValue
+        OCRsettings.Contrast = _ocrsettings.Contrast
+        OCRsettings.ContrastValue = _ocrsettings.ContrastValue
 
 
-        OCRsettings.Gamma = OCRsettings.Gamma
-        OCRsettings.GammaValue = OCRsettings.GammaValue
+        OCRsettings.Gamma = _ocrsettings.Gamma
+        OCRsettings.GammaValue = _ocrsettings.GammaValue
 
+        OCRsettings.Binaries = _ocrsettings.Binaries
 
     End Sub
+
+    Public Property ImageBlocks As List(Of Rectangle)
 
     Public Property bbox As Rectangle
 
@@ -69,9 +72,25 @@ Public Class HocrPage
 
 
     Public Sub New()
+
+        ImageName = ""
+
+        imgCopyName = ""
+
+        isMultiColumns = False
+
+        PageNum = 0
+
+        Recognized = False
+
         _ocrsettings = New PageSetting
+
         ocrpagemargin = New ocrpagemargin
+
+        ImageBlocks = New List(Of Rectangle)
+
         bbox = New Rectangle
+
         AllocrCarea = New List(Of HocrCarea)
 
     End Sub

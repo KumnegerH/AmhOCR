@@ -1,10 +1,14 @@
 ﻿Public Enum controlState
     None
     Drag
-    ResizeRect
-    RectSelected
-    SelectLine
+    DrawRectStart
     DrawRect
-    LabelEdit
-    Suspend
+    ResizeHocr
+    HocrSelection
+    ResizeObject
+    ObjectSelection
+    MultiHocrSelection
+    SelectionStart
+    MoveStart
+    MoveImage
 End Enum

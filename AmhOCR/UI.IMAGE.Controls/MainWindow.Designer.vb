@@ -14,6 +14,10 @@ Partial Class MainWindow
         End Try
     End Sub
 
+
+
+
+
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
 
@@ -25,6 +29,8 @@ Partial Class MainWindow
         Application.EnableVisualStyles()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainWindow))
+        Dim TreeNode3 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("User OCR Objects")
+        Dim TreeNode4 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Recognized OCR Objects")
         Me.ImagelistContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.TreeContextOpen = New System.Windows.Forms.ToolStripMenuItem()
         Me.TreeContextOpenDetect = New System.Windows.Forms.ToolStripMenuItem()
@@ -61,18 +67,23 @@ Partial Class MainWindow
         Me.RecentProjectsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RedoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
-        Me.FindToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolImgeListView = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolZoomReset = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ResetImageBackgroundToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuItemEditedImageView = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuItemOriginalmageView = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator33 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MainMenuUserEditedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MainMenuUserOrigialToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator28 = New System.Windows.Forms.ToolStripSeparator()
         Me.SettingPageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RedoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
+        Me.FindToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AnalyzeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator27 = New System.Windows.Forms.ToolStripSeparator()
@@ -86,13 +97,16 @@ Partial Class MainWindow
         Me.RunAllToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator26 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExtendedActionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CorpusPropertiesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SearchTextToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator29 = New System.Windows.Forms.ToolStripSeparator()
         Me.PosTaggerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator30 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolSaveWordList = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolSaveWordFrequency = New System.Windows.Forms.ToolStripMenuItem()
         Me.SentencesListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator35 = New System.Windows.Forms.ToolStripSeparator()
+        Me.CorpusPropertiesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator36 = New System.Windows.Forms.ToolStripSeparator()
         Me.GenerateOutPutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GenerateNGramToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CreatParallelCorpusToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -117,69 +131,25 @@ Partial Class MainWindow
         Me.lblCoordinate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SelectNameLbl = New System.Windows.Forms.ToolStripStatusLabel()
         Me.progRecognize = New System.Windows.Forms.ToolStripProgressBar()
-        Me.SplitInputResultView = New System.Windows.Forms.SplitContainer()
-        Me.SplitListViewImgEdit = New System.Windows.Forms.SplitContainer()
-        Me.SplitContainer5 = New System.Windows.Forms.SplitContainer()
+        Me.MainSplitContainer = New System.Windows.Forms.SplitContainer()
+        Me.TabsSplitContainer = New System.Windows.Forms.SplitContainer()
         Me.ListOpenedImages = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MainWindowToolStrip = New System.Windows.Forms.ToolStrip()
         Me.btnColapsImg = New System.Windows.Forms.ToolStripButton()
         Me.btnPinimag = New System.Windows.Forms.ToolStripButton()
-        Me.panel3 = New System.Windows.Forms.Panel()
-        Me.groupBox2 = New System.Windows.Forms.GroupBox()
-        Me.label12 = New System.Windows.Forms.Label()
-        Me.btnExport = New System.Windows.Forms.Button()
-        Me.txtExportSize = New System.Windows.Forms.NumericUpDown()
-        Me.txtOutput = New System.Windows.Forms.TextBox()
-        Me.label8 = New System.Windows.Forms.Label()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.label6 = New System.Windows.Forms.Label()
-        Me.txtResizeInterval = New System.Windows.Forms.NumericUpDown()
-        Me.btnResRight = New System.Windows.Forms.Button()
-        Me.btnResLeft = New System.Windows.Forms.Button()
-        Me.btnResDown = New System.Windows.Forms.Button()
-        Me.btnResUp = New System.Windows.Forms.Button()
-        Me.groupBox3 = New System.Windows.Forms.GroupBox()
-        Me.label11 = New System.Windows.Forms.Label()
-        Me.txtPostMergeFilter = New System.Windows.Forms.NumericUpDown()
-        Me.chkShowBinarize = New System.Windows.Forms.CheckBox()
-        Me.label1 = New System.Windows.Forms.Label()
-        Me.label5 = New System.Windows.Forms.Label()
-        Me.txtPreMergeFilter = New System.Windows.Forms.NumericUpDown()
-        Me.chkShowRows = New System.Windows.Forms.CheckBox()
-        Me.label2 = New System.Windows.Forms.Label()
-        Me.txtBinThershold = New System.Windows.Forms.NumericUpDown()
-        Me.txtExtractedBackColor = New System.Windows.Forms.NumericUpDown()
-        Me.label3 = New System.Windows.Forms.Label()
-        Me.txtWidthMergeSense = New System.Windows.Forms.NumericUpDown()
-        Me.txtHeightMergeSense = New System.Windows.Forms.NumericUpDown()
-        Me.label9 = New System.Windows.Forms.Label()
-        Me.label4 = New System.Windows.Forms.Label()
-        Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
-        Me.btnColapsSett = New System.Windows.Forms.ToolStripButton()
-        Me.btnPinsetting = New System.Windows.Forms.ToolStripButton()
-        Me.ToolsOCRProcess = New System.Windows.Forms.ToolStrip()
-        Me.btnSetting = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
-        Me.CmbLang = New System.Windows.Forms.ToolStripComboBox()
-        Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnResetRecog = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator33 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnRecognizeCurrent = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnRecognizeAll = New System.Windows.Forms.ToolStripButton()
-        Me.ToolsPreProcess = New System.Windows.Forms.ToolStrip()
-        Me.btnDeskew = New System.Windows.Forms.ToolStripButton()
-        Me.btnRotateRight = New System.Windows.Forms.ToolStripButton()
-        Me.btnRotateLeft = New System.Windows.Forms.ToolStripButton()
-        Me.btnCrop = New System.Windows.Forms.ToolStripButton()
+        Me.OCRTreeView = New System.Windows.Forms.TreeView()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.btnOCRobjColaps = New System.Windows.Forms.ToolStripButton()
+        Me.btnOCRobjPin = New System.Windows.Forms.ToolStripButton()
+        Me.SplitInputResultView = New System.Windows.Forms.SplitContainer()
         Me.ToolsMainWindow = New System.Windows.Forms.ToolStrip()
         Me.textSelctedImage = New System.Windows.Forms.ToolStripTextBox()
         Me.btnOpenPrevious = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnOpenNext = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.cmbEditMode = New System.Windows.Forms.ToolStripComboBox()
-        Me.ToolStripSeparator17 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnOpen = New System.Windows.Forms.ToolStripButton()
         Me.ToolsImageOpen = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator14 = New System.Windows.Forms.ToolStripSeparator()
@@ -191,20 +161,44 @@ Partial Class MainWindow
         Me.SaveAsSearchablePDFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveAsTextFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnRedo = New System.Windows.Forms.ToolStripButton()
         Me.btnUndo = New System.Windows.Forms.ToolStripButton()
+        Me.btnRedo = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnHideImpt = New System.Windows.Forms.ToolStripButton()
         Me.btnResetZoom = New System.Windows.Forms.ToolStripButton()
+        Me.btnHideImpt = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator17 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnTxtView = New System.Windows.Forms.ToolStripButton()
-        Me.btnBackground = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStrip3 = New System.Windows.Forms.ToolStrip()
-        Me.btnImgTab = New System.Windows.Forms.ToolStripButton()
-        Me.btnSettTab = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btnBackground = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.EditedImageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OriginalImageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
+        Me.UserAreaEditedImageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UserAreaOriginalAreaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnImageEditMode = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator38 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btnSaveImage = New System.Windows.Forms.ToolStripButton()
+        Me.OCRToolStrips = New System.Windows.Forms.ToolStrip()
+        Me.CmbLang = New System.Windows.Forms.ToolStripComboBox()
+        Me.btnRecognizeCurrent = New System.Windows.Forms.ToolStripButton()
+        Me.btnRecognizeAll = New System.Windows.Forms.ToolStripButton()
+        Me.btnResetRecog = New System.Windows.Forms.ToolStripButton()
+        Me.cmbEditMode = New System.Windows.Forms.ToolStripComboBox()
+        Me.btnSelectionBox = New System.Windows.Forms.ToolStripButton()
+        Me.ImagesToolStrip = New System.Windows.Forms.ToolStrip()
+        Me.btnboxdraw = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator34 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btnSetting = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator37 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btnDeskew = New System.Windows.Forms.ToolStripButton()
+        Me.btnRotateRight = New System.Windows.Forms.ToolStripButton()
+        Me.btnRotateLeft = New System.Windows.Forms.ToolStripButton()
+        Me.btnCrop = New System.Windows.Forms.ToolStripButton()
         Me.SplitTextResultView = New System.Windows.Forms.SplitContainer()
-        Me.ViewPicBox = New AmhOCR.ImageViewControl()
         Me.txtBoxResult = New System.Windows.Forms.TextBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.SideToolStrip = New System.Windows.Forms.ToolStrip()
+        Me.btnImgTab = New System.Windows.Forms.ToolStripButton()
+        Me.btnHocrtab = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip9 = New System.Windows.Forms.ToolStrip()
         Me.ToolStripButton48 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton43 = New System.Windows.Forms.ToolStripButton()
@@ -238,40 +232,27 @@ Partial Class MainWindow
         Me.ToolStripContainer1.TopToolStripPanel.SuspendLayout()
         Me.ToolStripContainer1.SuspendLayout()
         Me.MainWindowStatusStrip.SuspendLayout()
+        CType(Me.MainSplitContainer, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MainSplitContainer.Panel1.SuspendLayout()
+        Me.MainSplitContainer.Panel2.SuspendLayout()
+        Me.MainSplitContainer.SuspendLayout()
+        CType(Me.TabsSplitContainer, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabsSplitContainer.Panel1.SuspendLayout()
+        Me.TabsSplitContainer.Panel2.SuspendLayout()
+        Me.TabsSplitContainer.SuspendLayout()
+        Me.MainWindowToolStrip.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
         CType(Me.SplitInputResultView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitInputResultView.Panel1.SuspendLayout()
         Me.SplitInputResultView.Panel2.SuspendLayout()
         Me.SplitInputResultView.SuspendLayout()
-        CType(Me.SplitListViewImgEdit, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitListViewImgEdit.Panel1.SuspendLayout()
-        Me.SplitListViewImgEdit.Panel2.SuspendLayout()
-        Me.SplitListViewImgEdit.SuspendLayout()
-        CType(Me.SplitContainer5, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer5.Panel1.SuspendLayout()
-        Me.SplitContainer5.Panel2.SuspendLayout()
-        Me.SplitContainer5.SuspendLayout()
-        Me.MainWindowToolStrip.SuspendLayout()
-        Me.panel3.SuspendLayout()
-        Me.groupBox2.SuspendLayout()
-        CType(Me.txtExportSize, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox4.SuspendLayout()
-        CType(Me.txtResizeInterval, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.groupBox3.SuspendLayout()
-        CType(Me.txtPostMergeFilter, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtPreMergeFilter, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtBinThershold, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtExtractedBackColor, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtWidthMergeSense, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtHeightMergeSense, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ToolStrip2.SuspendLayout()
-        Me.ToolsOCRProcess.SuspendLayout()
-        Me.ToolsPreProcess.SuspendLayout()
         Me.ToolsMainWindow.SuspendLayout()
-        Me.ToolStrip3.SuspendLayout()
+        Me.OCRToolStrips.SuspendLayout()
+        Me.ImagesToolStrip.SuspendLayout()
         CType(Me.SplitTextResultView, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitTextResultView.Panel1.SuspendLayout()
         Me.SplitTextResultView.Panel2.SuspendLayout()
         Me.SplitTextResultView.SuspendLayout()
+        Me.SideToolStrip.SuspendLayout()
         Me.ToolStrip9.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -343,7 +324,7 @@ Partial Class MainWindow
         'MainWindowMenuStrip
         '
         Me.MainWindowMenuStrip.BackColor = System.Drawing.SystemColors.Control
-        Me.MainWindowMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ViewToolStripMenuItem, Me.AnalyzeToolStripMenuItem, Me.ExtendedActionToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MainWindowMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ViewToolStripMenuItem, Me.EditToolStripMenuItem, Me.AnalyzeToolStripMenuItem, Me.ExtendedActionToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MainWindowMenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MainWindowMenuStrip.Name = "MainWindowMenuStrip"
         Me.MainWindowMenuStrip.Size = New System.Drawing.Size(1305, 24)
@@ -510,6 +491,90 @@ Partial Class MainWindow
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(304, 22)
         Me.ExitToolStripMenuItem.Text = "Exit Application"
         '
+        'ViewToolStripMenuItem
+        '
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolImgeListView, Me.ToolZoomReset, Me.TextViewToolStripMenuItem, Me.ResetImageBackgroundToolStripMenuItem, Me.ToolStripSeparator28, Me.SettingPageToolStripMenuItem})
+        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
+        Me.ViewToolStripMenuItem.Text = "View "
+        '
+        'ToolImgeListView
+        '
+        Me.ToolImgeListView.Image = CType(resources.GetObject("ToolImgeListView.Image"), System.Drawing.Image)
+        Me.ToolImgeListView.Name = "ToolImgeListView"
+        Me.ToolImgeListView.Size = New System.Drawing.Size(260, 22)
+        Me.ToolImgeListView.Text = "Image Explorer                                    "
+        '
+        'ToolZoomReset
+        '
+        Me.ToolZoomReset.Image = CType(resources.GetObject("ToolZoomReset.Image"), System.Drawing.Image)
+        Me.ToolZoomReset.Name = "ToolZoomReset"
+        Me.ToolZoomReset.Size = New System.Drawing.Size(260, 22)
+        Me.ToolZoomReset.Text = "Zoom Reset"
+        '
+        'TextViewToolStripMenuItem
+        '
+        Me.TextViewToolStripMenuItem.Checked = True
+        Me.TextViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.TextViewToolStripMenuItem.Image = CType(resources.GetObject("TextViewToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.TextViewToolStripMenuItem.Name = "TextViewToolStripMenuItem"
+        Me.TextViewToolStripMenuItem.Size = New System.Drawing.Size(260, 22)
+        Me.TextViewToolStripMenuItem.Text = "Text Result View"
+        '
+        'ResetImageBackgroundToolStripMenuItem
+        '
+        Me.ResetImageBackgroundToolStripMenuItem.CheckOnClick = True
+        Me.ResetImageBackgroundToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuItemEditedImageView, Me.MenuItemOriginalmageView, Me.ToolStripSeparator33, Me.MainMenuUserEditedToolStripMenuItem, Me.MainMenuUserOrigialToolStripMenuItem})
+        Me.ResetImageBackgroundToolStripMenuItem.Image = CType(resources.GetObject("ResetImageBackgroundToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ResetImageBackgroundToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black
+        Me.ResetImageBackgroundToolStripMenuItem.Name = "ResetImageBackgroundToolStripMenuItem"
+        Me.ResetImageBackgroundToolStripMenuItem.Size = New System.Drawing.Size(260, 22)
+        Me.ResetImageBackgroundToolStripMenuItem.Text = "Image View Mode"
+        '
+        'MenuItemEditedImageView
+        '
+        Me.MenuItemEditedImageView.Checked = True
+        Me.MenuItemEditedImageView.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.MenuItemEditedImageView.Name = "MenuItemEditedImageView"
+        Me.MenuItemEditedImageView.Size = New System.Drawing.Size(248, 22)
+        Me.MenuItemEditedImageView.Text = "Edited Image                                   "
+        '
+        'MenuItemOriginalmageView
+        '
+        Me.MenuItemOriginalmageView.Name = "MenuItemOriginalmageView"
+        Me.MenuItemOriginalmageView.Size = New System.Drawing.Size(248, 22)
+        Me.MenuItemOriginalmageView.Text = "Original Image"
+        '
+        'ToolStripSeparator33
+        '
+        Me.ToolStripSeparator33.Name = "ToolStripSeparator33"
+        Me.ToolStripSeparator33.Size = New System.Drawing.Size(245, 6)
+        '
+        'MainMenuUserEditedToolStripMenuItem
+        '
+        Me.MainMenuUserEditedToolStripMenuItem.Name = "MainMenuUserEditedToolStripMenuItem"
+        Me.MainMenuUserEditedToolStripMenuItem.Size = New System.Drawing.Size(248, 22)
+        Me.MainMenuUserEditedToolStripMenuItem.Text = "User Area: Edited Image"
+        '
+        'MainMenuUserOrigialToolStripMenuItem
+        '
+        Me.MainMenuUserOrigialToolStripMenuItem.Name = "MainMenuUserOrigialToolStripMenuItem"
+        Me.MainMenuUserOrigialToolStripMenuItem.Size = New System.Drawing.Size(248, 22)
+        Me.MainMenuUserOrigialToolStripMenuItem.Text = "User Area: Original Image"
+        '
+        'ToolStripSeparator28
+        '
+        Me.ToolStripSeparator28.Name = "ToolStripSeparator28"
+        Me.ToolStripSeparator28.Size = New System.Drawing.Size(257, 6)
+        '
+        'SettingPageToolStripMenuItem
+        '
+        Me.SettingPageToolStripMenuItem.Enabled = False
+        Me.SettingPageToolStripMenuItem.Image = CType(resources.GetObject("SettingPageToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.SettingPageToolStripMenuItem.Name = "SettingPageToolStripMenuItem"
+        Me.SettingPageToolStripMenuItem.Size = New System.Drawing.Size(260, 22)
+        Me.SettingPageToolStripMenuItem.Text = "Set Viewstyle"
+        '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3, Me.RedoToolStripMenuItem, Me.ToolStripSeparator10, Me.FindToolStripMenuItem})
@@ -544,64 +609,12 @@ Partial Class MainWindow
         Me.FindToolStripMenuItem.Size = New System.Drawing.Size(286, 22)
         Me.FindToolStripMenuItem.Text = "Find"
         '
-        'ViewToolStripMenuItem
-        '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolImgeListView, Me.ToolZoomReset, Me.TextViewToolStripMenuItem, Me.ResetImageBackgroundToolStripMenuItem, Me.ToolStripSeparator28, Me.SettingPageToolStripMenuItem})
-        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
-        Me.ViewToolStripMenuItem.Text = "View "
-        '
-        'ToolImgeListView
-        '
-        Me.ToolImgeListView.Image = CType(resources.GetObject("ToolImgeListView.Image"), System.Drawing.Image)
-        Me.ToolImgeListView.Name = "ToolImgeListView"
-        Me.ToolImgeListView.Size = New System.Drawing.Size(261, 22)
-        Me.ToolImgeListView.Text = "Image Explorer                                    "
-        '
-        'ToolZoomReset
-        '
-        Me.ToolZoomReset.Image = CType(resources.GetObject("ToolZoomReset.Image"), System.Drawing.Image)
-        Me.ToolZoomReset.Name = "ToolZoomReset"
-        Me.ToolZoomReset.Size = New System.Drawing.Size(261, 22)
-        Me.ToolZoomReset.Text = "Zoom Reset"
-        '
-        'TextViewToolStripMenuItem
-        '
-        Me.TextViewToolStripMenuItem.Checked = True
-        Me.TextViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.TextViewToolStripMenuItem.Image = CType(resources.GetObject("TextViewToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.TextViewToolStripMenuItem.Name = "TextViewToolStripMenuItem"
-        Me.TextViewToolStripMenuItem.Size = New System.Drawing.Size(261, 22)
-        Me.TextViewToolStripMenuItem.Text = "Text Result View"
-        '
-        'ResetImageBackgroundToolStripMenuItem
-        '
-        Me.ResetImageBackgroundToolStripMenuItem.CheckOnClick = True
-        Me.ResetImageBackgroundToolStripMenuItem.Image = CType(resources.GetObject("ResetImageBackgroundToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ResetImageBackgroundToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black
-        Me.ResetImageBackgroundToolStripMenuItem.Name = "ResetImageBackgroundToolStripMenuItem"
-        Me.ResetImageBackgroundToolStripMenuItem.Size = New System.Drawing.Size(261, 22)
-        Me.ResetImageBackgroundToolStripMenuItem.Text = "Reset Image Background"
-        '
-        'ToolStripSeparator28
-        '
-        Me.ToolStripSeparator28.Name = "ToolStripSeparator28"
-        Me.ToolStripSeparator28.Size = New System.Drawing.Size(258, 6)
-        '
-        'SettingPageToolStripMenuItem
-        '
-        Me.SettingPageToolStripMenuItem.Enabled = False
-        Me.SettingPageToolStripMenuItem.Image = CType(resources.GetObject("SettingPageToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.SettingPageToolStripMenuItem.Name = "SettingPageToolStripMenuItem"
-        Me.SettingPageToolStripMenuItem.Size = New System.Drawing.Size(261, 22)
-        Me.SettingPageToolStripMenuItem.Text = "Set Viewstyle"
-        '
         'AnalyzeToolStripMenuItem
         '
         Me.AnalyzeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem, Me.ToolStripSeparator27, Me.DeskewToolStripMenuItem, Me.ToolStripSeparator20, Me.RunOCRToolStripMenuItem, Me.RunAllToolStripMenuItem, Me.ToolStripSeparator26})
         Me.AnalyzeToolStripMenuItem.Name = "AnalyzeToolStripMenuItem"
-        Me.AnalyzeToolStripMenuItem.Size = New System.Drawing.Size(81, 20)
-        Me.AnalyzeToolStripMenuItem.Text = "OCR Action"
+        Me.AnalyzeToolStripMenuItem.Size = New System.Drawing.Size(74, 20)
+        Me.AnalyzeToolStripMenuItem.Text = "OCR Tools"
         '
         'OptionsToolStripMenuItem
         '
@@ -679,19 +692,17 @@ Partial Class MainWindow
         '
         'ExtendedActionToolStripMenuItem
         '
-        Me.ExtendedActionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CorpusPropertiesToolStripMenuItem, Me.ToolStripSeparator29, Me.PosTaggerToolStripMenuItem, Me.ToolStripSeparator30, Me.ToolSaveWordList, Me.ToolSaveWordFrequency, Me.SentencesListToolStripMenuItem, Me.GenerateOutPutToolStripMenuItem})
+        Me.ExtendedActionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SearchTextToolStripMenuItem, Me.ToolStripSeparator29, Me.PosTaggerToolStripMenuItem, Me.ToolStripSeparator30, Me.ToolSaveWordList, Me.ToolSaveWordFrequency, Me.SentencesListToolStripMenuItem, Me.ToolStripSeparator35, Me.CorpusPropertiesToolStripMenuItem, Me.ToolStripSeparator36, Me.GenerateOutPutToolStripMenuItem})
         Me.ExtendedActionToolStripMenuItem.Name = "ExtendedActionToolStripMenuItem"
-        Me.ExtendedActionToolStripMenuItem.Size = New System.Drawing.Size(79, 20)
-        Me.ExtendedActionToolStripMenuItem.Text = "NLP Action"
+        Me.ExtendedActionToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
+        Me.ExtendedActionToolStripMenuItem.Text = "Text Tools"
         '
-        'CorpusPropertiesToolStripMenuItem
+        'SearchTextToolStripMenuItem
         '
-        Me.CorpusPropertiesToolStripMenuItem.Enabled = False
-        Me.CorpusPropertiesToolStripMenuItem.Image = CType(resources.GetObject("CorpusPropertiesToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.CorpusPropertiesToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CorpusPropertiesToolStripMenuItem.Name = "CorpusPropertiesToolStripMenuItem"
-        Me.CorpusPropertiesToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
-        Me.CorpusPropertiesToolStripMenuItem.Text = "Text properties                                           "
+        Me.SearchTextToolStripMenuItem.Image = CType(resources.GetObject("SearchTextToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.SearchTextToolStripMenuItem.Name = "SearchTextToolStripMenuItem"
+        Me.SearchTextToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
+        Me.SearchTextToolStripMenuItem.Text = "Search Text"
         '
         'ToolStripSeparator29
         '
@@ -734,6 +745,25 @@ Partial Class MainWindow
         Me.SentencesListToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
         Me.SentencesListToolStripMenuItem.Text = "Save Sentences List"
         '
+        'ToolStripSeparator35
+        '
+        Me.ToolStripSeparator35.Name = "ToolStripSeparator35"
+        Me.ToolStripSeparator35.Size = New System.Drawing.Size(277, 6)
+        '
+        'CorpusPropertiesToolStripMenuItem
+        '
+        Me.CorpusPropertiesToolStripMenuItem.Enabled = False
+        Me.CorpusPropertiesToolStripMenuItem.Image = CType(resources.GetObject("CorpusPropertiesToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.CorpusPropertiesToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.CorpusPropertiesToolStripMenuItem.Name = "CorpusPropertiesToolStripMenuItem"
+        Me.CorpusPropertiesToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
+        Me.CorpusPropertiesToolStripMenuItem.Text = "Text properties                                           "
+        '
+        'ToolStripSeparator36
+        '
+        Me.ToolStripSeparator36.Name = "ToolStripSeparator36"
+        Me.ToolStripSeparator36.Size = New System.Drawing.Size(277, 6)
+        '
         'GenerateOutPutToolStripMenuItem
         '
         Me.GenerateOutPutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GenerateNGramToolStripMenuItem, Me.CreatParallelCorpusToolStripMenuItem})
@@ -760,76 +790,76 @@ Partial Class MainWindow
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnConvertImages, Me.ToolStripSeparator23, Me.SplitTiffToolStripMenuItem, Me.MergeTiffToolStripMenuItem, Me.ToolStripSeparator24, Me.PDFToImageToolStripMenuItem, Me.ImageToPDFToolStripMenuItem, Me.ToolStripSeparator22, Me.CombinePDFToolStripMenuItem, Me.SplitPDFToolStripMenuItem, Me.ToolStripSeparator25, Me.ScanDocumentToolStripMenuItem})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
-        Me.ToolsToolStripMenuItem.Text = "Tools  "
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(74, 20)
+        Me.ToolsToolStripMenuItem.Text = "Extensions"
         '
         'btnConvertImages
         '
         Me.btnConvertImages.Name = "btnConvertImages"
-        Me.btnConvertImages.Size = New System.Drawing.Size(276, 22)
+        Me.btnConvertImages.Size = New System.Drawing.Size(277, 22)
         Me.btnConvertImages.Text = "Convert Images"
         '
         'ToolStripSeparator23
         '
         Me.ToolStripSeparator23.Name = "ToolStripSeparator23"
-        Me.ToolStripSeparator23.Size = New System.Drawing.Size(273, 6)
+        Me.ToolStripSeparator23.Size = New System.Drawing.Size(274, 6)
         '
         'SplitTiffToolStripMenuItem
         '
         Me.SplitTiffToolStripMenuItem.Name = "SplitTiffToolStripMenuItem"
-        Me.SplitTiffToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
+        Me.SplitTiffToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
         Me.SplitTiffToolStripMenuItem.Text = "Split Tiff                                                     "
         '
         'MergeTiffToolStripMenuItem
         '
         Me.MergeTiffToolStripMenuItem.Name = "MergeTiffToolStripMenuItem"
-        Me.MergeTiffToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
+        Me.MergeTiffToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
         Me.MergeTiffToolStripMenuItem.Text = "Merge Tiff"
         '
         'ToolStripSeparator24
         '
         Me.ToolStripSeparator24.Name = "ToolStripSeparator24"
-        Me.ToolStripSeparator24.Size = New System.Drawing.Size(273, 6)
+        Me.ToolStripSeparator24.Size = New System.Drawing.Size(274, 6)
         '
         'PDFToImageToolStripMenuItem
         '
         Me.PDFToImageToolStripMenuItem.Name = "PDFToImageToolStripMenuItem"
-        Me.PDFToImageToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
+        Me.PDFToImageToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
         Me.PDFToImageToolStripMenuItem.Text = "PDF to Images"
         '
         'ImageToPDFToolStripMenuItem
         '
         Me.ImageToPDFToolStripMenuItem.Name = "ImageToPDFToolStripMenuItem"
-        Me.ImageToPDFToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
+        Me.ImageToPDFToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
         Me.ImageToPDFToolStripMenuItem.Text = "Images To PDF"
         '
         'ToolStripSeparator22
         '
         Me.ToolStripSeparator22.Name = "ToolStripSeparator22"
-        Me.ToolStripSeparator22.Size = New System.Drawing.Size(273, 6)
+        Me.ToolStripSeparator22.Size = New System.Drawing.Size(274, 6)
         '
         'CombinePDFToolStripMenuItem
         '
         Me.CombinePDFToolStripMenuItem.Name = "CombinePDFToolStripMenuItem"
-        Me.CombinePDFToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
+        Me.CombinePDFToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
         Me.CombinePDFToolStripMenuItem.Text = "Merge PDF"
         '
         'SplitPDFToolStripMenuItem
         '
         Me.SplitPDFToolStripMenuItem.Name = "SplitPDFToolStripMenuItem"
-        Me.SplitPDFToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
+        Me.SplitPDFToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
         Me.SplitPDFToolStripMenuItem.Text = "Split PDF"
         '
         'ToolStripSeparator25
         '
         Me.ToolStripSeparator25.Name = "ToolStripSeparator25"
-        Me.ToolStripSeparator25.Size = New System.Drawing.Size(273, 6)
+        Me.ToolStripSeparator25.Size = New System.Drawing.Size(274, 6)
         '
         'ScanDocumentToolStripMenuItem
         '
         Me.ScanDocumentToolStripMenuItem.Enabled = False
         Me.ScanDocumentToolStripMenuItem.Name = "ScanDocumentToolStripMenuItem"
-        Me.ScanDocumentToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
+        Me.ScanDocumentToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
         Me.ScanDocumentToolStripMenuItem.Text = "Scan Document"
         '
         'HelpToolStripMenuItem
@@ -863,8 +893,8 @@ Partial Class MainWindow
         'ToolStripContainer1.ContentPanel
         '
         Me.ToolStripContainer1.ContentPanel.AutoScroll = True
-        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.SplitInputResultView)
-        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.Panel1)
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MainSplitContainer)
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.SideToolStrip)
         Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(1305, 543)
         Me.ToolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ToolStripContainer1.LeftToolStripPanelVisible = False
@@ -918,68 +948,44 @@ Partial Class MainWindow
         Me.progRecognize.Value = 1
         Me.progRecognize.Visible = False
         '
-        'SplitInputResultView
+        'MainSplitContainer
         '
-        Me.SplitInputResultView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitInputResultView.Location = New System.Drawing.Point(0, 0)
-        Me.SplitInputResultView.Name = "SplitInputResultView"
+        Me.MainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MainSplitContainer.IsSplitterFixed = True
+        Me.MainSplitContainer.Location = New System.Drawing.Point(24, 0)
+        Me.MainSplitContainer.Name = "MainSplitContainer"
         '
-        'SplitInputResultView.Panel1
+        'MainSplitContainer.Panel1
         '
-        Me.SplitInputResultView.Panel1.Controls.Add(Me.SplitListViewImgEdit)
-        Me.SplitInputResultView.Panel1.Controls.Add(Me.ToolStrip3)
+        Me.MainSplitContainer.Panel1.Controls.Add(Me.TabsSplitContainer)
         '
-        'SplitInputResultView.Panel2
+        'MainSplitContainer.Panel2
         '
-        Me.SplitInputResultView.Panel2.BackColor = System.Drawing.SystemColors.Control
-        Me.SplitInputResultView.Panel2.Controls.Add(Me.SplitTextResultView)
-        Me.SplitInputResultView.Panel2Collapsed = True
-        Me.SplitInputResultView.Size = New System.Drawing.Size(1305, 543)
-        Me.SplitInputResultView.SplitterDistance = 620
-        Me.SplitInputResultView.SplitterWidth = 6
-        Me.SplitInputResultView.TabIndex = 3
+        Me.MainSplitContainer.Panel2.Controls.Add(Me.SplitInputResultView)
+        Me.MainSplitContainer.Size = New System.Drawing.Size(1281, 543)
+        Me.MainSplitContainer.SplitterDistance = 236
+        Me.MainSplitContainer.TabIndex = 14
         '
-        'SplitListViewImgEdit
+        'TabsSplitContainer
         '
-        Me.SplitListViewImgEdit.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitListViewImgEdit.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
-        Me.SplitListViewImgEdit.IsSplitterFixed = True
-        Me.SplitListViewImgEdit.Location = New System.Drawing.Point(24, 0)
-        Me.SplitListViewImgEdit.Name = "SplitListViewImgEdit"
+        Me.TabsSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabsSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
+        Me.TabsSplitContainer.Location = New System.Drawing.Point(0, 0)
+        Me.TabsSplitContainer.Name = "TabsSplitContainer"
         '
-        'SplitListViewImgEdit.Panel1
+        'TabsSplitContainer.Panel1
         '
-        Me.SplitListViewImgEdit.Panel1.Controls.Add(Me.SplitContainer5)
+        Me.TabsSplitContainer.Panel1.Controls.Add(Me.ListOpenedImages)
+        Me.TabsSplitContainer.Panel1.Controls.Add(Me.MainWindowToolStrip)
+        Me.TabsSplitContainer.Panel1Collapsed = True
         '
-        'SplitListViewImgEdit.Panel2
+        'TabsSplitContainer.Panel2
         '
-        Me.SplitListViewImgEdit.Panel2.Controls.Add(Me.ToolsOCRProcess)
-        Me.SplitListViewImgEdit.Panel2.Controls.Add(Me.ToolsPreProcess)
-        Me.SplitListViewImgEdit.Panel2.Controls.Add(Me.ToolsMainWindow)
-        Me.SplitListViewImgEdit.Size = New System.Drawing.Size(1281, 543)
-        Me.SplitListViewImgEdit.SplitterDistance = 240
-        Me.SplitListViewImgEdit.TabIndex = 0
-        '
-        'SplitContainer5
-        '
-        Me.SplitContainer5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer5.IsSplitterFixed = True
-        Me.SplitContainer5.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer5.Name = "SplitContainer5"
-        '
-        'SplitContainer5.Panel1
-        '
-        Me.SplitContainer5.Panel1.Controls.Add(Me.ListOpenedImages)
-        Me.SplitContainer5.Panel1.Controls.Add(Me.MainWindowToolStrip)
-        '
-        'SplitContainer5.Panel2
-        '
-        Me.SplitContainer5.Panel2.Controls.Add(Me.panel3)
-        Me.SplitContainer5.Panel2.Controls.Add(Me.ToolStrip2)
-        Me.SplitContainer5.Panel2Collapsed = True
-        Me.SplitContainer5.Size = New System.Drawing.Size(240, 543)
-        Me.SplitContainer5.SplitterDistance = 115
-        Me.SplitContainer5.TabIndex = 2
+        Me.TabsSplitContainer.Panel2.Controls.Add(Me.OCRTreeView)
+        Me.TabsSplitContainer.Panel2.Controls.Add(Me.ToolStrip1)
+        Me.TabsSplitContainer.Size = New System.Drawing.Size(236, 543)
+        Me.TabsSplitContainer.SplitterDistance = 211
+        Me.TabsSplitContainer.TabIndex = 3
         '
         'ListOpenedImages
         '
@@ -995,7 +1001,7 @@ Partial Class MainWindow
         Me.ListOpenedImages.Location = New System.Drawing.Point(0, 25)
         Me.ListOpenedImages.MultiSelect = False
         Me.ListOpenedImages.Name = "ListOpenedImages"
-        Me.ListOpenedImages.Size = New System.Drawing.Size(240, 518)
+        Me.ListOpenedImages.Size = New System.Drawing.Size(211, 75)
         Me.ListOpenedImages.TabIndex = 0
         Me.ListOpenedImages.UseCompatibleStateImageBehavior = False
         '
@@ -1006,7 +1012,7 @@ Partial Class MainWindow
         Me.MainWindowToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnColapsImg, Me.btnPinimag})
         Me.MainWindowToolStrip.Location = New System.Drawing.Point(0, 0)
         Me.MainWindowToolStrip.Name = "MainWindowToolStrip"
-        Me.MainWindowToolStrip.Size = New System.Drawing.Size(240, 25)
+        Me.MainWindowToolStrip.Size = New System.Drawing.Size(211, 25)
         Me.MainWindowToolStrip.TabIndex = 2
         Me.MainWindowToolStrip.Text = "ToolStrip4"
         '
@@ -1034,492 +1040,98 @@ Partial Class MainWindow
         Me.btnPinimag.Size = New System.Drawing.Size(23, 22)
         Me.btnPinimag.Text = "Pin"
         '
-        'panel3
-        '
-        Me.panel3.Controls.Add(Me.groupBox2)
-        Me.panel3.Controls.Add(Me.GroupBox4)
-        Me.panel3.Controls.Add(Me.groupBox3)
-        Me.panel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panel3.Location = New System.Drawing.Point(0, 25)
-        Me.panel3.Name = "panel3"
-        Me.panel3.Size = New System.Drawing.Size(96, 75)
-        Me.panel3.TabIndex = 40
-        '
-        'groupBox2
-        '
-        Me.groupBox2.Controls.Add(Me.label12)
-        Me.groupBox2.Controls.Add(Me.btnExport)
-        Me.groupBox2.Controls.Add(Me.txtExportSize)
-        Me.groupBox2.Controls.Add(Me.txtOutput)
-        Me.groupBox2.Controls.Add(Me.label8)
-        Me.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.groupBox2.Location = New System.Drawing.Point(0, 390)
-        Me.groupBox2.Name = "groupBox2"
-        Me.groupBox2.Size = New System.Drawing.Size(96, 0)
-        Me.groupBox2.TabIndex = 37
-        Me.groupBox2.TabStop = False
-        Me.groupBox2.Text = "Export"
-        '
-        'label12
-        '
-        Me.label12.AutoSize = True
-        Me.label12.Location = New System.Drawing.Point(6, 24)
-        Me.label12.Name = "label12"
-        Me.label12.Size = New System.Drawing.Size(96, 13)
-        Me.label12.TabIndex = 35
-        Me.label12.Text = "Export Size (W/H):"
-        '
-        'btnExport
-        '
-        Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExport.Location = New System.Drawing.Point(-135, 84)
-        Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(111, 23)
-        Me.btnExport.TabIndex = 22
-        Me.btnExport.Text = "Export Blobs"
-        Me.btnExport.UseVisualStyleBackColor = True
-        '
-        'txtExportSize
-        '
-        Me.txtExportSize.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.txtExportSize.Location = New System.Drawing.Point(108, 22)
-        Me.txtExportSize.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
-        Me.txtExportSize.Name = "txtExportSize"
-        Me.txtExportSize.Size = New System.Drawing.Size(54, 20)
-        Me.txtExportSize.TabIndex = 36
-        Me.txtExportSize.Value = New Decimal(New Integer() {20, 0, 0, 0})
-        '
-        'txtOutput
-        '
-        Me.txtOutput.Location = New System.Drawing.Point(45, 47)
-        Me.txtOutput.Name = "txtOutput"
-        Me.txtOutput.Size = New System.Drawing.Size(156, 20)
-        Me.txtOutput.TabIndex = 24
-        '
-        'label8
-        '
-        Me.label8.AutoSize = True
-        Me.label8.Location = New System.Drawing.Point(6, 50)
-        Me.label8.Name = "label8"
-        Me.label8.Size = New System.Drawing.Size(42, 13)
-        Me.label8.TabIndex = 25
-        Me.label8.Text = "Output:"
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.label6)
-        Me.GroupBox4.Controls.Add(Me.txtResizeInterval)
-        Me.GroupBox4.Controls.Add(Me.btnResRight)
-        Me.GroupBox4.Controls.Add(Me.btnResLeft)
-        Me.GroupBox4.Controls.Add(Me.btnResDown)
-        Me.GroupBox4.Controls.Add(Me.btnResUp)
-        Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox4.Location = New System.Drawing.Point(0, 260)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(96, 130)
-        Me.GroupBox4.TabIndex = 18
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Move Selected Blobs"
-        '
-        'label6
-        '
-        Me.label6.AutoSize = True
-        Me.label6.Location = New System.Drawing.Point(6, 21)
-        Me.label6.Name = "label6"
-        Me.label6.Size = New System.Drawing.Size(45, 13)
-        Me.label6.TabIndex = 5
-        Me.label6.Text = "Interval:"
-        '
-        'txtResizeInterval
-        '
-        Me.txtResizeInterval.Location = New System.Drawing.Point(57, 19)
-        Me.txtResizeInterval.Name = "txtResizeInterval"
-        Me.txtResizeInterval.Size = New System.Drawing.Size(78, 20)
-        Me.txtResizeInterval.TabIndex = 4
-        Me.txtResizeInterval.Value = New Decimal(New Integer() {2, 0, 0, 0})
-        '
-        'btnResRight
-        '
-        Me.btnResRight.Location = New System.Drawing.Point(137, 65)
-        Me.btnResRight.Name = "btnResRight"
-        Me.btnResRight.Size = New System.Drawing.Size(31, 23)
-        Me.btnResRight.TabIndex = 3
-        Me.btnResRight.Text = ">"
-        Me.btnResRight.UseVisualStyleBackColor = True
-        '
-        'btnResLeft
-        '
-        Me.btnResLeft.Location = New System.Drawing.Point(79, 65)
-        Me.btnResLeft.Name = "btnResLeft"
-        Me.btnResLeft.Size = New System.Drawing.Size(31, 23)
-        Me.btnResLeft.TabIndex = 2
-        Me.btnResLeft.Text = "<"
-        Me.btnResLeft.UseVisualStyleBackColor = True
-        '
-        'btnResDown
-        '
-        Me.btnResDown.Location = New System.Drawing.Point(108, 84)
-        Me.btnResDown.Name = "btnResDown"
-        Me.btnResDown.Size = New System.Drawing.Size(31, 23)
-        Me.btnResDown.TabIndex = 1
-        Me.btnResDown.Text = "v"
-        Me.btnResDown.UseVisualStyleBackColor = True
-        '
-        'btnResUp
-        '
-        Me.btnResUp.Location = New System.Drawing.Point(108, 45)
-        Me.btnResUp.Name = "btnResUp"
-        Me.btnResUp.Size = New System.Drawing.Size(31, 23)
-        Me.btnResUp.TabIndex = 0
-        Me.btnResUp.Text = "^"
-        Me.btnResUp.UseVisualStyleBackColor = True
-        '
-        'groupBox3
-        '
-        Me.groupBox3.Controls.Add(Me.label11)
-        Me.groupBox3.Controls.Add(Me.txtPostMergeFilter)
-        Me.groupBox3.Controls.Add(Me.chkShowBinarize)
-        Me.groupBox3.Controls.Add(Me.label1)
-        Me.groupBox3.Controls.Add(Me.label5)
-        Me.groupBox3.Controls.Add(Me.txtPreMergeFilter)
-        Me.groupBox3.Controls.Add(Me.chkShowRows)
-        Me.groupBox3.Controls.Add(Me.label2)
-        Me.groupBox3.Controls.Add(Me.txtBinThershold)
-        Me.groupBox3.Controls.Add(Me.txtExtractedBackColor)
-        Me.groupBox3.Controls.Add(Me.label3)
-        Me.groupBox3.Controls.Add(Me.txtWidthMergeSense)
-        Me.groupBox3.Controls.Add(Me.txtHeightMergeSense)
-        Me.groupBox3.Controls.Add(Me.label9)
-        Me.groupBox3.Controls.Add(Me.label4)
-        Me.groupBox3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.groupBox3.Location = New System.Drawing.Point(0, 0)
-        Me.groupBox3.Name = "groupBox3"
-        Me.groupBox3.Size = New System.Drawing.Size(96, 260)
-        Me.groupBox3.TabIndex = 0
-        Me.groupBox3.TabStop = False
-        Me.groupBox3.Text = "groupBox3"
-        '
-        'label11
-        '
-        Me.label11.AutoSize = True
-        Me.label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(177, Byte))
-        Me.label11.Location = New System.Drawing.Point(24, 16)
-        Me.label11.Name = "label11"
-        Me.label11.Size = New System.Drawing.Size(154, 13)
-        Me.label11.TabIndex = 34
-        Me.label11.Text = "Hover controls for tooltips"
-        '
-        'txtPostMergeFilter
-        '
-        Me.txtPostMergeFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtPostMergeFilter.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.txtPostMergeFilter.Location = New System.Drawing.Point(-6, 197)
-        Me.txtPostMergeFilter.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
-        Me.txtPostMergeFilter.Name = "txtPostMergeFilter"
-        Me.txtPostMergeFilter.Size = New System.Drawing.Size(54, 20)
-        Me.txtPostMergeFilter.TabIndex = 6
-        Me.txtPostMergeFilter.Value = New Decimal(New Integer() {150, 0, 0, 0})
-        '
-        'chkShowBinarize
-        '
-        Me.chkShowBinarize.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.chkShowBinarize.AutoSize = True
-        Me.chkShowBinarize.Location = New System.Drawing.Point(-130, 42)
-        Me.chkShowBinarize.Name = "chkShowBinarize"
-        Me.chkShowBinarize.Size = New System.Drawing.Size(131, 17)
-        Me.chkShowBinarize.TabIndex = 17
-        Me.chkShowBinarize.Text = "Show Binarized Image"
-        Me.chkShowBinarize.UseVisualStyleBackColor = True
-        '
-        'label1
-        '
-        Me.label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.label1.AutoSize = True
-        Me.label1.Location = New System.Drawing.Point(-133, 199)
-        Me.label1.Name = "label1"
-        Me.label1.Size = New System.Drawing.Size(112, 13)
-        Me.label1.TabIndex = 7
-        Me.label1.Text = "Post Merge Filter Size:"
-        '
-        'label5
-        '
-        Me.label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.label5.AutoSize = True
-        Me.label5.Location = New System.Drawing.Point(-133, 89)
-        Me.label5.Name = "label5"
-        Me.label5.Size = New System.Drawing.Size(114, 13)
-        Me.label5.TabIndex = 16
-        Me.label5.Text = "Binarization Thershold:"
-        '
-        'txtPreMergeFilter
-        '
-        Me.txtPreMergeFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtPreMergeFilter.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.txtPreMergeFilter.Location = New System.Drawing.Point(-6, 169)
-        Me.txtPreMergeFilter.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
-        Me.txtPreMergeFilter.Name = "txtPreMergeFilter"
-        Me.txtPreMergeFilter.Size = New System.Drawing.Size(54, 20)
-        Me.txtPreMergeFilter.TabIndex = 8
-        Me.txtPreMergeFilter.Value = New Decimal(New Integer() {10, 0, 0, 0})
-        '
-        'chkShowRows
-        '
-        Me.chkShowRows.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.chkShowRows.AutoSize = True
-        Me.chkShowRows.Checked = True
-        Me.chkShowRows.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkShowRows.Location = New System.Drawing.Point(-130, 65)
-        Me.chkShowRows.Name = "chkShowRows"
-        Me.chkShowRows.Size = New System.Drawing.Size(83, 17)
-        Me.chkShowRows.TabIndex = 20
-        Me.chkShowRows.Text = "Show Rows"
-        Me.chkShowRows.UseVisualStyleBackColor = True
-        '
-        'label2
-        '
-        Me.label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.label2.AutoSize = True
-        Me.label2.Location = New System.Drawing.Point(-133, 171)
-        Me.label2.Name = "label2"
-        Me.label2.Size = New System.Drawing.Size(107, 13)
-        Me.label2.TabIndex = 9
-        Me.label2.Text = "Pre Merge Filter Size:"
-        '
-        'txtBinThershold
-        '
-        Me.txtBinThershold.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtBinThershold.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.txtBinThershold.Location = New System.Drawing.Point(-6, 87)
-        Me.txtBinThershold.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
-        Me.txtBinThershold.Name = "txtBinThershold"
-        Me.txtBinThershold.Size = New System.Drawing.Size(54, 20)
-        Me.txtBinThershold.TabIndex = 15
-        Me.txtBinThershold.Value = New Decimal(New Integer() {200, 0, 0, 0})
-        '
-        'txtExtractedBackColor
-        '
-        Me.txtExtractedBackColor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtExtractedBackColor.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.txtExtractedBackColor.Location = New System.Drawing.Point(-6, 223)
-        Me.txtExtractedBackColor.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
-        Me.txtExtractedBackColor.Name = "txtExtractedBackColor"
-        Me.txtExtractedBackColor.Size = New System.Drawing.Size(54, 20)
-        Me.txtExtractedBackColor.TabIndex = 30
-        '
-        'label3
-        '
-        Me.label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.label3.AutoSize = True
-        Me.label3.Location = New System.Drawing.Point(-133, 117)
-        Me.label3.Name = "label3"
-        Me.label3.Size = New System.Drawing.Size(124, 13)
-        Me.label3.TabIndex = 14
-        Me.label3.Text = "Height Merge Sensitivity:"
-        '
-        'txtWidthMergeSense
-        '
-        Me.txtWidthMergeSense.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtWidthMergeSense.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.txtWidthMergeSense.Location = New System.Drawing.Point(-6, 143)
-        Me.txtWidthMergeSense.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
-        Me.txtWidthMergeSense.Name = "txtWidthMergeSense"
-        Me.txtWidthMergeSense.Size = New System.Drawing.Size(54, 20)
-        Me.txtWidthMergeSense.TabIndex = 11
-        Me.txtWidthMergeSense.Value = New Decimal(New Integer() {10, 0, 0, 0})
-        '
-        'txtHeightMergeSense
-        '
-        Me.txtHeightMergeSense.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtHeightMergeSense.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.txtHeightMergeSense.Location = New System.Drawing.Point(-6, 115)
-        Me.txtHeightMergeSense.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
-        Me.txtHeightMergeSense.Name = "txtHeightMergeSense"
-        Me.txtHeightMergeSense.Size = New System.Drawing.Size(54, 20)
-        Me.txtHeightMergeSense.TabIndex = 13
-        Me.txtHeightMergeSense.Value = New Decimal(New Integer() {10, 0, 0, 0})
-        '
-        'label9
-        '
-        Me.label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.label9.AutoSize = True
-        Me.label9.Location = New System.Drawing.Point(-133, 225)
-        Me.label9.Name = "label9"
-        Me.label9.Size = New System.Drawing.Size(110, 13)
-        Me.label9.TabIndex = 29
-        Me.label9.Text = "Extracted Back Color:"
-        '
-        'label4
-        '
-        Me.label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.label4.AutoSize = True
-        Me.label4.Location = New System.Drawing.Point(-133, 145)
-        Me.label4.Name = "label4"
-        Me.label4.Size = New System.Drawing.Size(121, 13)
-        Me.label4.TabIndex = 12
-        Me.label4.Text = "Width Merge Sensitivity:"
-        '
-        'ToolStrip2
-        '
-        Me.ToolStrip2.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.ToolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnColapsSett, Me.btnPinsetting})
-        Me.ToolStrip2.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(96, 25)
-        Me.ToolStrip2.TabIndex = 1
-        Me.ToolStrip2.Text = "ToolStrip2"
-        '
-        'btnColapsSett
-        '
-        Me.btnColapsSett.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.btnColapsSett.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnColapsSett.ForeColor = System.Drawing.Color.White
-        Me.btnColapsSett.Image = CType(resources.GetObject("btnColapsSett.Image"), System.Drawing.Image)
-        Me.btnColapsSett.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.btnColapsSett.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnColapsSett.Name = "btnColapsSett"
-        Me.btnColapsSett.Size = New System.Drawing.Size(23, 22)
-        Me.btnColapsSett.Text = "Close"
-        '
-        'btnPinsetting
-        '
-        Me.btnPinsetting.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.btnPinsetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnPinsetting.ForeColor = System.Drawing.Color.White
-        Me.btnPinsetting.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnPinsetting.Name = "btnPinsetting"
-        Me.btnPinsetting.Size = New System.Drawing.Size(23, 22)
-        Me.btnPinsetting.Text = "Pin"
-        '
-        'ToolsOCRProcess
-        '
-        Me.ToolsOCRProcess.AllowMerge = False
-        Me.ToolsOCRProcess.Dock = System.Windows.Forms.DockStyle.None
-        Me.ToolsOCRProcess.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSetting, Me.ToolStripSeparator13, Me.CmbLang, Me.ToolStripSeparator12, Me.btnResetRecog, Me.ToolStripSeparator33, Me.btnRecognizeCurrent, Me.ToolStripSeparator11, Me.btnRecognizeAll})
-        Me.ToolsOCRProcess.Location = New System.Drawing.Point(157, 59)
-        Me.ToolsOCRProcess.Name = "ToolsOCRProcess"
-        Me.ToolsOCRProcess.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.ToolsOCRProcess.Size = New System.Drawing.Size(354, 25)
-        Me.ToolsOCRProcess.TabIndex = 13
-        Me.ToolsOCRProcess.Text = "OCR Setting"
-        '
-        'btnSetting
-        '
-        Me.btnSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnSetting.Image = CType(resources.GetObject("btnSetting.Image"), System.Drawing.Image)
-        Me.btnSetting.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnSetting.Name = "btnSetting"
-        Me.btnSetting.Size = New System.Drawing.Size(23, 22)
-        Me.btnSetting.Text = "Set Parameters"
-        '
-        'ToolStripSeparator13
-        '
-        Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(6, 25)
-        '
-        'CmbLang
-        '
-        Me.CmbLang.Name = "CmbLang"
-        Me.CmbLang.Size = New System.Drawing.Size(130, 25)
-        '
-        'ToolStripSeparator12
-        '
-        Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(6, 25)
-        '
-        'btnResetRecog
-        '
-        Me.btnResetRecog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnResetRecog.Enabled = False
-        Me.btnResetRecog.Image = CType(resources.GetObject("btnResetRecog.Image"), System.Drawing.Image)
-        Me.btnResetRecog.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnResetRecog.Name = "btnResetRecog"
-        Me.btnResetRecog.Size = New System.Drawing.Size(23, 22)
-        Me.btnResetRecog.Text = "Reset OCR for this image"
-        '
-        'ToolStripSeparator33
-        '
-        Me.ToolStripSeparator33.Name = "ToolStripSeparator33"
-        Me.ToolStripSeparator33.Size = New System.Drawing.Size(6, 25)
-        '
-        'btnRecognizeCurrent
-        '
-        Me.btnRecognizeCurrent.Image = CType(resources.GetObject("btnRecognizeCurrent.Image"), System.Drawing.Image)
-        Me.btnRecognizeCurrent.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnRecognizeCurrent.Name = "btnRecognizeCurrent"
-        Me.btnRecognizeCurrent.Size = New System.Drawing.Size(75, 22)
-        Me.btnRecognizeCurrent.Text = "Run OCR"
-        Me.btnRecognizeCurrent.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        '
-        'ToolStripSeparator11
-        '
-        Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
-        Me.ToolStripSeparator11.Size = New System.Drawing.Size(6, 25)
-        '
-        'btnRecognizeAll
-        '
-        Me.btnRecognizeAll.Image = CType(resources.GetObject("btnRecognizeAll.Image"), System.Drawing.Image)
-        Me.btnRecognizeAll.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnRecognizeAll.Name = "btnRecognizeAll"
-        Me.btnRecognizeAll.Size = New System.Drawing.Size(65, 22)
-        Me.btnRecognizeAll.Text = "Run All"
-        '
-        'ToolsPreProcess
-        '
-        Me.ToolsPreProcess.Dock = System.Windows.Forms.DockStyle.None
-        Me.ToolsPreProcess.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnDeskew, Me.btnRotateRight, Me.btnRotateLeft, Me.btnCrop})
-        Me.ToolsPreProcess.Location = New System.Drawing.Point(16, 59)
-        Me.ToolsPreProcess.Name = "ToolsPreProcess"
-        Me.ToolsPreProcess.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.ToolsPreProcess.Size = New System.Drawing.Size(104, 25)
-        Me.ToolsPreProcess.TabIndex = 0
-        Me.ToolsPreProcess.Text = "Morphological Tools"
-        '
-        'btnDeskew
-        '
-        Me.btnDeskew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnDeskew.Image = CType(resources.GetObject("btnDeskew.Image"), System.Drawing.Image)
-        Me.btnDeskew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnDeskew.Name = "btnDeskew"
-        Me.btnDeskew.Size = New System.Drawing.Size(23, 22)
-        Me.btnDeskew.Text = "Deskew"
-        '
-        'btnRotateRight
-        '
-        Me.btnRotateRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnRotateRight.Image = CType(resources.GetObject("btnRotateRight.Image"), System.Drawing.Image)
-        Me.btnRotateRight.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnRotateRight.Name = "btnRotateRight"
-        Me.btnRotateRight.Size = New System.Drawing.Size(23, 22)
-        Me.btnRotateRight.Text = "Rotate Right"
-        '
-        'btnRotateLeft
-        '
-        Me.btnRotateLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnRotateLeft.Image = CType(resources.GetObject("btnRotateLeft.Image"), System.Drawing.Image)
-        Me.btnRotateLeft.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnRotateLeft.Name = "btnRotateLeft"
-        Me.btnRotateLeft.Size = New System.Drawing.Size(23, 22)
-        Me.btnRotateLeft.Text = "Rotate Left"
-        '
-        'btnCrop
-        '
-        Me.btnCrop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnCrop.Image = CType(resources.GetObject("btnCrop.Image"), System.Drawing.Image)
-        Me.btnCrop.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnCrop.Name = "btnCrop"
-        Me.btnCrop.Size = New System.Drawing.Size(23, 22)
-        Me.btnCrop.Text = "Crop Resize"
+        'OCRTreeView
+        '
+        Me.OCRTreeView.BackColor = System.Drawing.Color.DimGray
+        Me.OCRTreeView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.OCRTreeView.ForeColor = System.Drawing.Color.White
+        Me.OCRTreeView.HideSelection = False
+        Me.OCRTreeView.ImageIndex = 0
+        Me.OCRTreeView.ImageList = Me.ImageList1
+        Me.OCRTreeView.LineColor = System.Drawing.Color.White
+        Me.OCRTreeView.Location = New System.Drawing.Point(0, 25)
+        Me.OCRTreeView.Name = "OCRTreeView"
+        TreeNode3.Name = "Node0"
+        TreeNode3.Text = "User OCR Objects"
+        TreeNode4.Name = "Node1"
+        TreeNode4.Text = "Recognized OCR Objects"
+        Me.OCRTreeView.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode3, TreeNode4})
+        Me.OCRTreeView.SelectedImageIndex = 0
+        Me.OCRTreeView.Size = New System.Drawing.Size(236, 518)
+        Me.OCRTreeView.TabIndex = 0
+        '
+        'ImageList1
+        '
+        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Magenta
+        Me.ImageList1.Images.SetKeyName(0, "Column.png")
+        Me.ImageList1.Images.SetKeyName(1, "TextBlock_16x_32.bmp")
+        '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnOCRobjColaps, Me.btnOCRobjPin})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(236, 25)
+        Me.ToolStrip1.TabIndex = 3
+        Me.ToolStrip1.Text = "OCRobjTools"
+        '
+        'btnOCRobjColaps
+        '
+        Me.btnOCRobjColaps.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.btnOCRobjColaps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnOCRobjColaps.ForeColor = System.Drawing.Color.White
+        Me.btnOCRobjColaps.Image = CType(resources.GetObject("btnOCRobjColaps.Image"), System.Drawing.Image)
+        Me.btnOCRobjColaps.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.btnOCRobjColaps.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnOCRobjColaps.Name = "btnOCRobjColaps"
+        Me.btnOCRobjColaps.Size = New System.Drawing.Size(23, 22)
+        Me.btnOCRobjColaps.Text = "Close"
+        '
+        'btnOCRobjPin
+        '
+        Me.btnOCRobjPin.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.btnOCRobjPin.CheckOnClick = True
+        Me.btnOCRobjPin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnOCRobjPin.ForeColor = System.Drawing.Color.White
+        Me.btnOCRobjPin.Image = CType(resources.GetObject("btnOCRobjPin.Image"), System.Drawing.Image)
+        Me.btnOCRobjPin.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnOCRobjPin.Name = "btnOCRobjPin"
+        Me.btnOCRobjPin.Size = New System.Drawing.Size(23, 22)
+        Me.btnOCRobjPin.Text = "Pin"
+        '
+        'SplitInputResultView
+        '
+        Me.SplitInputResultView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitInputResultView.Location = New System.Drawing.Point(0, 0)
+        Me.SplitInputResultView.Name = "SplitInputResultView"
+        '
+        'SplitInputResultView.Panel1
+        '
+        Me.SplitInputResultView.Panel1.Controls.Add(Me.ToolsMainWindow)
+        Me.SplitInputResultView.Panel1.Controls.Add(Me.OCRToolStrips)
+        Me.SplitInputResultView.Panel1.Controls.Add(Me.ImagesToolStrip)
+        '
+        'SplitInputResultView.Panel2
+        '
+        Me.SplitInputResultView.Panel2.BackColor = System.Drawing.SystemColors.Control
+        Me.SplitInputResultView.Panel2.Controls.Add(Me.SplitTextResultView)
+        Me.SplitInputResultView.Size = New System.Drawing.Size(1041, 543)
+        Me.SplitInputResultView.SplitterDistance = 771
+        Me.SplitInputResultView.SplitterWidth = 6
+        Me.SplitInputResultView.TabIndex = 3
         '
         'ToolsMainWindow
         '
         Me.ToolsMainWindow.BackColor = System.Drawing.SystemColors.Control
         Me.ToolsMainWindow.Dock = System.Windows.Forms.DockStyle.None
-        Me.ToolsMainWindow.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.textSelctedImage, Me.btnOpenPrevious, Me.btnOpenNext, Me.ToolStripSeparator1, Me.cmbEditMode, Me.ToolStripSeparator17, Me.btnOpen, Me.ToolsImageOpen, Me.ToolStripSeparator14, Me.btnAppenedFile, Me.ToolStripSeparator18, Me.ToolStripButton1, Me.ToolStripSeparator19, Me.btnRedo, Me.btnUndo, Me.ToolStripSeparator9, Me.btnHideImpt, Me.btnResetZoom, Me.btnTxtView, Me.btnBackground})
-        Me.ToolsMainWindow.Location = New System.Drawing.Point(16, 25)
+        Me.ToolsMainWindow.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.textSelctedImage, Me.btnOpenPrevious, Me.ToolStripSeparator13, Me.btnOpenNext, Me.ToolStripSeparator1, Me.btnOpen, Me.ToolsImageOpen, Me.ToolStripSeparator14, Me.btnAppenedFile, Me.ToolStripSeparator18, Me.ToolStripButton1, Me.ToolStripSeparator19, Me.btnUndo, Me.btnRedo, Me.ToolStripSeparator9, Me.btnResetZoom, Me.btnHideImpt, Me.ToolStripSeparator17, Me.btnTxtView, Me.ToolStripSeparator11, Me.btnBackground, Me.btnImageEditMode, Me.ToolStripSeparator38, Me.btnSaveImage})
+        Me.ToolsMainWindow.Location = New System.Drawing.Point(12, 74)
         Me.ToolsMainWindow.Name = "ToolsMainWindow"
         Me.ToolsMainWindow.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.ToolsMainWindow.Size = New System.Drawing.Size(636, 25)
+        Me.ToolsMainWindow.Size = New System.Drawing.Size(489, 25)
         Me.ToolsMainWindow.TabIndex = 3
         Me.ToolsMainWindow.Text = "OCR Tools"
         '
@@ -1527,6 +1139,7 @@ Partial Class MainWindow
         '
         Me.textSelctedImage.Name = "textSelctedImage"
         Me.textSelctedImage.Size = New System.Drawing.Size(121, 25)
+        Me.textSelctedImage.Visible = False
         '
         'btnOpenPrevious
         '
@@ -1536,6 +1149,11 @@ Partial Class MainWindow
         Me.btnOpenPrevious.Name = "btnOpenPrevious"
         Me.btnOpenPrevious.Size = New System.Drawing.Size(23, 22)
         Me.btnOpenPrevious.Text = "ToolStripButton1"
+        '
+        'ToolStripSeparator13
+        '
+        Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(6, 25)
         '
         'btnOpenNext
         '
@@ -1550,17 +1168,6 @@ Partial Class MainWindow
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
-        '
-        'cmbEditMode
-        '
-        Me.cmbEditMode.AutoCompleteCustomSource.AddRange(New String() {"Text", "Hocr", "TSV"})
-        Me.cmbEditMode.Name = "cmbEditMode"
-        Me.cmbEditMode.Size = New System.Drawing.Size(150, 25)
-        '
-        'ToolStripSeparator17
-        '
-        Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
-        Me.ToolStripSeparator17.Size = New System.Drawing.Size(6, 25)
         '
         'btnOpen
         '
@@ -1643,16 +1250,6 @@ Partial Class MainWindow
         Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
         Me.ToolStripSeparator19.Size = New System.Drawing.Size(6, 25)
         '
-        'btnRedo
-        '
-        Me.btnRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnRedo.Enabled = False
-        Me.btnRedo.Image = CType(resources.GetObject("btnRedo.Image"), System.Drawing.Image)
-        Me.btnRedo.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnRedo.Name = "btnRedo"
-        Me.btnRedo.Size = New System.Drawing.Size(23, 22)
-        Me.btnRedo.Text = "Redo"
-        '
         'btnUndo
         '
         Me.btnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -1663,10 +1260,29 @@ Partial Class MainWindow
         Me.btnUndo.Size = New System.Drawing.Size(23, 22)
         Me.btnUndo.Text = "Undo"
         '
+        'btnRedo
+        '
+        Me.btnRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnRedo.Enabled = False
+        Me.btnRedo.Image = CType(resources.GetObject("btnRedo.Image"), System.Drawing.Image)
+        Me.btnRedo.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnRedo.Name = "btnRedo"
+        Me.btnRedo.Size = New System.Drawing.Size(23, 22)
+        Me.btnRedo.Text = "Redo"
+        '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
         Me.ToolStripSeparator9.Size = New System.Drawing.Size(6, 25)
+        '
+        'btnResetZoom
+        '
+        Me.btnResetZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnResetZoom.Image = CType(resources.GetObject("btnResetZoom.Image"), System.Drawing.Image)
+        Me.btnResetZoom.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnResetZoom.Name = "btnResetZoom"
+        Me.btnResetZoom.Size = New System.Drawing.Size(23, 22)
+        Me.btnResetZoom.Text = "Zoom Reset"
         '
         'btnHideImpt
         '
@@ -1678,14 +1294,10 @@ Partial Class MainWindow
         Me.btnHideImpt.Size = New System.Drawing.Size(23, 22)
         Me.btnHideImpt.Text = "Hide Tabs"
         '
-        'btnResetZoom
+        'ToolStripSeparator17
         '
-        Me.btnResetZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnResetZoom.Image = CType(resources.GetObject("btnResetZoom.Image"), System.Drawing.Image)
-        Me.btnResetZoom.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnResetZoom.Name = "btnResetZoom"
-        Me.btnResetZoom.Size = New System.Drawing.Size(23, 22)
-        Me.btnResetZoom.Text = "Zoom Reset"
+        Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
+        Me.ToolStripSeparator17.Size = New System.Drawing.Size(6, 25)
         '
         'btnTxtView
         '
@@ -1698,27 +1310,253 @@ Partial Class MainWindow
         Me.btnTxtView.Size = New System.Drawing.Size(23, 22)
         Me.btnTxtView.Text = "Text Result View"
         '
+        'ToolStripSeparator11
+        '
+        Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(6, 25)
+        '
         'btnBackground
         '
-        Me.btnBackground.CheckOnClick = True
-        Me.btnBackground.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnBackground.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditedImageToolStripMenuItem, Me.OriginalImageToolStripMenuItem, Me.ToolStripSeparator12, Me.UserAreaEditedImageToolStripMenuItem, Me.UserAreaOriginalAreaToolStripMenuItem})
         Me.btnBackground.Image = CType(resources.GetObject("btnBackground.Image"), System.Drawing.Image)
         Me.btnBackground.ImageTransparentColor = System.Drawing.Color.Black
         Me.btnBackground.Name = "btnBackground"
-        Me.btnBackground.Size = New System.Drawing.Size(23, 22)
-        Me.btnBackground.Text = "Reset Image Background"
+        Me.btnBackground.Size = New System.Drawing.Size(97, 22)
+        Me.btnBackground.Text = "Image View"
         '
-        'ToolStrip3
+        'EditedImageToolStripMenuItem
         '
-        Me.ToolStrip3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.ToolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnImgTab, Me.btnSettTab})
-        Me.ToolStrip3.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table
-        Me.ToolStrip3.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip3.Name = "ToolStrip3"
-        Me.ToolStrip3.Size = New System.Drawing.Size(24, 543)
-        Me.ToolStrip3.TabIndex = 0
-        Me.ToolStrip3.Text = "ToolStrip3"
+        Me.EditedImageToolStripMenuItem.Checked = True
+        Me.EditedImageToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.EditedImageToolStripMenuItem.Name = "EditedImageToolStripMenuItem"
+        Me.EditedImageToolStripMenuItem.Size = New System.Drawing.Size(254, 22)
+        Me.EditedImageToolStripMenuItem.Text = "Edited Image                                     "
+        '
+        'OriginalImageToolStripMenuItem
+        '
+        Me.OriginalImageToolStripMenuItem.Name = "OriginalImageToolStripMenuItem"
+        Me.OriginalImageToolStripMenuItem.Size = New System.Drawing.Size(254, 22)
+        Me.OriginalImageToolStripMenuItem.Text = "Original Image"
+        '
+        'ToolStripSeparator12
+        '
+        Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(251, 6)
+        '
+        'UserAreaEditedImageToolStripMenuItem
+        '
+        Me.UserAreaEditedImageToolStripMenuItem.Name = "UserAreaEditedImageToolStripMenuItem"
+        Me.UserAreaEditedImageToolStripMenuItem.Size = New System.Drawing.Size(254, 22)
+        Me.UserAreaEditedImageToolStripMenuItem.Text = "User Area: Edited Image"
+        '
+        'UserAreaOriginalAreaToolStripMenuItem
+        '
+        Me.UserAreaOriginalAreaToolStripMenuItem.Name = "UserAreaOriginalAreaToolStripMenuItem"
+        Me.UserAreaOriginalAreaToolStripMenuItem.Size = New System.Drawing.Size(254, 22)
+        Me.UserAreaOriginalAreaToolStripMenuItem.Text = "User Area: Original Image"
+        '
+        'btnImageEditMode
+        '
+        Me.btnImageEditMode.BackColor = System.Drawing.SystemColors.Control
+        Me.btnImageEditMode.Checked = True
+        Me.btnImageEditMode.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.btnImageEditMode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.btnImageEditMode.Image = CType(resources.GetObject("btnImageEditMode.Image"), System.Drawing.Image)
+        Me.btnImageEditMode.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnImageEditMode.Name = "btnImageEditMode"
+        Me.btnImageEditMode.Size = New System.Drawing.Size(44, 22)
+        Me.btnImageEditMode.Text = "Edited"
+        Me.btnImageEditMode.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        '
+        'ToolStripSeparator38
+        '
+        Me.ToolStripSeparator38.Name = "ToolStripSeparator38"
+        Me.ToolStripSeparator38.Size = New System.Drawing.Size(6, 25)
+        '
+        'btnSaveImage
+        '
+        Me.btnSaveImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnSaveImage.Enabled = False
+        Me.btnSaveImage.Image = CType(resources.GetObject("btnSaveImage.Image"), System.Drawing.Image)
+        Me.btnSaveImage.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnSaveImage.Name = "btnSaveImage"
+        Me.btnSaveImage.Size = New System.Drawing.Size(23, 22)
+        Me.btnSaveImage.Text = "ToolStripButton2"
+        '
+        'OCRToolStrips
+        '
+        Me.OCRToolStrips.AllowMerge = False
+        Me.OCRToolStrips.Dock = System.Windows.Forms.DockStyle.None
+        Me.OCRToolStrips.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CmbLang, Me.btnRecognizeCurrent, Me.btnRecognizeAll, Me.btnResetRecog, Me.cmbEditMode, Me.btnSelectionBox})
+        Me.OCRToolStrips.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
+        Me.OCRToolStrips.Location = New System.Drawing.Point(27, 149)
+        Me.OCRToolStrips.Name = "OCRToolStrips"
+        Me.OCRToolStrips.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.OCRToolStrips.Size = New System.Drawing.Size(482, 25)
+        Me.OCRToolStrips.TabIndex = 13
+        Me.OCRToolStrips.Text = "OCR Setting"
+        '
+        'CmbLang
+        '
+        Me.CmbLang.Name = "CmbLang"
+        Me.CmbLang.Size = New System.Drawing.Size(130, 25)
+        '
+        'btnRecognizeCurrent
+        '
+        Me.btnRecognizeCurrent.Image = CType(resources.GetObject("btnRecognizeCurrent.Image"), System.Drawing.Image)
+        Me.btnRecognizeCurrent.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnRecognizeCurrent.Name = "btnRecognizeCurrent"
+        Me.btnRecognizeCurrent.Size = New System.Drawing.Size(75, 22)
+        Me.btnRecognizeCurrent.Text = "Run OCR"
+        Me.btnRecognizeCurrent.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        '
+        'btnRecognizeAll
+        '
+        Me.btnRecognizeAll.Image = CType(resources.GetObject("btnRecognizeAll.Image"), System.Drawing.Image)
+        Me.btnRecognizeAll.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnRecognizeAll.Name = "btnRecognizeAll"
+        Me.btnRecognizeAll.Size = New System.Drawing.Size(65, 22)
+        Me.btnRecognizeAll.Text = "Run All"
+        '
+        'btnResetRecog
+        '
+        Me.btnResetRecog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnResetRecog.Enabled = False
+        Me.btnResetRecog.Image = CType(resources.GetObject("btnResetRecog.Image"), System.Drawing.Image)
+        Me.btnResetRecog.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnResetRecog.Name = "btnResetRecog"
+        Me.btnResetRecog.Size = New System.Drawing.Size(23, 22)
+        Me.btnResetRecog.Text = "Reset OCR for this image"
+        '
+        'cmbEditMode
+        '
+        Me.cmbEditMode.AutoCompleteCustomSource.AddRange(New String() {"Text", "Hocr", "TSV"})
+        Me.cmbEditMode.Name = "cmbEditMode"
+        Me.cmbEditMode.Size = New System.Drawing.Size(150, 25)
+        '
+        'btnSelectionBox
+        '
+        Me.btnSelectionBox.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnSelectionBox.Enabled = False
+        Me.btnSelectionBox.Image = CType(resources.GetObject("btnSelectionBox.Image"), System.Drawing.Image)
+        Me.btnSelectionBox.ImageTransparentColor = System.Drawing.Color.Black
+        Me.btnSelectionBox.Name = "btnSelectionBox"
+        Me.btnSelectionBox.Size = New System.Drawing.Size(23, 22)
+        Me.btnSelectionBox.Text = "Selection Box"
+        '
+        'ImagesToolStrip
+        '
+        Me.ImagesToolStrip.Dock = System.Windows.Forms.DockStyle.None
+        Me.ImagesToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnboxdraw, Me.ToolStripSeparator34, Me.btnSetting, Me.ToolStripSeparator37, Me.btnDeskew, Me.btnRotateRight, Me.btnRotateLeft, Me.btnCrop})
+        Me.ImagesToolStrip.Location = New System.Drawing.Point(27, 112)
+        Me.ImagesToolStrip.Name = "ImagesToolStrip"
+        Me.ImagesToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.ImagesToolStrip.Size = New System.Drawing.Size(162, 25)
+        Me.ImagesToolStrip.TabIndex = 0
+        Me.ImagesToolStrip.Text = "Morphological Tools"
+        '
+        'btnboxdraw
+        '
+        Me.btnboxdraw.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnboxdraw.Image = CType(resources.GetObject("btnboxdraw.Image"), System.Drawing.Image)
+        Me.btnboxdraw.ImageTransparentColor = System.Drawing.Color.Black
+        Me.btnboxdraw.Name = "btnboxdraw"
+        Me.btnboxdraw.Size = New System.Drawing.Size(23, 22)
+        Me.btnboxdraw.Text = "Draw Box"
+        '
+        'ToolStripSeparator34
+        '
+        Me.ToolStripSeparator34.Name = "ToolStripSeparator34"
+        Me.ToolStripSeparator34.Size = New System.Drawing.Size(6, 25)
+        '
+        'btnSetting
+        '
+        Me.btnSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnSetting.Image = CType(resources.GetObject("btnSetting.Image"), System.Drawing.Image)
+        Me.btnSetting.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnSetting.Name = "btnSetting"
+        Me.btnSetting.Size = New System.Drawing.Size(23, 22)
+        Me.btnSetting.Text = "Set Parameters"
+        '
+        'ToolStripSeparator37
+        '
+        Me.ToolStripSeparator37.Name = "ToolStripSeparator37"
+        Me.ToolStripSeparator37.Size = New System.Drawing.Size(6, 25)
+        '
+        'btnDeskew
+        '
+        Me.btnDeskew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnDeskew.Image = CType(resources.GetObject("btnDeskew.Image"), System.Drawing.Image)
+        Me.btnDeskew.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnDeskew.Name = "btnDeskew"
+        Me.btnDeskew.Size = New System.Drawing.Size(23, 22)
+        Me.btnDeskew.Text = "Deskew"
+        '
+        'btnRotateRight
+        '
+        Me.btnRotateRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnRotateRight.Image = CType(resources.GetObject("btnRotateRight.Image"), System.Drawing.Image)
+        Me.btnRotateRight.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnRotateRight.Name = "btnRotateRight"
+        Me.btnRotateRight.Size = New System.Drawing.Size(23, 22)
+        Me.btnRotateRight.Text = "Rotate Right"
+        '
+        'btnRotateLeft
+        '
+        Me.btnRotateLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnRotateLeft.Image = CType(resources.GetObject("btnRotateLeft.Image"), System.Drawing.Image)
+        Me.btnRotateLeft.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnRotateLeft.Name = "btnRotateLeft"
+        Me.btnRotateLeft.Size = New System.Drawing.Size(23, 22)
+        Me.btnRotateLeft.Text = "Rotate Left"
+        '
+        'btnCrop
+        '
+        Me.btnCrop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnCrop.Enabled = False
+        Me.btnCrop.Image = CType(resources.GetObject("btnCrop.Image"), System.Drawing.Image)
+        Me.btnCrop.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnCrop.Name = "btnCrop"
+        Me.btnCrop.Size = New System.Drawing.Size(23, 22)
+        Me.btnCrop.Text = "Crop Resize"
+        '
+        'SplitTextResultView
+        '
+        Me.SplitTextResultView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitTextResultView.FixedPanel = System.Windows.Forms.FixedPanel.Panel2
+        Me.SplitTextResultView.Location = New System.Drawing.Point(0, 0)
+        Me.SplitTextResultView.Name = "SplitTextResultView"
+        Me.SplitTextResultView.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitTextResultView.Panel2
+        '
+        Me.SplitTextResultView.Panel2.Controls.Add(Me.txtBoxResult)
+        Me.SplitTextResultView.Size = New System.Drawing.Size(264, 543)
+        Me.SplitTextResultView.SplitterDistance = 514
+        Me.SplitTextResultView.TabIndex = 3
+        '
+        'txtBoxResult
+        '
+        Me.txtBoxResult.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtBoxResult.Location = New System.Drawing.Point(0, 0)
+        Me.txtBoxResult.Multiline = True
+        Me.txtBoxResult.Name = "txtBoxResult"
+        Me.txtBoxResult.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtBoxResult.Size = New System.Drawing.Size(264, 25)
+        Me.txtBoxResult.TabIndex = 0
+        Me.txtBoxResult.WordWrap = False
+        '
+        'SideToolStrip
+        '
+        Me.SideToolStrip.Dock = System.Windows.Forms.DockStyle.Left
+        Me.SideToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.SideToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnImgTab, Me.btnHocrtab})
+        Me.SideToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table
+        Me.SideToolStrip.Location = New System.Drawing.Point(0, 0)
+        Me.SideToolStrip.Name = "SideToolStrip"
+        Me.SideToolStrip.Size = New System.Drawing.Size(24, 543)
+        Me.SideToolStrip.TabIndex = 0
+        Me.SideToolStrip.Text = "ToolStrip3"
         '
         'btnImgTab
         '
@@ -1735,75 +1573,21 @@ Partial Class MainWindow
         Me.btnImgTab.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270
         Me.btnImgTab.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         '
-        'btnSettTab
+        'btnHocrtab
         '
-        Me.btnSettTab.AutoToolTip = False
-        Me.btnSettTab.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.btnSettTab.Font = New System.Drawing.Font("Arial Unicode MS", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSettTab.ForeColor = System.Drawing.Color.White
-        Me.btnSettTab.Image = CType(resources.GetObject("btnSettTab.Image"), System.Drawing.Image)
-        Me.btnSettTab.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.btnSettTab.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.btnSettTab.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnSettTab.Name = "btnSettTab"
-        Me.btnSettTab.Size = New System.Drawing.Size(23, 104)
-        Me.btnSettTab.Text = "NLP Setting"
-        Me.btnSettTab.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270
-        Me.btnSettTab.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
-        '
-        'SplitTextResultView
-        '
-        Me.SplitTextResultView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitTextResultView.FixedPanel = System.Windows.Forms.FixedPanel.Panel2
-        Me.SplitTextResultView.Location = New System.Drawing.Point(0, 0)
-        Me.SplitTextResultView.Name = "SplitTextResultView"
-        Me.SplitTextResultView.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitTextResultView.Panel1
-        '
-        Me.SplitTextResultView.Panel1.Controls.Add(Me.ViewPicBox)
-        '
-        'SplitTextResultView.Panel2
-        '
-        Me.SplitTextResultView.Panel2.Controls.Add(Me.txtBoxResult)
-        Me.SplitTextResultView.Size = New System.Drawing.Size(96, 100)
-        Me.SplitTextResultView.SplitterDistance = 71
-        Me.SplitTextResultView.TabIndex = 3
-        '
-        'ViewPicBox
-        '
-        Me.ViewPicBox.BackColor = System.Drawing.Color.DimGray
-        Me.ViewPicBox.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ViewPicBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ViewPicBox.HighlightedBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.ViewPicBox.Image = Nothing
-        Me.ViewPicBox.Label = Nothing
-        Me.ViewPicBox.Location = New System.Drawing.Point(0, 0)
-        Me.ViewPicBox.Name = "ViewPicBox"
-        Me.ViewPicBox.Size = New System.Drawing.Size(96, 71)
-        Me.ViewPicBox.State = AmhOCR.controlState.None
-        Me.ViewPicBox.TabIndex = 0
-        Me.ViewPicBox.Zoom = 1.0!
-        Me.ViewPicBox.ZoomSpeed = 0.2!
-        '
-        'txtBoxResult
-        '
-        Me.txtBoxResult.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtBoxResult.Location = New System.Drawing.Point(0, 0)
-        Me.txtBoxResult.Multiline = True
-        Me.txtBoxResult.Name = "txtBoxResult"
-        Me.txtBoxResult.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtBoxResult.Size = New System.Drawing.Size(96, 25)
-        Me.txtBoxResult.TabIndex = 0
-        Me.txtBoxResult.WordWrap = False
-        '
-        'Panel1
-        '
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1305, 543)
-        Me.Panel1.TabIndex = 4
+        Me.btnHocrtab.AutoToolTip = False
+        Me.btnHocrtab.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.btnHocrtab.Font = New System.Drawing.Font("Arial Unicode MS", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnHocrtab.ForeColor = System.Drawing.Color.White
+        Me.btnHocrtab.Image = CType(resources.GetObject("btnHocrtab.Image"), System.Drawing.Image)
+        Me.btnHocrtab.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.btnHocrtab.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.btnHocrtab.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnHocrtab.Name = "btnHocrtab"
+        Me.btnHocrtab.Size = New System.Drawing.Size(23, 112)
+        Me.btnHocrtab.Text = "OCR Objects"
+        Me.btnHocrtab.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270
+        Me.btnHocrtab.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         '
         'ToolStrip9
         '
@@ -2030,7 +1814,7 @@ Partial Class MainWindow
         Me.Controls.Add(Me.MainWindowMenuStrip)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "MainWindow"
-        Me.Text = "Amh፠OCR        V1.0.1"
+        Me.Text = "Amh፠OCR        V1.0.2"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ImagelistContextMenu.ResumeLayout(False)
         Me.MainWindowMenuStrip.ResumeLayout(False)
@@ -2038,60 +1822,44 @@ Partial Class MainWindow
         Me.ToolStripContainer1.BottomToolStripPanel.ResumeLayout(False)
         Me.ToolStripContainer1.BottomToolStripPanel.PerformLayout()
         Me.ToolStripContainer1.ContentPanel.ResumeLayout(False)
+        Me.ToolStripContainer1.ContentPanel.PerformLayout()
         Me.ToolStripContainer1.TopToolStripPanel.ResumeLayout(False)
         Me.ToolStripContainer1.TopToolStripPanel.PerformLayout()
         Me.ToolStripContainer1.ResumeLayout(False)
         Me.ToolStripContainer1.PerformLayout()
         Me.MainWindowStatusStrip.ResumeLayout(False)
         Me.MainWindowStatusStrip.PerformLayout()
+        Me.MainSplitContainer.Panel1.ResumeLayout(False)
+        Me.MainSplitContainer.Panel2.ResumeLayout(False)
+        CType(Me.MainSplitContainer, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MainSplitContainer.ResumeLayout(False)
+        Me.TabsSplitContainer.Panel1.ResumeLayout(False)
+        Me.TabsSplitContainer.Panel1.PerformLayout()
+        Me.TabsSplitContainer.Panel2.ResumeLayout(False)
+        Me.TabsSplitContainer.Panel2.PerformLayout()
+        CType(Me.TabsSplitContainer, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabsSplitContainer.ResumeLayout(False)
+        Me.MainWindowToolStrip.ResumeLayout(False)
+        Me.MainWindowToolStrip.PerformLayout()
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.SplitInputResultView.Panel1.ResumeLayout(False)
         Me.SplitInputResultView.Panel1.PerformLayout()
         Me.SplitInputResultView.Panel2.ResumeLayout(False)
         CType(Me.SplitInputResultView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitInputResultView.ResumeLayout(False)
-        Me.SplitListViewImgEdit.Panel1.ResumeLayout(False)
-        Me.SplitListViewImgEdit.Panel2.ResumeLayout(False)
-        Me.SplitListViewImgEdit.Panel2.PerformLayout()
-        CType(Me.SplitListViewImgEdit, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitListViewImgEdit.ResumeLayout(False)
-        Me.SplitContainer5.Panel1.ResumeLayout(False)
-        Me.SplitContainer5.Panel1.PerformLayout()
-        Me.SplitContainer5.Panel2.ResumeLayout(False)
-        Me.SplitContainer5.Panel2.PerformLayout()
-        CType(Me.SplitContainer5, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer5.ResumeLayout(False)
-        Me.MainWindowToolStrip.ResumeLayout(False)
-        Me.MainWindowToolStrip.PerformLayout()
-        Me.panel3.ResumeLayout(False)
-        Me.groupBox2.ResumeLayout(False)
-        Me.groupBox2.PerformLayout()
-        CType(Me.txtExportSize, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
-        CType(Me.txtResizeInterval, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.groupBox3.ResumeLayout(False)
-        Me.groupBox3.PerformLayout()
-        CType(Me.txtPostMergeFilter, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtPreMergeFilter, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtBinThershold, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtExtractedBackColor, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtWidthMergeSense, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtHeightMergeSense, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ToolStrip2.ResumeLayout(False)
-        Me.ToolStrip2.PerformLayout()
-        Me.ToolsOCRProcess.ResumeLayout(False)
-        Me.ToolsOCRProcess.PerformLayout()
-        Me.ToolsPreProcess.ResumeLayout(False)
-        Me.ToolsPreProcess.PerformLayout()
         Me.ToolsMainWindow.ResumeLayout(False)
         Me.ToolsMainWindow.PerformLayout()
-        Me.ToolStrip3.ResumeLayout(False)
-        Me.ToolStrip3.PerformLayout()
-        Me.SplitTextResultView.Panel1.ResumeLayout(False)
+        Me.OCRToolStrips.ResumeLayout(False)
+        Me.OCRToolStrips.PerformLayout()
+        Me.ImagesToolStrip.ResumeLayout(False)
+        Me.ImagesToolStrip.PerformLayout()
         Me.SplitTextResultView.Panel2.ResumeLayout(False)
         Me.SplitTextResultView.Panel2.PerformLayout()
         CType(Me.SplitTextResultView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitTextResultView.ResumeLayout(False)
+        Me.SideToolStrip.ResumeLayout(False)
+        Me.SideToolStrip.PerformLayout()
         Me.ToolStrip9.ResumeLayout(False)
         Me.ToolStrip9.PerformLayout()
         Me.ResumeLayout(False)
@@ -2141,51 +1909,15 @@ Partial Class MainWindow
     Friend WithEvents lblCoordinate As ToolStripStatusLabel
     Friend WithEvents SelectNameLbl As ToolStripStatusLabel
     Friend WithEvents SplitInputResultView As SplitContainer
-    Friend WithEvents SplitListViewImgEdit As SplitContainer
-    Friend WithEvents SplitContainer5 As SplitContainer
     Friend WithEvents ListOpenedImages As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents MainWindowToolStrip As ToolStrip
     Friend WithEvents btnColapsImg As ToolStripButton
     Friend WithEvents btnPinimag As ToolStripButton
-    Private WithEvents panel3 As Panel
-    Private WithEvents groupBox2 As GroupBox
-    Private WithEvents label12 As Label
-    Private WithEvents btnExport As Button
-    Private WithEvents txtExportSize As NumericUpDown
-    Private WithEvents txtOutput As TextBox
-    Private WithEvents label8 As Label
-    Private WithEvents GroupBox4 As GroupBox
-    Private WithEvents label6 As Label
-    Private WithEvents txtResizeInterval As NumericUpDown
-    Private WithEvents btnResRight As Button
-    Private WithEvents btnResLeft As Button
-    Private WithEvents btnResDown As Button
-    Private WithEvents btnResUp As Button
-    Private WithEvents groupBox3 As GroupBox
-    Private WithEvents label11 As Label
-    Private WithEvents txtPostMergeFilter As NumericUpDown
-    Private WithEvents chkShowBinarize As CheckBox
-    Private WithEvents label1 As Label
-    Private WithEvents label5 As Label
-    Private WithEvents txtPreMergeFilter As NumericUpDown
-    Private WithEvents chkShowRows As CheckBox
-    Private WithEvents label2 As Label
-    Private WithEvents txtBinThershold As NumericUpDown
-    Private WithEvents txtExtractedBackColor As NumericUpDown
-    Private WithEvents label3 As Label
-    Private WithEvents txtWidthMergeSense As NumericUpDown
-    Private WithEvents txtHeightMergeSense As NumericUpDown
-    Private WithEvents label9 As Label
-    Private WithEvents label4 As Label
-    Friend WithEvents ToolStrip2 As ToolStrip
-    Friend WithEvents btnColapsSett As ToolStripButton
-    Friend WithEvents btnPinsetting As ToolStripButton
-    Friend WithEvents ToolStrip3 As ToolStrip
+    Friend WithEvents SideToolStrip As ToolStrip
     Friend WithEvents btnImgTab As ToolStripButton
-    Friend WithEvents btnSettTab As ToolStripButton
+    Friend WithEvents btnHocrtab As ToolStripButton
     Friend WithEvents SplitTextResultView As SplitContainer
-    Friend WithEvents Panel1 As Panel
     Friend WithEvents ToolsMainWindow As ToolStrip
     Friend WithEvents textSelctedImage As ToolStripTextBox
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
@@ -2198,8 +1930,6 @@ Partial Class MainWindow
     Friend WithEvents btnHideImpt As ToolStripButton
     Friend WithEvents btnResetZoom As ToolStripButton
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents cmbEditMode As ToolStripComboBox
-    Friend WithEvents ViewPicBox As ImageViewControl
     Friend WithEvents txtBoxResult As TextBox
     Friend WithEvents ToolStrip9 As ToolStrip
     Friend WithEvents ToolStripButton48 As ToolStripButton
@@ -2251,13 +1981,10 @@ Partial Class MainWindow
     Friend WithEvents ToolStripSeparator27 As ToolStripSeparator
     Friend WithEvents ToolZoomReset As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator28 As ToolStripSeparator
-    Friend WithEvents ToolsOCRProcess As ToolStrip
-    Friend WithEvents btnSetting As ToolStripButton
-    Friend WithEvents ToolStripSeparator12 As ToolStripSeparator
+    Friend WithEvents OCRToolStrips As ToolStrip
     Friend WithEvents btnRecognizeAll As ToolStripButton
-    Friend WithEvents ToolStripSeparator11 As ToolStripSeparator
     Friend WithEvents btnRecognizeCurrent As ToolStripButton
-    Friend WithEvents ToolsPreProcess As ToolStrip
+    Friend WithEvents ImagesToolStrip As ToolStrip
     Friend WithEvents btnDeskew As ToolStripButton
     Friend WithEvents btnRotateRight As ToolStripButton
     Friend WithEvents btnRotateLeft As ToolStripButton
@@ -2267,7 +1994,6 @@ Partial Class MainWindow
     Friend WithEvents Rotateleft90ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CropImageToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CmbLang As ToolStripComboBox
-    Friend WithEvents ToolStripSeparator13 As ToolStripSeparator
     Friend WithEvents TextViewToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents btnTxtView As ToolStripButton
     Friend WithEvents CloseProjectToolStripMenuItem As ToolStripMenuItem
@@ -2298,11 +2024,41 @@ Partial Class MainWindow
     Friend WithEvents SaveAsMSDOCFileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaveAsSearchablePDFToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaveAsTextFileToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents btnBackground As ToolStripButton
     Friend WithEvents ResetImageBackgroundToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator31 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator32 As ToolStripSeparator
     Friend WithEvents TreeContextReset As ToolStripMenuItem
     Friend WithEvents btnResetRecog As ToolStripButton
+    Friend WithEvents btnboxdraw As ToolStripButton
+    Friend WithEvents ToolStripSeparator34 As ToolStripSeparator
+    Friend WithEvents SearchTextToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator35 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator36 As ToolStripSeparator
+    Friend WithEvents MainSplitContainer As SplitContainer
+    Friend WithEvents TabsSplitContainer As SplitContainer
+    Friend WithEvents OCRTreeView As TreeView
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents btnOCRobjColaps As ToolStripButton
+    Friend WithEvents btnOCRobjPin As ToolStripButton
+    Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents btnSelectionBox As ToolStripButton
+    Friend WithEvents btnSetting As ToolStripButton
+    Friend WithEvents ToolStripSeparator37 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator13 As ToolStripSeparator
+    Friend WithEvents cmbEditMode As ToolStripComboBox
+    Friend WithEvents MenuItemEditedImageView As ToolStripMenuItem
+    Friend WithEvents MenuItemOriginalmageView As ToolStripMenuItem
+    Friend WithEvents btnBackground As ToolStripDropDownButton
+    Friend WithEvents EditedImageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OriginalImageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator11 As ToolStripSeparator
+    Friend WithEvents btnImageEditMode As ToolStripButton
+    Friend WithEvents ToolStripSeparator12 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator33 As ToolStripSeparator
+    Friend WithEvents UserAreaEditedImageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents UserAreaOriginalAreaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MainMenuUserEditedToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MainMenuUserOrigialToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator38 As ToolStripSeparator
+    Friend WithEvents btnSaveImage As ToolStripButton
 End Class

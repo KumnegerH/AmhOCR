@@ -45,7 +45,7 @@ Partial Class AboutPage
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(147, 13)
         Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Amh፠OCR Prerelease V1.0.1"
+        Me.Label2.Text = "Amh፠OCR Prerelease V1.0.2"
         '
         'Label3
         '

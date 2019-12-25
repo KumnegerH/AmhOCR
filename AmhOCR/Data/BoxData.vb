@@ -1,9 +1,5 @@
 ﻿'Copyright ©  Kumneger Hussien, kumneger.h@gmail.com, 2019 GPLv3
 
-Public Class CharBox
-    Public Box As RectangleF
-    Public Character As String
-End Class
 Public Structure PageBox
 
     Public index As Integer

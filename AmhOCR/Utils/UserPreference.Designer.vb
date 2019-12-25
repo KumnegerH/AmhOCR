@@ -67,6 +67,7 @@ Partial Class UserPreference
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.btnSave = New System.Windows.Forms.Button()
+        Me.chkWhitelisted = New System.Windows.Forms.CheckBox()
         Me.GroupBox6.SuspendLayout()
         CType(Me.numThreadNumber, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numTimeout, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -80,6 +81,7 @@ Partial Class UserPreference
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.chkWhitelisted)
         Me.GroupBox6.Controls.Add(Me.chkUserSet)
         Me.GroupBox6.Controls.Add(Me.cmbEngine)
         Me.GroupBox6.Controls.Add(Me.cmbPageSegmentation)
@@ -101,11 +103,11 @@ Partial Class UserPreference
         'chkUserSet
         '
         Me.chkUserSet.AutoSize = True
-        Me.chkUserSet.Location = New System.Drawing.Point(12, 120)
+        Me.chkUserSet.Location = New System.Drawing.Point(11, 126)
         Me.chkUserSet.Name = "chkUserSet"
-        Me.chkUserSet.Size = New System.Drawing.Size(266, 17)
+        Me.chkUserSet.Size = New System.Drawing.Size(180, 17)
         Me.chkUserSet.TabIndex = 7
-        Me.chkUserSet.Text = "Pre-process image to gray-Scale before recognition"
+        Me.chkUserSet.Text = "Binaries Image For OCR Process"
         Me.chkUserSet.UseVisualStyleBackColor = True
         '
         'cmbEngine
@@ -537,6 +539,16 @@ Partial Class UserPreference
         Me.btnSave.Text = "Save and Apply"
         Me.btnSave.UseVisualStyleBackColor = True
         '
+        'chkWhitelisted
+        '
+        Me.chkWhitelisted.AutoSize = True
+        Me.chkWhitelisted.Location = New System.Drawing.Point(226, 126)
+        Me.chkWhitelisted.Name = "chkWhitelisted"
+        Me.chkWhitelisted.Size = New System.Drawing.Size(169, 17)
+        Me.chkWhitelisted.TabIndex = 7
+        Me.chkWhitelisted.Text = "Remove Whitelisted Charcters"
+        Me.chkWhitelisted.UseVisualStyleBackColor = True
+        '
         'UserPreference
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -611,4 +623,5 @@ Partial Class UserPreference
     Friend WithEvents btnUserColorChange As Button
     Friend WithEvents btnErrorColorChange As Button
     Friend WithEvents chkUserSet As CheckBox
+    Friend WithEvents chkWhitelisted As CheckBox
 End Class

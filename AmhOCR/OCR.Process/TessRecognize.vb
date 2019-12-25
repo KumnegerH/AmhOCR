@@ -8,7 +8,7 @@ Public Class TessRecognize
 
         RecognizedPage.Recognized = False
 
-        Using TessRecog As New ReadImage(OCRsettings.Language, OCRsettings.OcrMode)
+        Using TessRecog As New ReadImage(RecognizedPage.PageOCRsettings.Language, RecognizedPage.PageOCRsettings.PageSegMode)
 
             Dim HOCRText = String.Empty
 
@@ -45,11 +45,46 @@ Public Class TessRecognize
         Return RecognizedPage
     End Function
 
+    Public Overloads Shared Async Function AsyncXMLRecognize(ByVal FileName As String, ByVal RecognizedPage As HocrPage) As Task(Of HocrPage)
+
+        RecognizedPage.Recognized = False
+
+        Using TessRecog As New ReadImage(RecognizedPage.PageOCRsettings.Language, RecognizedPage.PageOCRsettings.PageSegMode)
+
+            Dim HOCRText = String.Empty
+
+            Try
+                'Recognize image and get hocr formated output text
+                HOCRText = Await TessRecog.GetHocrAsync(FileName, OCRsettings.TimeOut)
+
+            Catch ex As Exception
+
+            End Try
+
+
+            If Not String.IsNullOrEmpty(HOCRText) Then
+                ' convert hocr text to Linq.XElement object
+
+                RecognizedPage.HocrXML = XElement.Parse(HOCRText)
+
+
+
+            End If
+
+
+
+        End Using
+
+
+        Return RecognizedPage
+    End Function
+
+
     Public Overloads Shared Function Recognize(ByVal FileName As String, ByVal RecognizedPage As HocrPage) As HocrPage
 
         RecognizedPage.Recognized = False
 
-        Using TessRecog As New ReadImage(OCRsettings.Language, OCRsettings.OcrMode)
+        Using TessRecog As New ReadImage(RecognizedPage.PageOCRsettings.Language, RecognizedPage.PageOCRsettings.PageSegMode)
 
             Dim HOCRText = String.Empty
 
@@ -91,7 +126,7 @@ Public Class TessRecognize
 
 
 
-        Using TessRecog As New ReadImage(OCRsettings.Language, OCRsettings.OcrMode)
+        Using TessRecog As New ReadImage(OCRsettings.Language, OCRsettings.PageSegMode)
 
             Dim HOCRText = String.Empty
 

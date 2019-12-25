@@ -308,6 +308,8 @@ Public Class PostProcessor
 
         CheckForAlignment(Parabx)
 
+
+        'If Parabx.FontSize > 0 AndAlso Parabx.Alignment = ParAlignment.Center  Then
         If Parabx.FontSize > 0 AndAlso Parabx.Alignment = ParAlignment.Center Then
 
 
@@ -351,6 +353,7 @@ Public Class PostProcessor
 
                         txtBox.Text = prssLine + " " + Parabx.AllocrLines(lin).AllocrWords(WRD).Text
                         Dim PosiEnd = txtBox.GetPositionFromCharIndex(txtBox.Text.Count - 1).X
+
                         Do While (NwWordStarPo > Posi) AndAlso (NwWordEndPo > PosiEnd)
 
                             prssLine += " "
@@ -377,7 +380,9 @@ Public Class PostProcessor
                     Dim CntNe As Integer = -1
                     NwWordStarPo = Parabx.AllocrLines(lin).AllocrWords.First.bbox.Y - ParagraY
                     Posi = txtBox.GetPositionFromCharIndex(ProcesedString.Count - 1).Y
+
                     Do While NwWordStarPo > Posi
+
                         CntNe += 1
                         ProcesedString += Environment.NewLine + " "
                         txtBox.Text = ProcesedString
@@ -386,25 +391,33 @@ Public Class PostProcessor
                     Loop
 
                     EnTstring = ""
+
                     For uiy As Integer = 0 To CntNe
                         EnTstring += Environment.NewLine
-
                     Next
 
                     EnTstring += prssLine
-
                     alalLines.Add(EnTstring)
-                Next
-                ProcesedString = String.Join(Environment.NewLine, alalLines)
 
+                Next
+
+
+
+                ProcesedString = String.Join(Environment.NewLine, alalLines)
                 Parabx.Text = ProcesedString
+
 
             End Using
 
 
+        Else
+
+            Parabx.Text = String.Join(Environment.NewLine, Parabx.AllocrLines.Select(Of String)(Function(X) X.Text))
 
         End If
+
         Return Parabx
+
     End Function
 
 

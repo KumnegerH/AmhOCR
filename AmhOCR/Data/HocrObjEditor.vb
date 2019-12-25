@@ -2,8 +2,13 @@
 
 Public Structure HocrObjEditor
 
+
     Public EditMode As ocrEditMode
     Public HocrObject As Object
+
+    Public ParagraphIndex As Integer
+    Public LineIndex As Integer
+    Public WordIndex As Integer
 
     Public text As String
 

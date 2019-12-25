@@ -4,13 +4,24 @@ Imports GhostscriptSharp.Settings
 
 Public Class OCRsettings
 
+
+    Public Shared Property OCRbackgroundView As BackgroundMode = BackgroundMode.EditedImage
+
+    Public Shared Property AcceptedImageFormat As List(Of Imaging.PixelFormat)
+
+    Public Shared Property ExcludedImageFormat As List(Of Imaging.PixelFormat)
+
+    Public Shared Property isImageEditMode As Boolean = True
+
     Public Shared Property ResetBackground As Boolean = False
+
+    Public Shared Property RemoveWhiteListChar As Boolean = False
 
     Public Shared Property SpellErrorColor As Color = Color.Red
 
     Public Shared Property UserSpelledColor As Color = Color.Black
 
-    Public Shared Property MaxBatch As Integer = 5
+    Public Shared Property MaxBatch As Integer = 4
 
     Public Shared Property Language As String = "amh"
 
@@ -31,7 +42,7 @@ Public Class OCRsettings
 
     Public Shared Property NativePage As GhostscriptPageSizes = GhostscriptPageSizes.letter
 
-    Public Shared Property PageSegMode As PageSegMode = PageSegMode.Any
+    Public Shared Property PageSegMode As PageSegMode = PageSegMode.fullauto
 
     Public Shared Property DefaultocrFont As Font
 
@@ -48,6 +59,8 @@ Public Class OCRsettings
     ''' <returns></returns>
     Public Shared Property TimeOut As Integer = 120000
 
+
+
     Public Shared Property TimeOutPDF As Integer = 300000
 
     Public Shared Property EditMode As ocrEditMode = ocrEditMode.WordEdit
@@ -62,6 +75,8 @@ Public Class OCRsettings
 
     Public Shared Property ProjectTempFolder As String = "C:\AmhOCR\temp"
 
+    Public Shared Property ProjectCopyFileFolder As String = "C:\AmhOCR\temp"
+
     Public Shared Property AmhOcrConvFolder As String = "C:\AmhOCR\Converts"
 
     Public Shared Property SourceImagaChenged As Boolean = False
@@ -69,6 +84,8 @@ Public Class OCRsettings
     Public Shared Property ProjectFile As String = ""
 
     Public Shared Property ProjectOpen As Boolean = False
+
+    Public Shared Property Binaries As Boolean = False
 
     Public Shared Property Gray As Boolean = False
 
@@ -92,7 +109,24 @@ Public Class OCRsettings
 
     Public Shared Property GammaValue As Single = 1
 
+    Public Shared Property PrefMaxBatch As Integer = 5
+
+    Public Shared Property PrefLanguage As String = "amh"
+
+    Public Shared Property PrefTimeOut As Integer = 120000
+
+    Public Shared Property PrefSpellErrorColor As Color = Color.Red
+
+    Public Shared Property PrefUserSpelledColor As Color = Color.Blue
+
+    Public Shared Property PrefGray As Boolean = False
+
+    Public Shared Property PrefBinary As Boolean = False
+
+
     Public Shared Sub SetDefault()
+        MaxBatch = PrefMaxBatch
+        Language = PrefLanguage
 
         SourceImagaChenged = False
         Gray = PrefGray
@@ -100,6 +134,7 @@ Public Class OCRsettings
         Bright = False
         Contrast = False
         Gamma = False
+        Binaries = PrefBinary
         ThresholdValue = 150
         BrightValue = 0
         ContrastValue = 0
@@ -120,13 +155,6 @@ Public Class OCRsettings
 
     End Sub
 
-
-    Public Shared Property PrefMaxBatch As Integer = 5
-    Public Shared Property PrefLanguage As String = "amh"
-    Public Shared Property PrefTimeOut As Integer = 120000
-    Public Shared Property PrefSpellErrorColor As Color = Color.Red
-    Public Shared Property PrefUserSpelledColor As Color = Color.Blue
-    Public Shared Property PrefGray As Boolean = False
 
 
 End Class

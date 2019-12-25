@@ -23,6 +23,7 @@ Partial Class ImageOCRsetting
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkADthreshold = New System.Windows.Forms.CheckBox()
         Me.chkGray = New System.Windows.Forms.CheckBox()
         Me.btnReset = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
@@ -61,6 +62,7 @@ Partial Class ImageOCRsetting
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox1.Controls.Add(Me.chkADthreshold)
         Me.GroupBox1.Controls.Add(Me.chkGray)
         Me.GroupBox1.Location = New System.Drawing.Point(6, 19)
         Me.GroupBox1.Name = "GroupBox1"
@@ -68,6 +70,16 @@ Partial Class ImageOCRsetting
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Color Options"
+        '
+        'chkADthreshold
+        '
+        Me.chkADthreshold.AutoSize = True
+        Me.chkADthreshold.Location = New System.Drawing.Point(292, 19)
+        Me.chkADthreshold.Name = "chkADthreshold"
+        Me.chkADthreshold.Size = New System.Drawing.Size(118, 17)
+        Me.chkADthreshold.TabIndex = 0
+        Me.chkADthreshold.Text = "Adaptive Threshold"
+        Me.chkADthreshold.UseVisualStyleBackColor = True
         '
         'chkGray
         '
@@ -90,11 +102,11 @@ Partial Class ImageOCRsetting
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(176, 276)
+        Me.btnOK.Location = New System.Drawing.Point(171, 276)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(75, 23)
+        Me.btnOK.Size = New System.Drawing.Size(100, 23)
         Me.btnOK.TabIndex = 1
-        Me.btnOK.Text = "Save and Apply"
+        Me.btnOK.Text = "Apply and Save "
         Me.btnOK.UseVisualStyleBackColor = True
         '
         'TrackThresh
@@ -139,9 +151,9 @@ Partial Class ImageOCRsetting
         Me.chkThreshold.AutoSize = True
         Me.chkThreshold.Location = New System.Drawing.Point(6, 8)
         Me.chkThreshold.Name = "chkThreshold"
-        Me.chkThreshold.Size = New System.Drawing.Size(130, 17)
+        Me.chkThreshold.Size = New System.Drawing.Size(98, 17)
         Me.chkThreshold.TabIndex = 0
-        Me.chkThreshold.Text = "Binary Filter Threshold"
+        Me.chkThreshold.Text = "Threshold Filetr"
         Me.chkThreshold.UseVisualStyleBackColor = True
         '
         'GroupBox3
@@ -369,4 +381,5 @@ Partial Class ImageOCRsetting
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents btnApply As Button
     Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents chkADthreshold As CheckBox
 End Class

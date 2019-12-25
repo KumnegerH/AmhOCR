@@ -2,7 +2,7 @@
 'Copyright ©  Kumneger Hussien, kumneger.h@gmail.com, 2019 GPLv3
 Imports System.Text
 
-Public Class NLPaction
+Public Class TextProcessor
 
     Public Overloads Shared Function GetWordList(ByVal hocrpages As List(Of HocrPage)) As String
 
@@ -408,5 +408,92 @@ Public Class NLPaction
 
     End Function
 
+
+
+
+    Public Overloads Shared Function SearchText(ByVal textToSearch As String, ByVal hocrpages As List(Of HocrPage)) As List(Of PageSearchResult)
+
+        Dim ListOfPageSearch As New List(Of PageSearchResult)
+
+        For Each page In hocrpages
+            Dim PageSearch = New PageSearchResult
+            PageSearch.Words = New List(Of HocrWord)
+            PageSearch.PageID = page.PageNum
+            PageSearch.LineHitNumbr = 0
+            PageSearch.ParagraphHitNumbr = 0
+            PageSearch.ContextHit = 0
+            Dim areas = page.AllocrCarea
+            For ar As Integer = 0 To areas.Count - 1
+
+                Dim Pars = areas(ar).AllocrParas
+                For pr As Integer = 0 To Pars.Count - 1
+                    Dim ParagraphHitNumbr As Integer = 0
+                    Dim lins = Pars(pr).AllocrLines
+                    For ln As Integer = 0 To lins.Count - 1
+                        Dim LineHitNumbr As Integer = 0
+                        Dim ContextHit As Integer = 0
+                        Dim words = lins(ln).AllocrWords
+                        For wd As Integer = 0 To words.Count - 1
+                            Dim TextValue As String = words(wd).Text.Trim(" ")
+
+
+                            If Not String.IsNullOrEmpty(TextValue) Then
+
+                                TextValue = SpellCheker.NormalizeText(TextValue)
+
+
+                                Dim subwords() As String
+                                subwords = textToSearch.Split({" ", "+"}, StringSplitOptions.RemoveEmptyEntries)
+
+
+                                If subwords.Any(Function(x) TextValue.Contains(x)) Then
+                                    If subwords.Count > 1 Then
+                                        If subwords.Any(Function(x) TextValue = x) Then
+                                            ContextHit += 1
+                                        End If
+                                    End If
+
+                                    LineHitNumbr += 1
+                                    ParagraphHitNumbr += 1
+                                    PageSearch.Words.Add(words(wd))
+
+                                End If
+
+                            End If
+
+
+                        Next
+
+                        If LineHitNumbr > PageSearch.LineHitNumbr Then
+                            PageSearch.LineHitNumbr = LineHitNumbr
+                        End If
+
+                        If ContextHit > PageSearch.ContextHit Then
+                            PageSearch.ContextHit = ContextHit
+                        End If
+
+                    Next
+
+
+                    If ParagraphHitNumbr > PageSearch.ParagraphHitNumbr Then
+                        PageSearch.ParagraphHitNumbr = ParagraphHitNumbr
+                    End If
+
+                Next
+
+            Next
+
+            If PageSearch.Words.Count > 0 Then
+                ListOfPageSearch.Add(PageSearch)
+            End If
+
+        Next
+
+
+
+
+        Return ListOfPageSearch
+
+    End Function
 
 End Class

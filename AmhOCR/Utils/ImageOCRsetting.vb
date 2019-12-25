@@ -57,6 +57,8 @@ Public Class ImageOCRsetting
         OCRsettings.Gamma = _MainHocrPage.PageOCRsettings.Gamma
         OCRsettings.GammaValue = _MainHocrPage.PageOCRsettings.GammaValue
 
+        OCRsettings.Binaries = _MainHocrPage.PageOCRsettings.Binaries
+
         If OCRsettings.Gray = True Then
             chkGray.Checked = True
             grpBoxThreshold.Enabled = True
@@ -76,6 +78,7 @@ Public Class ImageOCRsetting
             chkThreshold.Checked = False
 
         End If
+
 
 
         TrackThresh.Value = OCRsettings.ThresholdValue
@@ -117,6 +120,21 @@ Public Class ImageOCRsetting
 
         TrackGamma.Value = CInt(OCRsettings.GammaValue * 10).ToString
         lblGamma.Text = TrackGamma.Value.ToString
+
+        If OCRsettings.Binaries = True Then
+
+            GroupBox7.Enabled = False
+            chkGray.Enabled = False
+
+
+            chkADthreshold.Checked = True
+
+        Else
+            GroupBox7.Enabled = True
+            chkGray.Enabled = True
+
+            chkADthreshold.Checked = False
+        End If
 
         Lock = False
         loaded = True
@@ -271,6 +289,33 @@ Public Class ImageOCRsetting
 
     End Sub
 
+
+    Private Sub chkADthreshold_CheckedChanged(sender As Object, e As EventArgs) Handles chkADthreshold.CheckedChanged
+
+        If loaded = False Then
+            Exit Sub
+        End If
+
+        Lock = True
+
+        If chkADthreshold.Checked = True Then
+            OCRsettings.Binaries = True
+            GroupBox7.Enabled = False
+            chkGray.Enabled = False
+        Else
+            OCRsettings.Binaries = False
+            GroupBox7.Enabled = True
+            chkGray.Enabled = True
+
+        End If
+
+
+
+
+        Lock = False
+
+        ApplyCorrections()
+    End Sub
     Private Sub chkGray_CheckedChanged(sender As Object, e As EventArgs) Handles chkGray.CheckedChanged
 
         If loaded = False Then
@@ -448,21 +493,22 @@ Public Class ImageOCRsetting
 
             Lock = True
             Dim tsk =
-                TaskEx.Run(Function() As Image
+                TaskEx.Run(
+                Function() As Image
 
 
-                               Dim Newimg As Image = _MainImage.Clone
-                               Newimg = PreProcessor.ApplyCorrections(Newimg)
+                    Dim Newimg As Image = _MainImage.Clone
+                    Newimg = PreProcessor.ApplyCorrections(Newimg)
 
-                               Return Newimg
+                    Return Newimg
 
-                           End Function)
+                End Function)
 
 
 
             Try
-
-                MyViewer.UpdateImage(Await tsk)
+                Dim img = Await tsk
+                MyViewer.UpdateImage(img)
                 MyViewer.Invalidate()
 
             Catch ex As Exception
@@ -497,6 +543,8 @@ Public Class ImageOCRsetting
         pageSeting.Bright = OCRsettings.Bright
         pageSeting.Contrast = OCRsettings.Contrast
         pageSeting.Gamma = OCRsettings.Gamma
+        pageSeting.Binaries = OCRsettings.Binaries
+
 
         pageSeting.ThresholdValue = OCRsettings.ThresholdValue
         pageSeting.BrightValue = OCRsettings.BrightValue

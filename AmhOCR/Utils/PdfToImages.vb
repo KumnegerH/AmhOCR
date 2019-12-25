@@ -73,6 +73,7 @@ Public Class PdfToImages
 
             Using BackgroundWorker1 = New BackgroundWorker
 
+                BackgroundWorker1.WorkerReportsProgress = True
                 BackgroundWorker1.WorkerSupportsCancellation = True
 
                 AddHandler BackgroundWorker1.DoWork,

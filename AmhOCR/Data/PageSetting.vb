@@ -25,6 +25,8 @@ Public Class PageSetting
 
     Public Property SourceImagaChenged As Boolean = False
 
+    Public Property Binaries As Boolean = False
+
     Public Property Gray As Boolean = False
 
     Public Property Threshold As Boolean = False
@@ -56,11 +58,33 @@ Public Class PageSetting
         OcrMode = OCRsettings.OcrMode
         Language = OCRsettings.Language
         Resolution = OCRsettings.Resolution
-        Gray = OCRsettings.PrefGray
 
+        Gray = OCRsettings.Gray
+        Binaries = OCRsettings.Binaries
+
+        Threshold = OCRsettings.Threshold
+        ThresholdValue = OCRsettings.ThresholdValue
+
+        Gamma = OCRsettings.Gamma
+        GammaValue = OCRsettings.GammaValue
+
+        Bright = OCRsettings.Bright
+        BrightValue = OCRsettings.BrightValue
+
+        Contrast = OCRsettings.Contrast
+        ContrastValue = OCRsettings.ContrastValue
 
     End Sub
 
+
+    Public Sub ResetSetting()
+
+        Language = OCRsettings.Language
+        Binaries = OCRsettings.Binaries
+
+
+
+    End Sub
 
 
 End Class

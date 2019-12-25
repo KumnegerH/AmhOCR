@@ -177,4 +177,39 @@ Public Class ImageUtils
 
     End Sub
 
+
+    Public Shared Function SafeOpenImage(ByVal FileName As String) As Image
+
+        Dim img As Image
+
+        Using opnImg = AForge.Imaging.Image.FromFile(FileName)
+
+            If Not OCRsettings.AcceptedImageFormat.Contains(opnImg.PixelFormat) Then
+
+                img = AForge.Imaging.Image.Clone(opnImg, PixelFormat.Format24bppRgb)
+
+            Else
+
+                img = AForge.Imaging.Image.Clone(opnImg)
+
+            End If
+
+        End Using
+
+        Return img
+
+    End Function
+
+    Public Shared Function CloneImageForGraphics(ByVal img As Image) As Image
+
+        If Not OCRsettings.AcceptedImageFormat.Contains(img.PixelFormat) Then
+
+            img = AForge.Imaging.Image.Clone(img, PixelFormat.Format24bppRgb)
+
+        End If
+
+        Return img
+
+    End Function
+
 End Class
