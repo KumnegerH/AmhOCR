@@ -23,7 +23,8 @@ Partial Class UserPreference
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.chkUserSet = New System.Windows.Forms.CheckBox()
+        Me.chkWhitelisted = New System.Windows.Forms.CheckBox()
+        Me.chkBinary = New System.Windows.Forms.CheckBox()
         Me.cmbEngine = New System.Windows.Forms.ComboBox()
         Me.cmbPageSegmentation = New System.Windows.Forms.ComboBox()
         Me.cmbLang = New System.Windows.Forms.ComboBox()
@@ -67,7 +68,8 @@ Partial Class UserPreference
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.btnSave = New System.Windows.Forms.Button()
-        Me.chkWhitelisted = New System.Windows.Forms.CheckBox()
+        Me.chkNormChar = New System.Windows.Forms.CheckBox()
+        Me.chkNormNumerics = New System.Windows.Forms.CheckBox()
         Me.GroupBox6.SuspendLayout()
         CType(Me.numThreadNumber, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numTimeout, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -81,8 +83,10 @@ Partial Class UserPreference
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.chkNormNumerics)
+        Me.GroupBox6.Controls.Add(Me.chkNormChar)
         Me.GroupBox6.Controls.Add(Me.chkWhitelisted)
-        Me.GroupBox6.Controls.Add(Me.chkUserSet)
+        Me.GroupBox6.Controls.Add(Me.chkBinary)
         Me.GroupBox6.Controls.Add(Me.cmbEngine)
         Me.GroupBox6.Controls.Add(Me.cmbPageSegmentation)
         Me.GroupBox6.Controls.Add(Me.cmbLang)
@@ -95,20 +99,30 @@ Partial Class UserPreference
         Me.GroupBox6.Controls.Add(Me.Label1)
         Me.GroupBox6.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(449, 159)
+        Me.GroupBox6.Size = New System.Drawing.Size(449, 180)
         Me.GroupBox6.TabIndex = 6
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Tesseract Setting"
         '
-        'chkUserSet
+        'chkWhitelisted
         '
-        Me.chkUserSet.AutoSize = True
-        Me.chkUserSet.Location = New System.Drawing.Point(11, 126)
-        Me.chkUserSet.Name = "chkUserSet"
-        Me.chkUserSet.Size = New System.Drawing.Size(180, 17)
-        Me.chkUserSet.TabIndex = 7
-        Me.chkUserSet.Text = "Binaries Image For OCR Process"
-        Me.chkUserSet.UseVisualStyleBackColor = True
+        Me.chkWhitelisted.AutoSize = True
+        Me.chkWhitelisted.Location = New System.Drawing.Point(226, 126)
+        Me.chkWhitelisted.Name = "chkWhitelisted"
+        Me.chkWhitelisted.Size = New System.Drawing.Size(175, 17)
+        Me.chkWhitelisted.TabIndex = 7
+        Me.chkWhitelisted.Text = "Remove Whitelisted Characters"
+        Me.chkWhitelisted.UseVisualStyleBackColor = True
+        '
+        'chkBinary
+        '
+        Me.chkBinary.AutoSize = True
+        Me.chkBinary.Location = New System.Drawing.Point(11, 126)
+        Me.chkBinary.Name = "chkBinary"
+        Me.chkBinary.Size = New System.Drawing.Size(180, 17)
+        Me.chkBinary.TabIndex = 7
+        Me.chkBinary.Text = "Binaries Image For OCR Process"
+        Me.chkBinary.UseVisualStyleBackColor = True
         '
         'cmbEngine
         '
@@ -215,7 +229,7 @@ Partial Class UserPreference
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.Label6)
-        Me.GroupBox1.Location = New System.Drawing.Point(2, 168)
+        Me.GroupBox1.Location = New System.Drawing.Point(2, 189)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(449, 123)
         Me.GroupBox1.TabIndex = 7
@@ -348,7 +362,7 @@ Partial Class UserPreference
         Me.GroupBox2.Controls.Add(Me.Label15)
         Me.GroupBox2.Controls.Add(Me.Label14)
         Me.GroupBox2.Controls.Add(Me.Label9)
-        Me.GroupBox2.Location = New System.Drawing.Point(2, 297)
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 318)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(449, 151)
         Me.GroupBox2.TabIndex = 8
@@ -514,7 +528,7 @@ Partial Class UserPreference
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(465, 480)
+        Me.TabControl1.Size = New System.Drawing.Size(465, 501)
         Me.TabControl1.TabIndex = 9
         '
         'TabPage1
@@ -526,34 +540,44 @@ Partial Class UserPreference
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(457, 454)
+        Me.TabPage1.Size = New System.Drawing.Size(457, 475)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "General Setting"
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(162, 488)
+        Me.btnSave.Location = New System.Drawing.Point(164, 507)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(106, 23)
         Me.btnSave.TabIndex = 10
         Me.btnSave.Text = "Save and Apply"
         Me.btnSave.UseVisualStyleBackColor = True
         '
-        'chkWhitelisted
+        'chkNormChar
         '
-        Me.chkWhitelisted.AutoSize = True
-        Me.chkWhitelisted.Location = New System.Drawing.Point(226, 126)
-        Me.chkWhitelisted.Name = "chkWhitelisted"
-        Me.chkWhitelisted.Size = New System.Drawing.Size(169, 17)
-        Me.chkWhitelisted.TabIndex = 7
-        Me.chkWhitelisted.Text = "Remove Whitelisted Charcters"
-        Me.chkWhitelisted.UseVisualStyleBackColor = True
+        Me.chkNormChar.AutoSize = True
+        Me.chkNormChar.Location = New System.Drawing.Point(12, 157)
+        Me.chkNormChar.Name = "chkNormChar"
+        Me.chkNormChar.Size = New System.Drawing.Size(179, 17)
+        Me.chkNormChar.TabIndex = 7
+        Me.chkNormChar.Text = "Normalize Equivalent Characters"
+        Me.chkNormChar.UseVisualStyleBackColor = True
+        '
+        'chkNormNumerics
+        '
+        Me.chkNormNumerics.AutoSize = True
+        Me.chkNormNumerics.Location = New System.Drawing.Point(226, 157)
+        Me.chkNormNumerics.Name = "chkNormNumerics"
+        Me.chkNormNumerics.Size = New System.Drawing.Size(172, 17)
+        Me.chkNormNumerics.TabIndex = 7
+        Me.chkNormNumerics.Text = "Normalize Equivalent Numerics"
+        Me.chkNormNumerics.UseVisualStyleBackColor = True
         '
         'UserPreference
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(465, 523)
+        Me.ClientSize = New System.Drawing.Size(465, 542)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.TabControl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -622,6 +646,8 @@ Partial Class UserPreference
     Friend WithEvents cmbPageSegmentation As ComboBox
     Friend WithEvents btnUserColorChange As Button
     Friend WithEvents btnErrorColorChange As Button
-    Friend WithEvents chkUserSet As CheckBox
+    Friend WithEvents chkBinary As CheckBox
     Friend WithEvents chkWhitelisted As CheckBox
+    Friend WithEvents chkNormChar As CheckBox
+    Friend WithEvents chkNormNumerics As CheckBox
 End Class

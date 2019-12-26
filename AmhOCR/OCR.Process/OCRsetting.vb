@@ -17,6 +17,10 @@ Public Class OCRsettings
 
     Public Shared Property RemoveWhiteListChar As Boolean = False
 
+    Public Shared Property NormalizeChar As Boolean = True
+
+    Public Shared Property NormalizeNumerics As Boolean = True
+
     Public Shared Property SpellErrorColor As Color = Color.Red
 
     Public Shared Property UserSpelledColor As Color = Color.Black

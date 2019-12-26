@@ -42,8 +42,8 @@ Public Class ImageEditControl
 
 
     Public Sub New()
-        MyBase.New()
 
+        InitializeComponent()
 
     End Sub
 
@@ -52,6 +52,7 @@ Public Class ImageEditControl
 
     Public Overloads Sub DisposeImage()
         MyBase.DisposeImage()
+
 
 
     End Sub

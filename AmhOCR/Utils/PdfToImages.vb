@@ -21,14 +21,6 @@ Public Class PdfToImages
     Private AllFiles As List(Of String)
     Private lbltext = "Total Number of Pages Converted: "
 
-
-    Private Sub PdfToImages_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'ouputDirTxt.Text = OCRsettings.AmhOcrTempFolder
-
-        ' checkedItem.Items.Clear()
-
-    End Sub
-
     Public Sub UpdateLoading(ByVal LoadImg As String, ByVal Prog As Integer)
 
         progLabl.Text = LoadImg + ": " + Prog.ToString + "/of" + NumberOfPage.ToString
@@ -80,22 +72,8 @@ Public Class PdfToImages
                     New DoWorkEventHandler(
                     Sub(s, e)
 
-                        Dim fileName As String = e.Argument
 
-                        Dim stei = New GhostscriptSettings
-                        stei.Device = OCRsettings.imgFormat
-                        If OCRsettings.isCustomePage = True Then
-                            stei.Size.Manual = OCRsettings.PageSize
-                        Else
-                            stei.Size.Native = OCRsettings.NativePage
-                        End If
-
-                        stei.Resolution = OCRsettings.Resolution
-
-                        Dim cleanName = Path.GetFileNameWithoutExtension(fileName)
-                        cleanName = convertPath + "\" + cleanName + "_page_%d.jpeg"
-
-                        GhostscriptWrapper.GenerateOutput(fileName, cleanName, stei)
+                        PdfUtils.PdfPagesToImages(e.Argument.ToString, convertPath)
 
                     End Sub)
 
@@ -185,12 +163,6 @@ Public Class PdfToImages
     End Function
 
 
-
-
-    Private Sub PdfToImages_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-
-
-    End Sub
 
     Private Sub PdfToImages_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If e.CloseReason = CloseReason.UserClosing Then

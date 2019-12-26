@@ -29,8 +29,8 @@ Partial Class MainWindow
         Application.EnableVisualStyles()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainWindow))
-        Dim TreeNode3 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("User OCR Objects")
-        Dim TreeNode4 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Recognized OCR Objects")
+        Dim TreeNode1 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("User OCR Objects")
+        Dim TreeNode2 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Recognized OCR Objects")
         Me.ImagelistContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.TreeContextOpen = New System.Windows.Forms.ToolStripMenuItem()
         Me.TreeContextOpenDetect = New System.Windows.Forms.ToolStripMenuItem()
@@ -502,14 +502,14 @@ Partial Class MainWindow
         '
         Me.ToolImgeListView.Image = CType(resources.GetObject("ToolImgeListView.Image"), System.Drawing.Image)
         Me.ToolImgeListView.Name = "ToolImgeListView"
-        Me.ToolImgeListView.Size = New System.Drawing.Size(260, 22)
+        Me.ToolImgeListView.Size = New System.Drawing.Size(261, 22)
         Me.ToolImgeListView.Text = "Image Explorer                                    "
         '
         'ToolZoomReset
         '
         Me.ToolZoomReset.Image = CType(resources.GetObject("ToolZoomReset.Image"), System.Drawing.Image)
         Me.ToolZoomReset.Name = "ToolZoomReset"
-        Me.ToolZoomReset.Size = New System.Drawing.Size(260, 22)
+        Me.ToolZoomReset.Size = New System.Drawing.Size(261, 22)
         Me.ToolZoomReset.Text = "Zoom Reset"
         '
         'TextViewToolStripMenuItem
@@ -518,7 +518,7 @@ Partial Class MainWindow
         Me.TextViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.TextViewToolStripMenuItem.Image = CType(resources.GetObject("TextViewToolStripMenuItem.Image"), System.Drawing.Image)
         Me.TextViewToolStripMenuItem.Name = "TextViewToolStripMenuItem"
-        Me.TextViewToolStripMenuItem.Size = New System.Drawing.Size(260, 22)
+        Me.TextViewToolStripMenuItem.Size = New System.Drawing.Size(261, 22)
         Me.TextViewToolStripMenuItem.Text = "Text Result View"
         '
         'ResetImageBackgroundToolStripMenuItem
@@ -528,7 +528,7 @@ Partial Class MainWindow
         Me.ResetImageBackgroundToolStripMenuItem.Image = CType(resources.GetObject("ResetImageBackgroundToolStripMenuItem.Image"), System.Drawing.Image)
         Me.ResetImageBackgroundToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black
         Me.ResetImageBackgroundToolStripMenuItem.Name = "ResetImageBackgroundToolStripMenuItem"
-        Me.ResetImageBackgroundToolStripMenuItem.Size = New System.Drawing.Size(260, 22)
+        Me.ResetImageBackgroundToolStripMenuItem.Size = New System.Drawing.Size(261, 22)
         Me.ResetImageBackgroundToolStripMenuItem.Text = "Image View Mode"
         '
         'MenuItemEditedImageView
@@ -565,14 +565,14 @@ Partial Class MainWindow
         'ToolStripSeparator28
         '
         Me.ToolStripSeparator28.Name = "ToolStripSeparator28"
-        Me.ToolStripSeparator28.Size = New System.Drawing.Size(257, 6)
+        Me.ToolStripSeparator28.Size = New System.Drawing.Size(258, 6)
         '
         'SettingPageToolStripMenuItem
         '
         Me.SettingPageToolStripMenuItem.Enabled = False
         Me.SettingPageToolStripMenuItem.Image = CType(resources.GetObject("SettingPageToolStripMenuItem.Image"), System.Drawing.Image)
         Me.SettingPageToolStripMenuItem.Name = "SettingPageToolStripMenuItem"
-        Me.SettingPageToolStripMenuItem.Size = New System.Drawing.Size(260, 22)
+        Me.SettingPageToolStripMenuItem.Size = New System.Drawing.Size(261, 22)
         Me.SettingPageToolStripMenuItem.Text = "Set Viewstyle"
         '
         'EditToolStripMenuItem
@@ -613,7 +613,7 @@ Partial Class MainWindow
         '
         Me.AnalyzeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem, Me.ToolStripSeparator27, Me.DeskewToolStripMenuItem, Me.ToolStripSeparator20, Me.RunOCRToolStripMenuItem, Me.RunAllToolStripMenuItem, Me.ToolStripSeparator26})
         Me.AnalyzeToolStripMenuItem.Name = "AnalyzeToolStripMenuItem"
-        Me.AnalyzeToolStripMenuItem.Size = New System.Drawing.Size(74, 20)
+        Me.AnalyzeToolStripMenuItem.Size = New System.Drawing.Size(73, 20)
         Me.AnalyzeToolStripMenuItem.Text = "OCR Tools"
         '
         'OptionsToolStripMenuItem
@@ -694,7 +694,7 @@ Partial Class MainWindow
         '
         Me.ExtendedActionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SearchTextToolStripMenuItem, Me.ToolStripSeparator29, Me.PosTaggerToolStripMenuItem, Me.ToolStripSeparator30, Me.ToolSaveWordList, Me.ToolSaveWordFrequency, Me.SentencesListToolStripMenuItem, Me.ToolStripSeparator35, Me.CorpusPropertiesToolStripMenuItem, Me.ToolStripSeparator36, Me.GenerateOutPutToolStripMenuItem})
         Me.ExtendedActionToolStripMenuItem.Name = "ExtendedActionToolStripMenuItem"
-        Me.ExtendedActionToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
+        Me.ExtendedActionToolStripMenuItem.Size = New System.Drawing.Size(70, 20)
         Me.ExtendedActionToolStripMenuItem.Text = "Text Tools"
         '
         'SearchTextToolStripMenuItem
@@ -790,76 +790,76 @@ Partial Class MainWindow
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnConvertImages, Me.ToolStripSeparator23, Me.SplitTiffToolStripMenuItem, Me.MergeTiffToolStripMenuItem, Me.ToolStripSeparator24, Me.PDFToImageToolStripMenuItem, Me.ImageToPDFToolStripMenuItem, Me.ToolStripSeparator22, Me.CombinePDFToolStripMenuItem, Me.SplitPDFToolStripMenuItem, Me.ToolStripSeparator25, Me.ScanDocumentToolStripMenuItem})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(74, 20)
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(75, 20)
         Me.ToolsToolStripMenuItem.Text = "Extensions"
         '
         'btnConvertImages
         '
         Me.btnConvertImages.Name = "btnConvertImages"
-        Me.btnConvertImages.Size = New System.Drawing.Size(277, 22)
+        Me.btnConvertImages.Size = New System.Drawing.Size(276, 22)
         Me.btnConvertImages.Text = "Convert Images"
         '
         'ToolStripSeparator23
         '
         Me.ToolStripSeparator23.Name = "ToolStripSeparator23"
-        Me.ToolStripSeparator23.Size = New System.Drawing.Size(274, 6)
+        Me.ToolStripSeparator23.Size = New System.Drawing.Size(273, 6)
         '
         'SplitTiffToolStripMenuItem
         '
         Me.SplitTiffToolStripMenuItem.Name = "SplitTiffToolStripMenuItem"
-        Me.SplitTiffToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
+        Me.SplitTiffToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
         Me.SplitTiffToolStripMenuItem.Text = "Split Tiff                                                     "
         '
         'MergeTiffToolStripMenuItem
         '
         Me.MergeTiffToolStripMenuItem.Name = "MergeTiffToolStripMenuItem"
-        Me.MergeTiffToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
+        Me.MergeTiffToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
         Me.MergeTiffToolStripMenuItem.Text = "Merge Tiff"
         '
         'ToolStripSeparator24
         '
         Me.ToolStripSeparator24.Name = "ToolStripSeparator24"
-        Me.ToolStripSeparator24.Size = New System.Drawing.Size(274, 6)
+        Me.ToolStripSeparator24.Size = New System.Drawing.Size(273, 6)
         '
         'PDFToImageToolStripMenuItem
         '
         Me.PDFToImageToolStripMenuItem.Name = "PDFToImageToolStripMenuItem"
-        Me.PDFToImageToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
+        Me.PDFToImageToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
         Me.PDFToImageToolStripMenuItem.Text = "PDF to Images"
         '
         'ImageToPDFToolStripMenuItem
         '
         Me.ImageToPDFToolStripMenuItem.Name = "ImageToPDFToolStripMenuItem"
-        Me.ImageToPDFToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
+        Me.ImageToPDFToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
         Me.ImageToPDFToolStripMenuItem.Text = "Images To PDF"
         '
         'ToolStripSeparator22
         '
         Me.ToolStripSeparator22.Name = "ToolStripSeparator22"
-        Me.ToolStripSeparator22.Size = New System.Drawing.Size(274, 6)
+        Me.ToolStripSeparator22.Size = New System.Drawing.Size(273, 6)
         '
         'CombinePDFToolStripMenuItem
         '
         Me.CombinePDFToolStripMenuItem.Name = "CombinePDFToolStripMenuItem"
-        Me.CombinePDFToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
+        Me.CombinePDFToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
         Me.CombinePDFToolStripMenuItem.Text = "Merge PDF"
         '
         'SplitPDFToolStripMenuItem
         '
         Me.SplitPDFToolStripMenuItem.Name = "SplitPDFToolStripMenuItem"
-        Me.SplitPDFToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
+        Me.SplitPDFToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
         Me.SplitPDFToolStripMenuItem.Text = "Split PDF"
         '
         'ToolStripSeparator25
         '
         Me.ToolStripSeparator25.Name = "ToolStripSeparator25"
-        Me.ToolStripSeparator25.Size = New System.Drawing.Size(274, 6)
+        Me.ToolStripSeparator25.Size = New System.Drawing.Size(273, 6)
         '
         'ScanDocumentToolStripMenuItem
         '
         Me.ScanDocumentToolStripMenuItem.Enabled = False
         Me.ScanDocumentToolStripMenuItem.Name = "ScanDocumentToolStripMenuItem"
-        Me.ScanDocumentToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
+        Me.ScanDocumentToolStripMenuItem.Size = New System.Drawing.Size(276, 22)
         Me.ScanDocumentToolStripMenuItem.Text = "Scan Document"
         '
         'HelpToolStripMenuItem
@@ -1051,11 +1051,11 @@ Partial Class MainWindow
         Me.OCRTreeView.LineColor = System.Drawing.Color.White
         Me.OCRTreeView.Location = New System.Drawing.Point(0, 25)
         Me.OCRTreeView.Name = "OCRTreeView"
-        TreeNode3.Name = "Node0"
-        TreeNode3.Text = "User OCR Objects"
-        TreeNode4.Name = "Node1"
-        TreeNode4.Text = "Recognized OCR Objects"
-        Me.OCRTreeView.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode3, TreeNode4})
+        TreeNode1.Name = "Node0"
+        TreeNode1.Text = "User OCR Objects"
+        TreeNode2.Name = "Node1"
+        TreeNode2.Text = "Recognized OCR Objects"
+        Me.OCRTreeView.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode1, TreeNode2})
         Me.OCRTreeView.SelectedImageIndex = 0
         Me.OCRTreeView.Size = New System.Drawing.Size(236, 518)
         Me.OCRTreeView.TabIndex = 0

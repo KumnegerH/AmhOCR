@@ -366,6 +366,10 @@ Public Class HocrEditControl
                                 parag.text = SpellCheker.RemoveSpecialCharacters(parag.text)
                             End If
 
+                            If OCRsettings.NormalizeNumerics Then
+                                'parag.text = SpellCheker.NormalizeNumerics(parag.text)
+                            End If
+
                             If parag.HocrObject.SpellChecked = False Then
 
 
@@ -387,7 +391,7 @@ Public Class HocrEditControl
 
                             If SpellCheker.UserWords.Count > 0 AndAlso parag.Spelled = True AndAlso parag.isUserText = False Then
                                 Dim txt = parag.text.Trim(" ")
-                                txt = SpellCheker.NormalizeText(txt)
+                                txt = SpellCheker.NormalizeCharacters(txt)
                                 If SpellCheker.UserWords.Contains(txt) Then
                                     parag.isUserText = True
                                 End If
@@ -902,7 +906,7 @@ Public Class HocrEditControl
                     If HotParagraph.Spelled = False Then
 
                         Dim txt = HotParagraph.text.Trim(" ".ToArray)
-                        txt = SpellCheker.NormalizeText(txt)
+                        txt = SpellCheker.NormalizeCharacters(txt)
                         If txt.Length > 0 Then
                             Dim wrds = txt.Split({" "}, StringSplitOptions.RemoveEmptyEntries)
                             wrds = wrds.Where(Function(X) Not SpellCheker.UserWords.Contains(X)).ToArray
@@ -922,7 +926,7 @@ Public Class HocrEditControl
 
                     Else
                         Dim txt = HotParagraph.text.Trim(" ")
-                        txt = SpellCheker.NormalizeText(txt)
+                        txt = SpellCheker.NormalizeCharacters(txt)
                         If SpellCheker.UserWords.Contains(txt) AndAlso Not String.IsNullOrEmpty(SpellCheker._UserPath) Then
 
                             Try
@@ -2529,7 +2533,7 @@ Public Class HocrEditControl
 
             If SpellCheker.UserWords.Count > 0 AndAlso HotParagraph.Spelled = True Then
                 Dim txt = HotParagraph.text.Trim(" ")
-                txt = SpellCheker.NormalizeText(txt)
+                txt = SpellCheker.NormalizeCharacters(txt)
                 If SpellCheker.UserWords.Contains(txt) Then
                     HotParagraph.isUserText = True
                 End If

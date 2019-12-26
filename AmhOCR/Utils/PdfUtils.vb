@@ -1,6 +1,6 @@
 ﻿
 'Copyright ©  Kumneger Hussien, kumneger.h@gmail.com, 2019 GPLv3
-
+Imports GhostscriptSharp
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
 Imports System.IO
@@ -279,6 +279,27 @@ Public Class PdfUtils
         If Not FontFactory.IsRegistered(fontName) Then
             FontFactory.Register(fontfile)
         End If
+
+    End Sub
+
+    Public Overloads Shared Sub PdfPagesToImages(ByVal pdfFileName As String, imgDirectory As String)
+
+
+        Dim stei = New GhostscriptSettings
+        stei.Device = OCRsettings.imgFormat
+        If OCRsettings.isCustomePage = True Then
+            stei.Size.Manual = OCRsettings.PageSize
+        Else
+            stei.Size.Native = OCRsettings.NativePage
+        End If
+
+        stei.Resolution = OCRsettings.Resolution
+
+        Dim cleanName = Path.GetFileNameWithoutExtension(pdfFileName)
+        cleanName = Path.Combine(imgDirectory, cleanName + "_page_%d.jpeg")
+
+        GhostscriptWrapper.GenerateOutput(pdfFileName, cleanName, stei)
+
 
     End Sub
 

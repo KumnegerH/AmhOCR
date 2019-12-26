@@ -439,7 +439,7 @@ Public Class TextProcessor
 
                             If Not String.IsNullOrEmpty(TextValue) Then
 
-                                TextValue = SpellCheker.NormalizeText(TextValue)
+                                TextValue = SpellCheker.NormalizeCharacters(TextValue)
 
 
                                 Dim subwords() As String

@@ -383,11 +383,11 @@ Public Class MainWindow
     End Sub
 
 
-    Private Sub InitilizePreference()
+    Private Sub Creat_SavePreference()
 
         Dim PrefFilePath = Path.Combine(OCRsettings.AmhOcrDataFolder, "preference.amhocrsetting")
 
-        Dim txtLines(6) As String
+        Dim txtLines(8) As String
         txtLines.Initialize()
         txtLines(0) = OCRsettings.PrefLanguage
         txtLines(1) = OCRsettings.PrefTimeOut.ToString
@@ -396,6 +396,8 @@ Public Class MainWindow
         txtLines(4) = OCRsettings.PrefUserSpelledColor.ToArgb.ToString
         txtLines(5) = CInt(OCRsettings.PrefBinary).ToString
         txtLines(6) = CInt(OCRsettings.RemoveWhiteListChar).ToString
+        txtLines(7) = CInt(OCRsettings.NormalizeChar).ToString
+        txtLines(8) = CInt(OCRsettings.NormalizeNumerics).ToString
         Try
 
             File.WriteAllLines(PrefFilePath, txtLines)
@@ -455,6 +457,14 @@ Public Class MainWindow
 
                         OCRsettings.RemoveWhiteListChar = CInt(txtLines(ln))
 
+                    ElseIf ln = 7 Then
+
+                        OCRsettings.NormalizeChar = CInt(txtLines(ln))
+
+                    ElseIf ln = 8 Then
+
+                        OCRsettings.NormalizeNumerics = CInt(txtLines(ln))
+
                     End If
 
                 Next
@@ -466,7 +476,7 @@ Public Class MainWindow
 
         Else
 
-            InitilizePreference()
+            Creat_SavePreference()
 
         End If
 
@@ -475,7 +485,7 @@ Public Class MainWindow
 
     Private Sub ApplyUserPreferances()
 
-        InitilizePreference()
+        Creat_SavePreference()
 
         isBusy = True
         Dim oldLag As String = CmbLang.SelectedItem
@@ -724,8 +734,11 @@ Public Class MainWindow
             userPref.numThreadNumber.Value = OCRsettings.PrefMaxBatch
             userPref.lblSpellColor.BackColor = OCRsettings.PrefSpellErrorColor
             userPref.lblUserColor.BackColor = OCRsettings.PrefUserSpelledColor
-            userPref.chkUserSet.Checked = OCRsettings.PrefBinary
+            userPref.chkBinary.Checked = OCRsettings.PrefBinary
             userPref.chkWhitelisted.Checked = OCRsettings.RemoveWhiteListChar
+            userPref.chkNormChar.Checked = OCRsettings.NormalizeChar
+            userPref.chkNormNumerics.Checked = OCRsettings.NormalizeNumerics
+
             If userPref.ShowDialog(Me) = DialogResult.OK Then
 
                 OCRsettings.PrefLanguage = userPref.cmbLang.Items(userPref.cmbLang.SelectedIndex)
@@ -733,8 +746,10 @@ Public Class MainWindow
                 OCRsettings.PrefMaxBatch = CInt(userPref.numThreadNumber.Value)
                 OCRsettings.PrefSpellErrorColor = userPref.lblSpellColor.BackColor
                 OCRsettings.PrefUserSpelledColor = userPref.lblUserColor.BackColor
-                OCRsettings.PrefBinary = userPref.chkUserSet.Checked
+                OCRsettings.PrefBinary = userPref.chkBinary.Checked
                 OCRsettings.RemoveWhiteListChar = userPref.chkWhitelisted.Checked
+                OCRsettings.NormalizeChar = userPref.chkNormChar.Checked
+                OCRsettings.NormalizeNumerics = userPref.chkNormNumerics.Checked
                 ApplyUserPreferances()
 
             End If
@@ -2299,7 +2314,7 @@ Public Class MainWindow
 
 
         Dim Searcher = CType(sender, SearcheTool)
-        Dim NormalizedText = SpellCheker.NormalizeText(e.TextToSearch)
+        Dim NormalizedText = SpellCheker.NormalizeCharacters(e.TextToSearch)
         Dim allpages = TextProcessor.SearchText(NormalizedText, HocrPages)
 
         Searcher.imgs = New List(Of Image)

@@ -12,7 +12,8 @@ Public Class SpellCheker
     Public prefix() As String
     Public suffix() As String
     Public CharReplace() As String
-    Public Shared WhiteListChars() As String
+    Public Shared NormChars() As List(Of String)
+    Public Shared NormNumerics() As List(Of String)
     Public Event DicLoaded As EventHandler
     Public isloading As Boolean = False
     Public _UserPath As String = ""
@@ -29,7 +30,8 @@ Public Class SpellCheker
         isloading = False
         Loaded = False
         NoData = True
-        WhiteListChars = {}
+        NormChars = {}
+        NormNumerics = {}
         Words = {}
         chars = {}
         puncs = {}
@@ -57,7 +59,8 @@ Public Class SpellCheker
         CharReplace = {}
         prefix = {}
         suffix = {}
-        WhiteListChars = {}
+        NormChars = {}
+        NormNumerics = {}
         SpecialCharWhiteList = {}
         Lang = ""
         _UserPath = ""
@@ -97,9 +100,9 @@ Public Class SpellCheker
         _prefixPath = System.IO.Path.Combine(_prefixPath, Lang + ".prefixes")
 
 
-        Dim _ReplacePath = Environment.CurrentDirectory
-        _ReplacePath = System.IO.Path.Combine(_ReplacePath, "Lang.Data")
-        _ReplacePath = System.IO.Path.Combine(_ReplacePath, Lang + ".normalizers")
+        Dim _ReplaceCharPath = Environment.CurrentDirectory
+        _ReplaceCharPath = System.IO.Path.Combine(_ReplaceCharPath, "Lang.Data")
+        _ReplaceCharPath = System.IO.Path.Combine(_ReplaceCharPath, Lang + ".normalizers")
 
 
 
@@ -121,22 +124,51 @@ Public Class SpellCheker
         End If
 
 
-        If IO.File.Exists(_ReplacePath) Then
-            CharReplace = IO.File.ReadAllLines(_ReplacePath)
-            Dim WhiteList = CharReplace.Select(Function(x) x.Split(" ").First)
+        If IO.File.Exists(_numsPath) Then
 
-            Dim ReplaceList As New List(Of String)
+            nums = IO.File.ReadAllLines(_numsPath)
 
-            For Charindx As Integer = 0 To WhiteList.Count - 1 Step 1
+        End If
 
-                For Each WhiteChr In WhiteList(Charindx)
-                    ReplaceList.Add(CharReplace(Charindx).Last)
-                Next
+        If IO.File.Exists(_ReplaceCharPath) Then
+
+            CharReplace = IO.File.ReadAllLines(_ReplaceCharPath)
+
+            Dim NormCheck = CharReplace.Select(Function(x) x.Split(" ").First)
+            Dim NormSet = CharReplace.Select(Function(x) x.Split(" ").Last)
+            'MsgBox(NormCheck.Count.ToString + "  , " + NormCheck.Count.ToString)
+
+            Dim NormCharList As New List(Of String)
+            Dim NormNumList As New List(Of String)
+
+
+            Dim ReplaceCharList As New List(Of String)
+            Dim ReplaceNumericsList As New List(Of String)
+            For Charindx As Integer = 0 To NormCheck.Count - 1 Step 1
+
+                If nums.Contains(NormCheck(Charindx).First) Then
+
+                    NormNumList.Add(NormCheck(Charindx))
+                    ReplaceNumericsList.Add(NormSet(Charindx))
+
+                Else
+
+
+                    NormCharList.Add(NormCheck(Charindx))
+                    ReplaceCharList.Add(NormSet(Charindx))
+
+
+                End If
+
 
             Next
 
-            WhiteListChars = {String.Join("", WhiteList),
-                              String.Join("", ReplaceList.AsEnumerable)}
+
+
+            NormChars = {NormCharList, ReplaceCharList}
+
+
+            NormNumerics = {NormNumList, ReplaceNumericsList}
 
         End If
 
@@ -149,6 +181,7 @@ Public Class SpellCheker
         End If
 
 
+
         If IO.File.Exists(_CharPath) Then
 
             chars = IO.File.ReadAllLines(_CharPath)
@@ -159,12 +192,6 @@ Public Class SpellCheker
 
             Dim puncString = IO.File.ReadAllLines(_puncsPath)
             puncs = puncString.Select(Function(X) X.First).ToArray
-
-        End If
-
-        If IO.File.Exists(_numsPath) Then
-
-            nums = IO.File.ReadAllLines(_numsPath)
 
         End If
 
@@ -199,7 +226,13 @@ Public Class SpellCheker
 
 
             'the original alphabets will be normalized to equivalent form
-            word = NormalizeText(word)
+
+            If OCRsettings.NormalizeChar = True Then
+
+                word = NormalizeCharacters(word)
+
+            End If
+
 
             'the word will be splited into sub-words based on white space
             'empty string will be ignored  
@@ -294,23 +327,58 @@ Public Class SpellCheker
         Return txt
     End Function
 
-    Public Shared Function NormalizeText(ByVal txt As String) As String
-
+    Public Shared Function NormalizeNumerics(ByVal txt As String) As String
 
         Dim Ntxt As String = txt
 
-        If txt.Length > 0 AndAlso WhiteListChars.Count > 1 Then
+        If txt.Length > 0 AndAlso NormNumerics.Count > 1 Then
 
-            If txt.Any(Function(X) WhiteListChars(0).Contains(X)) Then
+            If txt.Any(Function(X) NormNumerics(0).Contains(X)) Then
 
                 Ntxt = ""
 
                 For Each st In txt
 
-                    Dim idx = WhiteListChars(0).IndexOf(st)
+                    Dim idx = NormNumerics(0).IndexOf(st)
 
                     If idx >= 0 Then
-                        Ntxt = Ntxt + WhiteListChars(1)(idx).ToString
+
+                        Ntxt = Ntxt + NormNumerics(1)(idx).ToString
+                    Else
+
+                        Ntxt = Ntxt + st.ToString
+                    End If
+
+                Next
+
+            End If
+
+        End If
+
+
+
+
+        Return Ntxt
+    End Function
+
+
+    Public Shared Function NormalizeCharacters(ByVal txt As String) As String
+
+
+        Dim Ntxt As String = txt
+
+        If txt.Length > 0 AndAlso NormChars.Count > 1 Then
+
+            If txt.Any(Function(X) NormChars(0).Contains(X)) Then
+
+                Ntxt = ""
+
+                For Each st In txt
+
+                    Dim idx = NormChars(0).IndexOf(st)
+
+                    If idx >= 0 Then
+                        Ntxt = Ntxt + NormChars(1)(idx).ToString
                     Else
                         Ntxt = Ntxt + st.ToString
                     End If
