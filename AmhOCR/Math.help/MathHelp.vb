@@ -714,4 +714,173 @@ Public Class MathHelp
         Return time
     End Function
 
+
+    Public Overloads Shared Function IntPointToPoint(ByVal pt As AForge.IntPoint) As Point
+
+
+        Return New Point(pt.X, pt.Y)
+
+
+    End Function
+
+    Public Overloads Shared Function PointToIntPoint(ByVal pt As Point) As AForge.IntPoint
+
+
+        Return New AForge.IntPoint(pt.X, pt.Y)
+
+
+    End Function
+
+
+    Public Overloads Shared Function IntPointToPoint_Array(ByVal pts As List(Of AForge.IntPoint)) As Point()
+
+
+        Dim ptsPoint(pts.Count - 1) As Point
+        ptsPoint.Initialize()
+
+
+        For ptCnt As Integer = 0 To pts.Count - 1
+
+            ptsPoint(ptCnt) = IntPointToPoint(pts(ptCnt))
+
+
+        Next
+
+
+
+        Return ptsPoint
+
+    End Function
+
+
+    Public Overloads Shared Function IntPointToPoint_Array(ByVal pts() As AForge.IntPoint) As Point()
+
+
+        Dim ptsPoint(pts.Count - 1) As Point
+        ptsPoint.Initialize()
+
+
+        For ptCnt As Integer = 0 To pts.Count - 1
+
+            ptsPoint(ptCnt) = IntPointToPoint(pts(ptCnt))
+
+
+        Next
+
+
+
+        Return ptsPoint
+
+    End Function
+
+
+    Public Overloads Shared Function PointToIntPoint_Array(ByVal pts As List(Of Point)) As List(Of AForge.IntPoint)
+
+
+        Dim ptsPoint As New List(Of AForge.IntPoint)
+
+        For Each pt In pts
+            ptsPoint.Add(New AForge.IntPoint(pt.X, pt.Y))
+        Next
+
+        Return ptsPoint
+
+    End Function
+
+
+    Public Overloads Shared Function AdjustRectangleEdge(ByVal pts() As Point) As Boolean
+        Dim Confirm As Boolean = False
+
+        If pts.Count = 4 Then
+
+            Confirm = True
+
+        End If
+
+        Return Confirm
+    End Function
+
+    Public Overloads Shared Function AdjustRectangleEdge(ByVal pts As List(Of AForge.IntPoint)) As List(Of AForge.IntPoint)
+
+        Dim NewPts = pts.ToList
+
+        If pts(0).Y <> pts(1).Y Then
+            Dim Angl1 = Math.Abs(Math.Atan2(pts(1).Y - pts(0).Y, pts(1).X - pts(0).X))
+            Dim Angl2 = Math.Abs(Math.Atan2(pts(2).Y - pts(1).Y, pts(2).X - pts(1).X))
+
+            If Angl1 > Angl2 Then
+                NewPts.Clear()
+
+                NewPts.Add(pts(1))
+                NewPts.Add(pts(2))
+                NewPts.Add(pts(3))
+                NewPts.Add(pts(0))
+
+            End If
+
+        End If
+
+
+
+        Return NewPts
+    End Function
+
+    Public Overloads Shared Function PointsSize(ByVal pts() As Point) As Size
+
+        Dim bnd As New Size
+
+        Dim ptXes = pts.OrderBy(Function(p) p.X)
+
+        bnd.Width = ptXes.Last.X - ptXes.First.X
+
+        Dim ptYes = pts.OrderBy(Function(p) p.Y)
+
+        bnd.Height = ptYes.Last.Y - ptYes.First.Y
+
+        Return bnd
+
+    End Function
+
+
+    Public Overloads Shared Function PointsBound(ByVal pts As List(Of AForge.IntPoint)) As Rectangle
+
+        Dim bnd As New Rectangle
+
+        Dim ptXes = pts.OrderBy(Function(p) p.X)
+
+        bnd.X = ptXes.First.X
+
+        bnd.Width = ptXes.Last.X - bnd.X
+
+        Dim ptYes = pts.OrderBy(Function(p) p.Y)
+
+        bnd.Y = ptYes.First.Y
+
+        bnd.Height = ptYes.Last.Y - bnd.Y
+
+        Return bnd
+
+    End Function
+
+
+    Public Overloads Shared Function PointsBound(ByVal pts As List(Of Point)) As Rectangle
+
+        Dim bnd As New Rectangle
+
+        Dim ptXes = pts.OrderBy(Function(p) p.X)
+
+        bnd.X = ptXes.First.X
+
+        bnd.Width = ptXes.Last.X - bnd.X
+
+        Dim ptYes = pts.OrderBy(Function(p) p.Y)
+
+        bnd.Y = ptYes.First.Y
+
+        bnd.Height = ptYes.Last.Y - bnd.Y
+
+        Return bnd
+
+    End Function
+
 End Class

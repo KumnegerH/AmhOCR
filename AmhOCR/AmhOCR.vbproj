@@ -216,38 +216,41 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UTILS\AboutPage.Designer.vb">
+    <Compile Include="Data.OCR\DrawingObject.vb" />
+    <Compile Include="UI.Extensions\User_Draw_Manager.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI.MainControls\AboutPage.Designer.vb">
       <DependentUpon>AboutPage.vb</DependentUpon>
     </Compile>
-    <Compile Include="UTILS\AboutPage.vb">
+    <Compile Include="UI.MainControls\AboutPage.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI.IMAGE.Controls\HocrEditControl.Designer.vb">
+    <Compile Include="UI.MainControls\HocrEditControl.Designer.vb">
       <DependentUpon>HocrEditControl.vb</DependentUpon>
     </Compile>
-    <Compile Include="UI.IMAGE.Controls\HocrEditControl.vb">
+    <Compile Include="UI.MainControls\HocrEditControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI.IMAGE.Controls\ImageEditControl.Designer.vb">
+    <Compile Include="UI.MainControls\ImageEditControl.Designer.vb">
       <DependentUpon>ImageEditControl.vb</DependentUpon>
     </Compile>
-    <Compile Include="UI.IMAGE.Controls\ImageEditControl.vb">
+    <Compile Include="UI.MainControls\ImageEditControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Data\PageSearchResult.vb" />
-    <Compile Include="Data\UndoRedoData.vb" />
-    <Compile Include="UI.IMAGE.Extensions\User_Open_Save_Manager.vb">
+    <Compile Include="Data.OCR\PageSearchResult.vb" />
+    <Compile Include="Data.OCR\UndoRedoData.vb" />
+    <Compile Include="UI.Extensions\User_Open_Save_Manager.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI.IMAGE.Extensions\User_OCR_Manager.vb">
+    <Compile Include="UI.Extensions\User_OCR_Manager.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI.IMAGE.Extensions\User_Image_Manager.vb">
+    <Compile Include="UI.Extensions\User_Image_Manager.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OCR.Process\TessSearchablePDF.vb" />
-    <Compile Include="TEXT.Process\TextProcessor.vb" />
-    <Compile Include="UI.IMAGE.Extensions\User_Tools_Manager.vb">
+    <Compile Include="Process.TEXT\TextProcessor.vb" />
+    <Compile Include="UI.Extensions\User_Tools_Manager.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UTILS\BatchProgressControl.Designer.vb">
@@ -256,64 +259,65 @@
     <Compile Include="UTILS\BatchProgressControl.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UTILS\enums\BackgroundMode.vb" />
-    <Compile Include="UTILS\enums\UndoType.vb" />
-    <Compile Include="UTILS\enums\UtilOperationType.vb" />
-    <Compile Include="UTILS\EventArgs\RecognizeAreaArg.vb" />
-    <Compile Include="UTILS\EventArgs\PageRecognizedArg.vb" />
-    <Compile Include="UTILS\EventArgs\PageProcessArg.vb" />
-    <Compile Include="UTILS\EventArgs\PdfMergedArg.vb" />
-    <Compile Include="UTILS\EventArgs\PdfMergeStartedArg.vb" />
-    <Compile Include="UTILS\EventArgs\PageProcessStartedArg.vb" />
-    <Compile Include="UTILS\EventArgs\RemoveOCRobjectArg.vb" />
-    <Compile Include="UTILS\EventArgs\TextSearchArg.vb" />
-    <Compile Include="UTILS\ImageOCRsetting.Designer.vb">
+    <Compile Include="UI.Extensions\Enums\BackgroundMode.vb" />
+    <Compile Include="UI.Extensions\Enums\DrawingType.vb" />
+    <Compile Include="UI.Extensions\Enums\UndoType.vb" />
+    <Compile Include="UI.Extensions\Enums\UtilOperationType.vb" />
+    <Compile Include="UI.Extensions\EventArgs\RecognizeAreaArg.vb" />
+    <Compile Include="UI.Extensions\EventArgs\PageRecognizedArg.vb" />
+    <Compile Include="UI.Extensions\EventArgs\PageProcessArg.vb" />
+    <Compile Include="UI.Extensions\EventArgs\PdfMergedArg.vb" />
+    <Compile Include="UI.Extensions\EventArgs\PdfMergeStartedArg.vb" />
+    <Compile Include="UI.Extensions\EventArgs\PageProcessStartedArg.vb" />
+    <Compile Include="UI.Extensions\EventArgs\RemoveOCRobjectArg.vb" />
+    <Compile Include="UI.Extensions\EventArgs\TextSearchArg.vb" />
+    <Compile Include="Process.IMAGE\ImageOCRsetting.Designer.vb">
       <DependentUpon>ImageOCRsetting.vb</DependentUpon>
     </Compile>
-    <Compile Include="UTILS\ImageOCRsetting.vb">
+    <Compile Include="Process.IMAGE\ImageOCRsetting.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Data\HocrObjEditor.vb" />
-    <Compile Include="Data\HocrCarea.vb" />
-    <Compile Include="Data\HocrLine.vb" />
-    <Compile Include="Data\HocrPage.vb" />
-    <Compile Include="Data\HocrPar.vb" />
-    <Compile Include="Data\HocrWord.vb" />
-    <Compile Include="Data\ocrpagemargin.vb" />
+    <Compile Include="Data.OCR\HocrObjEditor.vb" />
+    <Compile Include="Data.OCR\HocrCarea.vb" />
+    <Compile Include="Data.OCR\HocrLine.vb" />
+    <Compile Include="Data.OCR\HocrPage.vb" />
+    <Compile Include="Data.OCR\HocrPar.vb" />
+    <Compile Include="Data.OCR\HocrWord.vb" />
+    <Compile Include="Data.OCR\ocrpagemargin.vb" />
     <Compile Include="MATH.help\MathHelp.vb" />
-    <Compile Include="TEXT.Process\SpellCheker.vb" />
-    <Compile Include="UTILS\enums\controlState.vb" />
-    <Compile Include="UTILS\enums\ocrEditMode.vb" />
-    <Compile Include="UTILS\enums\OcrModel.vb" />
-    <Compile Include="OCR.Process\PostProcessor.vb" />
-    <Compile Include="OCR.Process\PreProcessor.vb" />
-    <Compile Include="TEXT.Process\DocOutPut.vb" />
-    <Compile Include="Data\PageSetting.vb" />
-    <Compile Include="OCR.Process\TessRecognize.vb" />
-    <Compile Include="UTILS\enums\HocrTag.vb" />
-    <Compile Include="UTILS\enums\LineFormat.vb" />
-    <Compile Include="UTILS\enums\PageFormat.vb" />
-    <Compile Include="UTILS\enums\PageSegMode.vb" />
-    <Compile Include="UTILS\enums\ParAlignment.vb" />
-    <Compile Include="UTILS\EventArgs\BoundingBoxArg.vb" />
-    <Compile Include="UTILS\HocrParser.vb" />
-    <Compile Include="UTILS\PdfToImages.Designer.vb">
+    <Compile Include="Process.TEXT\SpellCheker.vb" />
+    <Compile Include="UI.Extensions\Enums\controlState.vb" />
+    <Compile Include="UI.Extensions\Enums\ocrEditMode.vb" />
+    <Compile Include="UI.Extensions\Enums\OcrModel.vb" />
+    <Compile Include="Process.OCR\PostProcessor.vb" />
+    <Compile Include="Process.OCR\PreProcessor.vb" />
+    <Compile Include="Process.TEXT\DocOutPut.vb" />
+    <Compile Include="Data.OCR\PageSetting.vb" />
+    <Compile Include="Process.OCR\TessRecognize.vb" />
+    <Compile Include="UI.Extensions\Enums\HocrTag.vb" />
+    <Compile Include="UI.Extensions\Enums\LineFormat.vb" />
+    <Compile Include="UI.Extensions\Enums\PageFormat.vb" />
+    <Compile Include="UI.Extensions\Enums\PageSegMode.vb" />
+    <Compile Include="UI.Extensions\Enums\ParAlignment.vb" />
+    <Compile Include="UI.Extensions\EventArgs\BoundingBoxArg.vb" />
+    <Compile Include="Process.OCR\HocrParser.vb" />
+    <Compile Include="Process.PDF\PdfToImages.Designer.vb">
       <DependentUpon>PdfToImages.vb</DependentUpon>
     </Compile>
-    <Compile Include="UTILS\PdfToImages.vb">
+    <Compile Include="Process.PDF\PdfToImages.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UTILS\PdfUtils.vb" />
+    <Compile Include="Process.PDF\PdfUtils.vb" />
     <Compile Include="UTILS\ProgressReport.designer.vb">
       <DependentUpon>ProgressReport.vb</DependentUpon>
     </Compile>
     <Compile Include="UTILS\ProgressReport.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI.IMAGE.Controls\MainWindow.Designer.vb">
+    <Compile Include="UI.MainControls\MainWindow.Designer.vb">
       <DependentUpon>MainWindow.vb</DependentUpon>
     </Compile>
-    <Compile Include="UI.IMAGE.Controls\MainWindow.vb">
+    <Compile Include="UI.MainControls\MainWindow.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -331,58 +335,59 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="OCR.Process\OCRsetting.vb" />
-    <Compile Include="Data\BoxData.vb" />
-    <Compile Include="UI.IMAGE.Controls\ImageViewControl.vb">
+    <Compile Include="UI.Extensions\UserSettings.vb" />
+    <Compile Include="Data.OCR\BoxData.vb" />
+    <Compile Include="UI.MainControls\ImageViewControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UTILS\SearcheTool.Designer.vb">
+    <Compile Include="UI.MainControls\SearcheTool.Designer.vb">
       <DependentUpon>SearcheTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="UTILS\SearcheTool.vb">
+    <Compile Include="UI.MainControls\SearcheTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UTILS\UserPreference.Designer.vb">
+    <Compile Include="UI.MainControls\UserPreference.Designer.vb">
       <DependentUpon>UserPreference.vb</DependentUpon>
     </Compile>
-    <Compile Include="UTILS\UserPreference.vb">
+    <Compile Include="UI.MainControls\UserPreference.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UTILS\UtilityHandler.Designer.vb">
-      <DependentUpon>UtilityHandler.vb</DependentUpon>
+    <Compile Include="UTILS\FileToolsHandler.Designer.vb">
+      <DependentUpon>FileToolsHandler.vb</DependentUpon>
     </Compile>
-    <Compile Include="UTILS\UtilityHandler.vb">
+    <Compile Include="UTILS\FileToolsHandler.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UTILS\ImageUtils.vb" />
+    <Compile Include="Process.IMAGE\ImageUtils.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UTILS\AboutPage.resx">
+    <EmbeddedResource Include="UI.MainControls\AboutPage.resx">
       <DependentUpon>AboutPage.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI.IMAGE.Controls\HocrEditControl.resx">
+    <EmbeddedResource Include="UI.MainControls\HocrEditControl.resx">
       <DependentUpon>HocrEditControl.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI.IMAGE.Controls\ImageEditControl.resx">
+    <EmbeddedResource Include="UI.MainControls\ImageEditControl.resx">
       <DependentUpon>ImageEditControl.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI.IMAGE.Controls\ImageViewControl.resx">
+    <EmbeddedResource Include="UI.MainControls\ImageViewControl.resx">
       <DependentUpon>ImageViewControl.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UTILS\BatchProgressControl.resx">
       <DependentUpon>BatchProgressControl.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UTILS\ImageOCRsetting.resx">
+    <EmbeddedResource Include="Process.IMAGE\ImageOCRsetting.resx">
       <DependentUpon>ImageOCRsetting.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UTILS\PdfToImages.resx">
+    <EmbeddedResource Include="Process.PDF\PdfToImages.resx">
       <DependentUpon>PdfToImages.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UTILS\ProgressReport.resx">
       <DependentUpon>ProgressReport.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI.IMAGE.Controls\MainWindow.resx">
+    <EmbeddedResource Include="UI.MainControls\MainWindow.resx">
       <DependentUpon>MainWindow.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -391,83 +396,83 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UTILS\SearcheTool.resx">
+    <EmbeddedResource Include="UI.MainControls\SearcheTool.resx">
       <DependentUpon>SearcheTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UTILS\UserPreference.resx">
+    <EmbeddedResource Include="UI.MainControls\UserPreference.resx">
       <DependentUpon>UserPreference.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UTILS\UtilityHandler.resx">
-      <DependentUpon>UtilityHandler.vb</DependentUpon>
+    <EmbeddedResource Include="UTILS\FileToolsHandler.resx">
+      <DependentUpon>FileToolsHandler.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="3rdParty\DocumentFormat.OpenXml.dll" />
-    <Content Include="Icons\arrow_back_16xLG.png" />
-    <Content Include="Icons\arrow_Down_16xLG.png" />
-    <Content Include="Icons\arrow_Forward_16xLG.png" />
-    <Content Include="Icons\arrow_Up_16xLG.png" />
-    <Content Include="Icons\BackgroundColor_16x_32.bmp" />
-    <Content Include="Icons\Close_16xLG.png" />
-    <Content Include="Icons\Close_white.png" />
-    <Content Include="Icons\FileSystemEditor_16x.png" />
-    <Content Include="Icons\ImageCrop_16x.png" />
-    <Content Include="Icons\ImageStack_16x.png" />
-    <Content Include="Icons\ImageTest_16x_32.bmp" />
-    <Content Include="Icons\i_resetallGrey_F12.png" />
-    <Content Include="Icons\OpenFolder_16x.png" />
-    <Content Include="Icons\Pause_22x.png" />
-    <Content Include="Icons\PinnedItem_16x.png" />
-    <Content Include="Icons\Play_22x.png" />
-    <Content Include="Icons\printer_16xLG.png" />
-    <Content Include="Icons\PropertySnippet_16x_32.bmp" />
-    <Content Include="Icons\Redo_16x.png" />
-    <Content Include="Icons\Resize_16x.png" />
-    <Content Include="Icons\Rotate_16x.png" />
-    <Content Include="Icons\RunChecked_16x.png" />
-    <Content Include="Icons\SaveAll_16x.png" />
-    <Content Include="Icons\Save_16x.png" />
-    <Content Include="Icons\Save_grey_16x_24.bmp" />
-    <Content Include="Icons\SearchContract_16x.png" />
-    <Content Include="Icons\Settings_16x.png" />
-    <Content Include="Icons\TextBlock_16x_32.bmp" />
-    <Content Include="Icons\toggle_16xMD.png" />
-    <Content Include="Icons\Undo_16x.png" />
-    <Content Include="Icons\VSO_Download_16x.png" />
-    <Content Include="Icons\VSO_Run_16x.png" />
-    <Content Include="Icons\VSO_SaveAll_16x.png" />
-    <Content Include="Icons\VSO_Upload_16x.png" />
-    <Content Include="Icons\ZoomToFit_16x.png" />
-    <Content Include="Icons\Setup Icon.ico" />
+    <Content Include="Data.3rdParty\DocumentFormat.OpenXml.dll" />
+    <Content Include="Data.Icons\arrow_back_16xLG.png" />
+    <Content Include="Data.Icons\arrow_Down_16xLG.png" />
+    <Content Include="Data.Icons\arrow_Forward_16xLG.png" />
+    <Content Include="Data.Icons\arrow_Up_16xLG.png" />
+    <Content Include="Data.Icons\BackgroundColor_16x_32.bmp" />
+    <Content Include="Data.Icons\Close_16xLG.png" />
+    <Content Include="Data.Icons\Close_white.png" />
+    <Content Include="Data.Icons\FileSystemEditor_16x.png" />
+    <Content Include="Data.Icons\ImageCrop_16x.png" />
+    <Content Include="Data.Icons\ImageStack_16x.png" />
+    <Content Include="Data.Icons\ImageTest_16x_32.bmp" />
+    <Content Include="Data.Icons\i_resetallGrey_F12.png" />
+    <Content Include="Data.Icons\OpenFolder_16x.png" />
+    <Content Include="Data.Icons\Pause_22x.png" />
+    <Content Include="Data.Icons\PinnedItem_16x.png" />
+    <Content Include="Data.Icons\Play_22x.png" />
+    <Content Include="Data.Icons\printer_16xLG.png" />
+    <Content Include="Data.Icons\PropertySnippet_16x_32.bmp" />
+    <Content Include="Data.Icons\Redo_16x.png" />
+    <Content Include="Data.Icons\Resize_16x.png" />
+    <Content Include="Data.Icons\Rotate_16x.png" />
+    <Content Include="Data.Icons\RunChecked_16x.png" />
+    <Content Include="Data.Icons\SaveAll_16x.png" />
+    <Content Include="Data.Icons\Save_16x.png" />
+    <Content Include="Data.Icons\Save_grey_16x_24.bmp" />
+    <Content Include="Data.Icons\SearchContract_16x.png" />
+    <Content Include="Data.Icons\Settings_16x.png" />
+    <Content Include="Data.Icons\TextBlock_16x_32.bmp" />
+    <Content Include="Data.Icons\toggle_16xMD.png" />
+    <Content Include="Data.Icons\Undo_16x.png" />
+    <Content Include="Data.Icons\VSO_Download_16x.png" />
+    <Content Include="Data.Icons\VSO_Run_16x.png" />
+    <Content Include="Data.Icons\VSO_SaveAll_16x.png" />
+    <Content Include="Data.Icons\VSO_Upload_16x.png" />
+    <Content Include="Data.Icons\ZoomToFit_16x.png" />
+    <Content Include="Data.Icons\Setup Icon.ico" />
     <Content Include="TEST.File\book_t1.tif" />
     <Content Include="TEST.File\book_t2.tif" />
     <Content Include="TEST.File\book_t3.jpeg" />
     <Content Include="TEST.File\newspaper_t1.jpeg" />
-    <None Include="Fonts\PGUNICODE1.TTF">
+    <None Include="Data.Fonts\PGUNICODE1.TTF">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Fonts\PGUNICODE3.TTF">
+    <None Include="Data.Fonts\PGUNICODE3.TTF">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Fonts\times.ttf">
+    <None Include="Data.Fonts\times.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="LANG.Data\amh.alphabets">
+    <None Include="Data.LANG\amh.alphabets">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="LANG.Data\amh.normalizers">
+    <None Include="Data.LANG\amh.normalizers">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="LANG.Data\amh.numerics">
+    <None Include="Data.LANG\amh.numerics">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="LANG.Data\amh.prefixes">
+    <None Include="Data.LANG\amh.prefixes">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="LANG.Data\amh.punctuations">
+    <None Include="Data.LANG\amh.punctuations">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="LANG.Data\amh.words">
+    <None Include="Data.LANG\amh.words">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="My Project\app.manifest" />
